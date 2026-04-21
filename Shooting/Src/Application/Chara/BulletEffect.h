@@ -22,7 +22,7 @@ public:
 		Math::Color a_color, int a_lifeapan, bool a_bRepeat);
 
 	//=========== ゲッター =================
-	
+	int GetLifespan() { return BulletEffect.m_lifespan; }
 
 	//=========== セッター =================
 	void SetTex(KdTexture* tex) { BulletEffect.m_tex = tex; }

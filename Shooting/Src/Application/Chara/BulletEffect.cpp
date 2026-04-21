@@ -3,13 +3,14 @@
 
 void C_BulletEffect::Init()
 {
+
 	BulletEffect.m_pos.x = 0;
 	BulletEffect.m_pos.y = 0;
 
 	BulletEffect.m_move.x = 0;
 	BulletEffect.m_move.y = 0;
 
-	BulletEffect.m_size = 1;
+	BulletEffect.m_size = 1.0f;
 
 	BulletEffect.m_color = {1, 1, 1, 1};
 
@@ -23,14 +24,15 @@ void C_BulletEffect::Init()
 void C_BulletEffect::Update(Math::Vector2 a_pos, bool a_move)
 {
 	BulletEffect.m_lifespan--;
+
 	if (BulletEffect.m_lifespan <= 0)
 	{
 		if (!BulletEffect.m_bRepeat)return;
 		if (a_move)
 		{
 			Emit({ a_pos.x,a_pos.y },
-				{ Rnd() * 4 - 3, 3 },
-				Rnd() * 6 - 5, { 0,0.58f,1,0.3f }, 100, true);
+				{ Rnd() * 6 - 3, Rnd() * 6 - 3 },
+				Rnd() * 6 - 3, { 0,0.58f,1,0.3f }, 100, true);
 		}
 	}
 
@@ -42,12 +44,12 @@ void C_BulletEffect::Update(Math::Vector2 a_pos, bool a_move)
 	if (BulletEffect.m_pos.x >= 640)BulletEffect.m_move.x *= -1;
 	if (BulletEffect.m_pos.x <= -640)BulletEffect.m_move.x *= -1;
 
-	BulletEffect.m_size *= -0.98f;
-
+	//™X‚É¬‚³‚­‚È‚é
+	BulletEffect.m_size *= 0.90f;
 	
-	BulletEffect.m_transMat = Math::Matrix::CreateScale(BulletEffect.m_size, BulletEffect.m_size, 0);
-	BulletEffect.m_scaleMat = Math::Matrix::CreateTranslation(BulletEffect.m_pos.x, BulletEffect.m_pos.y, 0);
-	BulletEffect.m_mat = BulletEffect.m_mat * BulletEffect.m_transMat;
+	Math::Matrix scaleMat = Math::Matrix::CreateScale(BulletEffect.m_size);
+	Math::Matrix transMat = Math::Matrix::CreateTranslation(BulletEffect.m_pos.x, BulletEffect.m_pos.y, 0);
+	BulletEffect.m_mat = scaleMat * transMat;
 }
 
 void C_BulletEffect::Draw()
