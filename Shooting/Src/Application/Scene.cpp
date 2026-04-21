@@ -160,12 +160,12 @@ void Scene::Init()
 
 	m_count.SetTex(&countTex);
 
-	for (int i; i < BulletEffectNum; i++)
+	/*for (int i; i < BulletEffectNum; i++)
 	{
 
 		m_bulleteffect[i].SetTex(&bulleteffectTex);
 
-	}
+	}*/
 	//================= シーン遷移の初期化関係処理 ===================
 
 	AnimationScene = SceneType::Title; //最初はタイトル画面から

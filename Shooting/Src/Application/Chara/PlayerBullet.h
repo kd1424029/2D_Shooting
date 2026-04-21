@@ -10,7 +10,7 @@ class C_PlayerBullet
 {
 public:
 
-	C_BulletEffect m_bulleteffect[BulletEffect_NUM];
+	//C_BulletEffect m_bulleteffect[BulletEffect_NUM];
 
 	C_PlayerBullet() {}
 	~C_PlayerBullet() {}

@@ -64,7 +64,7 @@ private:
 	C_CharaBase m_charabase;
 
 	//========= 弾エフェクト用 =========
-	C_BulletEffect m_bulleteffect[BulletEffectNum];
+	C_BulletEffect m_bulleteffect[BulletEffect_NUM];
 	KdTexture bulleteffectTex;
 	
 public:
@@ -103,7 +103,7 @@ public:
 
 	C_Count* GetCount() { return &m_count; }
 
-	C_BulletEffect* GetBulletEffect() { return &m_bulleteffect[BulletEffectNum]; }
+	//C_BulletEffect* GetBulletEffect() { return &m_bulleteffect[BulletEffect_NUM]; }
 
 	//=============== セッター ================
 	void SetAnimationScene(SceneType a_scene) { AnimationScene = a_scene; }
@@ -112,6 +112,8 @@ public:
 private:
 
 	Scene() {}
+
+	int Test = 0;
 
 public:
 	static Scene& GetInstance()

@@ -24,7 +24,7 @@ void C_PlayerBullet::Init()
 
 	for (int i = 0; i < BulletEffect_NUM; i++)
 	{
-		m_bulleteffect->Init();
+		//m_bulleteffect->Init();
 	}
 }
 
@@ -173,7 +173,7 @@ void C_PlayerBullet::Update()
 			{
 				for (int e = 0; i < BulletEffect_NUM; e++)
 				{
-					m_bulleteffect[e].Update(Math::Vector2(PlayerBulletX[i], PlayerBulletY[i]), true);
+					//m_bulleteffect[e].Update(Math::Vector2(PlayerBulletX[i], PlayerBulletY[i]), true);
 				}
 			}
 		}
@@ -193,6 +193,6 @@ void C_PlayerBullet::Draw()
 
 	for (int e = 0; e < BulletEffect_NUM; e++)
 	{
-		m_bulleteffect[e].Draw();
+		//m_bulleteffect[e].Draw();
 	}
 }
