@@ -49,6 +49,9 @@
     <Filter Include="Src\Application\Chara">
       <UniqueIdentifier>{b054a110-f691-4ac5-9b69-557bc0820748}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\SceneScreen">
+      <UniqueIdentifier>{164640ac-c5cc-4255-8b57-93cb85698dd8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -174,6 +177,15 @@
     <ClInclude Include="Src\Application\Chara\BulletEffect.h">
       <Filter>Src\Application\Chara</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Chara\BulletEffectManager.h">
+      <Filter>Src\Application\Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\SceneScreen\Title.h">
+      <Filter>Src\Application\SceneScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\SceneScreen\SceneBase.h">
+      <Filter>Src\Application\SceneScreen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -262,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Chara\BulletEffect.cpp">
       <Filter>Src\Application\Chara</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\SceneScreen\Title.cpp">
+      <Filter>Src\Application\SceneScreen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

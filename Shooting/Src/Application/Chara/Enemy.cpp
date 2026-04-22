@@ -27,7 +27,9 @@ void C_Enemy::Stage1Action()
 {
 	C_GameScreen* gameScreen = SCENE.GetGameScreen();
 
-	if (Enemy.m_alive == true && gameScreen->GetGameStartFlg() == true)
+	C_Player* player = SCENE.GetPlayer();
+
+	if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false && player->GetAlive() == true)
 	{
 		switch (MoveState)
 		{

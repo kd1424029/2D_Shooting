@@ -27,6 +27,8 @@ public:
 	bool GetRectLeftFlg() { return m_RectLeftFlg; }
 	bool GetRectRightFlg() { return m_RectRightFlg; }
 
+	bool GetAlive() { return Player.m_alive; }
+
 	//=========== セッター =================
 	void SetTex(KdTexture* tex) { Player.m_tex = tex; }
 

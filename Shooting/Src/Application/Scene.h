@@ -6,7 +6,7 @@
 #include "GameScreen/GameScreen.h"
 #include "GameScreen/Timer.h"
 #include "GameScreen/Count.h"
-#include "Chara/BulletEffect.h"
+#include "Chara/BulletEffectManager.h"
 
 enum SceneType
 {
@@ -14,7 +14,8 @@ enum SceneType
 	Stage1,             //ステージ１
 	Stage2,             //ステージ2
 	Stage3,             //ステージ3
-	Result,				//リザルト
+	Result,	            //リザルト
+	
 };
 
 class Scene
@@ -49,6 +50,9 @@ private:
 	C_GameScreen m_stageclear;
 	KdTexture stageclearTex;
 
+	C_GameScreen m_gameover;
+	KdTexture gameoverTex;
+
 	C_GameScreen m_scenetransition;
 	KdTexture scenetransitionTex;
 
@@ -62,11 +66,11 @@ private:
 
 	//=========　キャラ共通用 =======
 	C_CharaBase m_charabase;
-
-	//========= 弾エフェクト用 =========
-	C_BulletEffect m_bulleteffect[BulletEffect_NUM];
-	KdTexture bulleteffectTex;
 	
+	//========= 弾エフェクトマネージャ =======
+	C_EffectManager m_effectManager; 
+	KdTexture bulletEffectTex;     
+
 public:
 
 	// 初期設定
@@ -103,7 +107,7 @@ public:
 
 	C_Count* GetCount() { return &m_count; }
 
-	//C_BulletEffect* GetBulletEffect() { return &m_bulleteffect[BulletEffect_NUM]; }
+	C_EffectManager* GetEffectManager() { return &m_effectManager; }
 
 	//=============== セッター ================
 	void SetAnimationScene(SceneType a_scene) { AnimationScene = a_scene; }

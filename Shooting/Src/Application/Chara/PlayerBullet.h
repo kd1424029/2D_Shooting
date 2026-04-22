@@ -1,7 +1,8 @@
 #pragma once
 #include"CharaBase.h"
+#include "BulletEffect.h"
 
-#define BulletEffect_NUM 3
+using namespace std;
 
 class Scene;
 
@@ -10,7 +11,6 @@ class C_PlayerBullet
 {
 public:
 
-	//C_BulletEffect m_bulleteffect[BulletEffect_NUM];
 
 	C_PlayerBullet() {}
 	~C_PlayerBullet() {}
@@ -22,6 +22,8 @@ public:
 	void Update();
 
 	void Draw();
+
+	float Rnd();
 
 	//=========== セッター =================
 	void SetTex(KdTexture* tex) { m_tex = tex; }

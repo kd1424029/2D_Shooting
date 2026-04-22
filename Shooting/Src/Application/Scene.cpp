@@ -25,6 +25,8 @@ void Scene::Draw2D()
 		
 		m_count.Stage1Draw();
 
+		m_effectManager.Draw();
+
 		m_gamescreen.ProductionDraw();
 
 		break;
@@ -95,7 +97,7 @@ void Scene::Update()
 		m_enemybullet.Action();
 		m_enemybullet.Update();
 		
-		m_gamescreen.Action();
+		m_gamescreen.Stage1Action();
 		m_gamescreen.Update();
 
 		m_timer.Action();
@@ -103,6 +105,8 @@ void Scene::Update()
 
 		m_count.Stage1Action();
 		m_count.Stage1Update();
+
+		m_effectManager.Update();
 
 		break;
 
@@ -128,17 +132,19 @@ void Scene::Init()
 
 	enemyTex.Load("Texture/Enemy/Enemy.png");
 
-	gamescreenTex.Load("Texture/GameScreen/GameScreen.png");
+	gamescreenTex.Load("Texture/Screen/GameScreen.png");
 
-	gamestartTex.Load("Texture/GameScreen/UI.png");
+	gamestartTex.Load("Texture/Screen/UI.png");
 
-	timerTex.Load("Texture/GameScreen/Timer.png");
+	gameoverTex.Load("Texture/Screen/UI.png");
 
-	countTex.Load("Texture/GameScreen/Count.png");
+	timerTex.Load("Texture/Screen/Timer.png");
 
-	scenetransitionTex.Load("Texture/GameScreen/SceneTransition.png");
+	countTex.Load("Texture/Screen/Count.png");
 
-	bulleteffectTex.Load("Texture/Effect/Effect.png");
+	scenetransitionTex.Load("Texture/Screen/SceneTransition.png");
+
+	bulletEffectTex.Load("Texture/Effect/Effect.png");
 
 	m_player.SetTex(&playerTex);
 
@@ -152,6 +158,8 @@ void Scene::Init()
 
 	m_gamescreen.SetStageClearTex(&gamestartTex);
 
+	m_gamescreen.SetGameOverTex(&gameoverTex);
+
 	m_gamescreen.SetSceneTransitionTex(&scenetransitionTex);
 
 	m_timer.SetTex(&timerTex);
@@ -160,12 +168,6 @@ void Scene::Init()
 
 	m_count.SetTex(&countTex);
 
-	/*for (int i; i < BulletEffectNum; i++)
-	{
-
-		m_bulleteffect[i].SetTex(&bulleteffectTex);
-
-	}*/
 	//================= シーン遷移の初期化関係処理 ===================
 
 	AnimationScene = SceneType::Title; //最初はタイトル画面から
@@ -198,6 +200,8 @@ void Scene::StageInit(SceneType NowStage)
 
 		m_timer.Init();
 
+		m_effectManager.Init(&bulletEffectTex);
+
 		m_count.Stage1Init(); //ステージ1のときだけ初期化する関数
 
 		break;
@@ -225,13 +229,13 @@ void Scene::Release()
 
 	gamestartTex.Release();
 
+	gameoverTex.Release();
+
 	timerTex.Release();
 
 	countTex.Release();
 
 	scenetransitionTex.Release();
-
-	bulleteffectTex.Release();
 }
 
 void Scene::ImGuiUpdate()

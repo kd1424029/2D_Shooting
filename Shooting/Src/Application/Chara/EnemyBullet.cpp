@@ -17,6 +17,8 @@ void C_EnemyBullet::Init()
 
 		EnemyBulletHomingCnt[i] = 0;
 	}
+
+	GameOverTimer = 600;
 }
 
 void C_EnemyBullet::Action()
@@ -31,8 +33,8 @@ void C_EnemyBullet::Action()
 
 	C_GameScreen* gameScreen = SCENE.GetGameScreen();
 
-	//ステージクリアフラグが立っていないときかつスタートフラグが立っているとき敵の弾の更新を受け付ける
-	if (cnt->GetStageClearFlg() == false && gameScreen->GetGameStartFlg() == true)
+	//ステージクリアフラグが立っていないときかつスタートフラグが立っているときかつゲームオーバーフラグが立っていないとき敵の弾の更新を受け付ける
+	if (cnt->GetStageClearFlg() == false && gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
 	{
 
 		for (int i = 0; i < EnemyBulletNum; i++)
@@ -96,6 +98,18 @@ void C_EnemyBullet::Action()
 				if (EnemyBulletY[i] > ScreenTop || EnemyBulletY[i] < ScreenBottom || EnemyBulletX[i] > ScreenRight || EnemyBulletX[i] < ScreenLeft)
 				{
 					EnemyBulletAlive[i] = false;
+
+					for (int count = 0; count < BulletEffectNUM; count++)
+					{
+						//エフェクトの発生
+						SCENE.GetEffectManager()->Add(
+							{ EnemyBulletX[i],EnemyBulletY[i] }, // 発生場所
+							{ Rnd() * 3 - 1,Rnd() * 3 - 1 },       // 飛び散る方向
+							2.0f,                                   // サイズ
+							{ 1, 1, 1, 1 },                         // 色
+							60                                      // 寿命
+						);
+					}
 				}
 
 				//敵の弾とプレイヤーの当たり判定処理
@@ -108,8 +122,35 @@ void C_EnemyBullet::Action()
 					player->SetAlive(false);  //プレイヤーを倒す
 
 					EnemyBulletAlive[i] = false;  //敵の弾も消す
+
+					for (int count = 0; count < BulletEffectNUM; count++)
+					{
+						//エフェクトの発生
+						SCENE.GetEffectManager()->Add(
+							{ EnemyBulletX[i],EnemyBulletY[i] }, // 発生場所
+							{ Rnd() * 3 - 1,Rnd() * 3 - 1 },       // 飛び散る方向
+							2.0f,                                   // サイズ
+							{ 1, 1, 1, 1 },                         // 色
+							60                                      // 寿命
+						);
+					}
+
+					
+
 				}
 			}
+
+			if (player->GetAlive() == false)
+			{
+				GameOverTimer--;
+
+				if (GameOverTimer < 0)
+				{
+					//ゲームオーバーにする
+					gameScreen->SetGameOverFlg(true);
+				}
+			}
+
 		}
 	}
 }
@@ -149,4 +190,10 @@ void C_EnemyBullet::Draw()
 		}
 	}
 
+}
+
+
+float C_EnemyBullet::Rnd()
+{
+	return rand() / (float)RAND_MAX;
 }

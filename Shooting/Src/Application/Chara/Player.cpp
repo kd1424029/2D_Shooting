@@ -183,15 +183,12 @@ void C_Player::Update()
 {
 	C_Count* cnt = SCENE.GetCount();
 
-	//ステージクリアフラグが立っていないときのみプレイヤーの更新を受け付ける
-	if (cnt->GetStageClearFlg() == false)
+	if (Player.m_alive == true)
 	{
-		if (Player.m_alive == true )
-		{
-			Player.m_transMat = Math::Matrix::CreateTranslation(Player.m_pos.x, Player.m_pos.y, 0);
-			Player.m_mat = Player.m_transMat;
-		}
+		Player.m_transMat = Math::Matrix::CreateTranslation(Player.m_pos.x, Player.m_pos.y, 0);
+		Player.m_mat = Player.m_transMat;
 	}
+
 }
 
 void C_Player::Draw()

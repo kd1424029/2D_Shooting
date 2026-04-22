@@ -21,11 +21,6 @@ void C_PlayerBullet::Init()
 
 
 	StageClearTimer = 600;
-
-	for (int i = 0; i < BulletEffect_NUM; i++)
-	{
-		//m_bulleteffect->Init();
-	}
 }
 
 void C_PlayerBullet::Action()
@@ -40,14 +35,14 @@ void C_PlayerBullet::Action()
 
 	C_GameScreen* gamescreen = SCENE.GetGameScreen();
 
-	//ステージクリアフラグが立っていないときまたはスタートフラグが立っているときプレイヤー弾の更新を受け付ける
-	if (cnt->GetStageClearFlg() == false || gamescreen->GetGameStartFlg() == true)
+	//ステージクリアフラグが立っていないときまたはスタートフラグが立っているときかつゲームオーバーフラグが立っていないときプレイヤー弾の更新を受け付ける
+	if (cnt->GetStageClearFlg() == false || gamescreen->GetGameStartFlg() == true && gamescreen->GetGameOverFlg() == false)
 	{
 
 		for (int i = 0; i < PlayerBulletNum; i++)
 		{
 			//発射処理
-			if (GetAsyncKeyState(VK_SPACE) & 0x8000)
+			if (GetAsyncKeyState(VK_SPACE) & 0x8000 && gamescreen->GetGameStartFlg() == true && cnt->GetStageClearFlg() == false)
 			{
 				if (PlayerBulletCnt == 0)
 				{
@@ -117,6 +112,19 @@ void C_PlayerBullet::Action()
 				{
 					PlayerBulletAlive[i] = false;
 
+					for (int count = 0; count < BulletEffectNUM; count++)
+					{
+						//エフェクトの発生
+						SCENE.GetEffectManager()->Add(
+							{ PlayerBulletX[i], PlayerBulletY[i] }, // 発生場所
+							{ Rnd() * 3 - 1,Rnd() * 3 - 1 },       // 飛び散る方向
+							2.0f,                                   // サイズ
+							{ 1, 1, 1, 1 },                         // 色
+							60                                      // 寿命
+						);
+
+					}
+
 				}
 
 				//自機の弾と敵の当たり判定処理
@@ -129,6 +137,19 @@ void C_PlayerBullet::Action()
 					enemy->SetAlive(false);  //敵を倒す
 
 					PlayerBulletAlive[i] = false;  //プレイヤーの弾も消す
+
+
+					for (int count = 0; count < BulletEffectNUM; count++)
+					{
+						//エフェクトの発生
+						SCENE.GetEffectManager()->Add(
+							{ PlayerBulletX[i], PlayerBulletY[i] }, // 発生場所
+							{ Rnd() * 3 - 1,Rnd() * 3 - 1 },       // 飛び散る方向
+							2.0f,                                   // サイズ
+							{ 1, 1, 1, 1 },                         // 色
+							60                                      // 寿命
+						);
+					}
 
 				}
 			}
@@ -169,13 +190,6 @@ void C_PlayerBullet::Update()
 				m_transMat[i] = Math::Matrix::CreateTranslation(PlayerBulletX[i], PlayerBulletY[i], 0);
 				m_mat[i] = m_transMat[i];
 			}
-			else
-			{
-				for (int e = 0; i < BulletEffect_NUM; e++)
-				{
-					//m_bulleteffect[e].Update(Math::Vector2(PlayerBulletX[i], PlayerBulletY[i]), true);
-				}
-			}
 		}
 	}
 }
@@ -191,8 +205,9 @@ void C_PlayerBullet::Draw()
 		}
 	}
 
-	for (int e = 0; e < BulletEffect_NUM; e++)
-	{
-		//m_bulleteffect[e].Draw();
-	}
+}
+
+float C_PlayerBullet::Rnd()
+{
+	return rand() / (float)RAND_MAX;
 }

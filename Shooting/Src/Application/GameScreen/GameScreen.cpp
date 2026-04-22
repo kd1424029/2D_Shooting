@@ -19,7 +19,7 @@ void C_GameScreen::Init()
 	GameStart.alpha = 1.0f;
 
 	GameStartFlg = false;
-	StartTimer = 0;  
+	StartTimer = 0;
 
 	//=========================================
 
@@ -36,7 +36,10 @@ void C_GameScreen::Init()
 
 	StageClearTimer = 0;
 
-	
+	//==========================================
+
+	//============= シーン切り替え用 ===========
+
 	SceneTransition.m_pos.x = 0;
 	SceneTransition.m_pos.y = 0;
 
@@ -45,10 +48,24 @@ void C_GameScreen::Init()
 	SceneTransition.alpha = 0.0f;
 
 	//==========================================
-	    
+
+	//============= ゲームオーバー用 ===========
+
+	GameOver.m_pos.x = 0;
+	GameOver.m_pos.y = 0;
+
+	GameOver.m_scale = 1.5f;
+
+	GameOver.alpha = 1.0f;
+
+	GameOverFlg = false;
+
+	GameOverTimer = 0;
+
+	//==========================================
 }
 
-void C_GameScreen::Action()
+void C_GameScreen::Stage1Action()
 {
 	// スタート演出制御
 	if (!GameStartFlg)
@@ -82,11 +99,33 @@ void C_GameScreen::Action()
 		}
 
 		// 完全に消えたらシーン切り替え
-		if (StageClear.alpha <= 0.0f)
+		if (StageClear.alpha <  -0.5f)
 		{
 			StageClearFlg = false;
 
 			SCENE.SetAnimationScene(SceneType::Stage2); //ステージ2へ遷移
+		}
+	}
+
+	//ゲームオーバー演出制御
+	if (GameOverFlg == true)
+	{
+		GameOverTimer++;
+
+		// 1.0秒後くらいからフェード開始
+		if (GameOverTimer > 60)
+		{
+			GameOver.alpha -= 0.02f;
+
+			SceneTransition.alpha += 0.02f; //ゲーム画面を暗くする用
+		}
+
+		// 完全に消えたらシーン切り替え
+		if (GameOver.alpha < -0.5f)
+		{
+			GameOverFlg = false;
+
+			SCENE.SetAnimationScene(SceneType::Result); //リザルトへ遷移
 		}
 	}
 
@@ -121,6 +160,13 @@ void C_GameScreen::Update()
 
 	//==========================================
 
+	//============= ゲームオーバー用 ===========
+
+	GameOver.m_transMat = Math::Matrix::CreateTranslation(GameOver.m_pos.x, GameOver.m_pos.y, 0);
+	GameOver.m_scaleMat = Math::Matrix::CreateScale(GameOver.m_scale, GameOver.m_scale, 0);
+	GameOver.m_mat = GameOver.m_scaleMat * GameOver.m_transMat;
+	
+	//==========================================
 	
 }
 
@@ -157,4 +203,20 @@ void C_GameScreen::ProductionDraw()
 		SHADER.m_spriteShader.DrawTex(SceneTransition.m_tex, Math::Rectangle{ 0,0,1280,720 }, SceneTransition.alpha);
 	}
 	//==============================================
+
+	//============= ゲームオーバー演出用 ===========
+	if (GameOverFlg == true)
+	{
+		SHADER.m_spriteShader.SetMatrix(GameOver.m_mat);
+
+		SHADER.m_spriteShader.DrawTex(GameOver.m_tex, Math::Rectangle{ 256,0,256,64 }, GameOver.alpha);
+
+		SHADER.m_spriteShader.SetMatrix(SceneTransition.m_mat);
+
+		SHADER.m_spriteShader.DrawTex(SceneTransition.m_tex, Math::Rectangle{ 0,0,1280,720 }, SceneTransition.alpha);
+
+	}
+
+	//==============================================
+
 }

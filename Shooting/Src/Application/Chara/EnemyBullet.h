@@ -16,6 +16,8 @@ public:
 
 	void Draw();
 
+	float Rnd();
+
 	//=========== セッター =================
 	void SetTex(KdTexture* tex) { m_tex = tex; }
 
@@ -44,5 +46,8 @@ private:
 	Math::Matrix m_scaleMat[EnemyBulletNum];	//拡大行列
 	Math::Matrix m_transMat[EnemyBulletNum];	//移動行列
 	Math::Matrix m_mat[EnemyBulletNum];			//合成行列
+
+
+	float GameOverTimer;   //プレイヤーが死んですぐ演出しないようにするためのタイマー
 
 };
