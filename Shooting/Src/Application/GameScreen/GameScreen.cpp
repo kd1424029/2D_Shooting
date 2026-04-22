@@ -45,7 +45,7 @@ void C_GameScreen::Init()
 
 	SceneTransition.m_scale = 1.0f;
 
-	SceneTransition.alpha = 0.0f;
+	SceneTransition.alpha = 1.0f;
 
 	//==========================================
 
@@ -72,6 +72,13 @@ void C_GameScreen::Stage1Action()
 	{
 		StartTimer++;
 
+		SceneTransition.alpha -= 0.02f; //ゲーム画面を明るくする用
+
+		if (SceneTransition.alpha < 0.0f)
+		{
+			SceneTransition.alpha = 0.0f;
+		}
+
 		// 0.7秒後くらいからフェード開始
 		if (StartTimer > 50)
 		{
@@ -84,6 +91,7 @@ void C_GameScreen::Stage1Action()
 			GameStartFlg = true;
 		}
 	}
+
 
 	//ステージクリア演出制御
 	if (StageClearFlg == true)
@@ -130,6 +138,83 @@ void C_GameScreen::Stage1Action()
 	}
 
 }
+
+void C_GameScreen::Stage2Action()
+{
+
+	StageClearFlg = false;
+
+	// スタート演出制御
+	if (!GameStartFlg)
+	{
+		StartTimer++;
+
+		SceneTransition.alpha -= 0.02f; //ゲーム画面を明るくする用
+
+		if (SceneTransition.alpha < 0.0f)
+		{
+			SceneTransition.alpha = 0.0f;
+		}
+
+		// 0.7秒後くらいからフェード開始
+		if (StartTimer > 50)
+		{
+			GameStart.alpha -= 0.02f;
+		}
+
+		// 完全に消えたらゲーム開始
+		if (GameStart.alpha <= 0.0f)
+		{
+			GameStartFlg = true;
+		}
+	}
+
+
+	////ステージクリア演出制御
+	//if (StageClearFlg == true)
+	//{
+	//	StageClearTimer++;
+
+	//	// 1.0秒後くらいからフェード開始
+	//	if (StageClearTimer > 60)
+	//	{
+	//		StageClear.alpha -= 0.02f;
+
+	//		SceneTransition.alpha += 0.02f; //ゲーム画面を暗くする用
+	//	}
+
+	//	// 完全に消えたらシーン切り替え
+	//	if (StageClear.alpha < -0.5f)
+	//	{
+	//		StageClearFlg = false;
+
+	//		SCENE.SetAnimationScene(SceneType::Stage2); //ステージ2へ遷移
+	//	}
+	//}
+
+	////ゲームオーバー演出制御
+	//if (GameOverFlg == true)
+	//{
+	//	GameOverTimer++;
+
+	//	// 1.0秒後くらいからフェード開始
+	//	if (GameOverTimer > 60)
+	//	{
+	//		GameOver.alpha -= 0.02f;
+
+	//		SceneTransition.alpha += 0.02f; //ゲーム画面を暗くする用
+	//	}
+
+	//	// 完全に消えたらシーン切り替え
+	//	if (GameOver.alpha < -0.5f)
+	//	{
+	//		GameOverFlg = false;
+
+	//		SCENE.SetAnimationScene(SceneType::Result); //リザルトへ遷移
+	//	}
+	//}
+}
+
 
 void C_GameScreen::Update()
 {
@@ -178,6 +263,13 @@ void C_GameScreen::Draw()
 
 }
 
+void C_GameScreen::SceneTransitionDraw()
+{
+	SHADER.m_spriteShader.SetMatrix(SceneTransition.m_mat);
+
+	SHADER.m_spriteShader.DrawTex(SceneTransition.m_tex, Math::Rectangle{ 0,0,1280,720 }, SceneTransition.alpha);
+}
+
 void C_GameScreen::ProductionDraw()
 {
 	//================== スタート画像用 =================
@@ -186,6 +278,10 @@ void C_GameScreen::ProductionDraw()
 		SHADER.m_spriteShader.SetMatrix(GameStart.m_mat);
 
 		SHADER.m_spriteShader.DrawTex(GameStart.m_tex, Math::Rectangle{ 0,128,128,64 }, GameStart.alpha);
+
+		SHADER.m_spriteShader.SetMatrix(SceneTransition.m_mat);
+
+		SHADER.m_spriteShader.DrawTex(SceneTransition.m_tex, Math::Rectangle{ 0,0,1280,720 }, SceneTransition.alpha);
 	}
 
 	//===================================================

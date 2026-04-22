@@ -21,6 +21,9 @@ public:
 
 	void Draw();
 
+	//=========== ゲッター =================
+	static C_Timer& GetInstance() {static C_Timer instance; return instance;}
+
 	//=========== セッター =================
 	void SetTex(KdTexture* tex) { Timer.m_tex = tex; }
 
@@ -28,7 +31,7 @@ private:
 
 	vector<Object> m_TimerList;
 
-	float ElapsedTime;       //経過時間
+	//float ElapsedTime;       //経過時間
 	float TimerDigitCnt;             //桁数カウント
 
 	const float ScreenTop = 360;
@@ -39,5 +42,7 @@ private:
 	//タイマー保存用
 	float ClearTime;   
 	bool SaveFlg;	//保存フラグ
+
+	static float ElapsedTime; // 静的メンバ変数
 
 };

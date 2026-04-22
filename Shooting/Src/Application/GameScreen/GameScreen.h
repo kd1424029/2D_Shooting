@@ -20,6 +20,8 @@ public:
 
 	void Draw();
 
+	void SceneTransitionDraw();  //シーン遷移用描画関数
+
 	void ProductionDraw();  //演出用描画関数
 
 	//=========== セッター =================

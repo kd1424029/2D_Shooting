@@ -33,7 +33,8 @@ void C_EnemyBullet::Action()
 
 	C_GameScreen* gameScreen = SCENE.GetGameScreen();
 
-	//ステージクリアフラグが立っていないときかつスタートフラグが立っているときかつゲームオーバーフラグが立っていないとき敵の弾の更新を受け付ける
+	//ステージクリアフラグが立っていないときかつスタートフラグが立っているときかつ
+	//ゲームオーバーフラグが立っていないときかつプレイヤーが生存しているとき敵の弾の更新を受け付ける
 	if (cnt->GetStageClearFlg() == false && gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
 	{
 

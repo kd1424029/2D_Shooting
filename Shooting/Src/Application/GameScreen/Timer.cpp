@@ -2,13 +2,20 @@
 #include"../Scene.h"
 #include <Application/main.h>
 
+float C_Timer::ElapsedTime = 0.0f; //実体を定義
+
 void C_Timer::Stage1Init()
 {
-	ElapsedTime = 0;
+	SaveFlg = false;
 
-	SaveFlg = true;
-	
 	ClearTime = 0.0f;
+
+	ElapsedTime = 0.0f;
+
+	m_TimerList[0].m_rect = { 0, 0, 64, 64 }; 
+	m_TimerList[1].m_rect = { 0, 0, 64, 64 }; 
+	m_TimerList[2].m_rect = { 0, 0, 64, 64 }; 
+	m_TimerList[3].m_rect = { 0, 0, 64, 64 }; 
 }
 
 void C_Timer::Init()
@@ -68,6 +75,13 @@ void C_Timer::Init()
 
 	//=====================================
 
+	int Seconds = (int)ElapsedTime % 60;
+	int Minutes = (int)ElapsedTime / 60;
+
+	m_TimerList[0].m_rect = { ((long)((Minutes / 10) % 10) * 64), 0, 64, 64 };
+	m_TimerList[1].m_rect = { ((long)(Minutes % 10) * 64), 0, 64, 64 };
+	m_TimerList[2].m_rect = { ((long)((Seconds / 10) % 10) * 64), 0, 64, 64 };
+	m_TimerList[3].m_rect = { ((long)(Seconds % 10) * 64), 0, 64, 64 };
 
 	//============= Colon用 ===============
 
@@ -95,7 +109,7 @@ void C_Timer::Action()
 
 	C_GameScreen* gameScreen = SCENE.GetGameScreen();
 
-	//ステージクリアフラグが立っていないまたはスタートフラグが立っているときのみタイマーの更新を受け付ける
+	//ステージクリアフラグが立っていないかつスタートフラグが立っているときのみタイマーの更新を受け付ける
 	if (cnt->GetStageClearFlg() == false && gameScreen->GetGameStartFlg() == true)
 	{
 

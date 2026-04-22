@@ -21,6 +21,35 @@ void C_Enemy::Stage1Init()
 
 void C_Enemy::Stage2Init()
 {
+	m_EnemyList.clear();
+
+	//配置したい座標のリスト
+	vector<Math::Vector2> EnemyPosList = {
+	{0.0f,-316},
+	{-316,0.0f},
+	};
+
+	Math::Vector2 m_pos1 = EnemyPosList[0];
+
+	Param newBlock;
+	newBlock.m_pos = { m_pos1.x , m_pos1.y };
+	newBlock.m_rect = { 0,0,64,64 };
+	newBlock.m_alive = true;
+	newBlock.m_tex = Enemy.m_tex;
+
+	m_EnemyList.push_back(newBlock);
+
+
+	Math::Vector2 m_pos2 = EnemyPosList[1];
+
+	Param newBlock2;
+	newBlock2.m_pos = { m_pos2.x,m_pos2.y };
+	newBlock2.m_rect = { 64,0,64,64 };
+	newBlock2.m_alive = true;
+	newBlock2.m_tex = Enemy.m_tex;
+
+	m_EnemyList.push_back(newBlock2);
+
 }
 
 void C_Enemy::Stage1Action()
@@ -63,6 +92,7 @@ void C_Enemy::Stage1Action()
 
 void C_Enemy::Stage2Action()
 {
+	
 }
 
 void C_Enemy::Stage1Update()
@@ -76,6 +106,7 @@ void C_Enemy::Stage1Update()
 
 void C_Enemy::Stage2Update()
 {
+	
 }
 
 void C_Enemy::Stage1Draw()
@@ -89,4 +120,5 @@ void C_Enemy::Stage1Draw()
 
 void C_Enemy::Stage2Draw()
 {
+	
 }

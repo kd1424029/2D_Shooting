@@ -3,8 +3,24 @@
 
 void Scene::Draw2D()
 {
+
+	//初期化直後の数フレームは描画させないためのフラグ
+	static int waitFrame = 0;
+	if (PrevScene != AnimationScene) {
+		waitFrame = 5; // 5フレームだけ描画を待機させる
+	}
+
+	if (waitFrame > 0) {
+		waitFrame--;
+
+		m_gamescreen.SceneTransitionDraw();
+
+		return; // 描画をスキップして真っ暗にする
+	}
+
 	//各シーンの描画処理
 	switch (AnimationScene) {
+
 		//タイトル画面
 	case SceneType::Title:
 		break;
@@ -33,6 +49,16 @@ void Scene::Draw2D()
 
 	case SceneType::Stage2:
 
+		m_gamescreen.Draw();
+
+		m_timer.Draw();
+
+		m_player.Draw();
+
+		m_playerbullet.Draw();
+
+		m_gamescreen.ProductionDraw();
+		
 		break;
 
 	case SceneType::Stage3:
@@ -111,6 +137,18 @@ void Scene::Update()
 		break;
 
 	case SceneType::Stage2:
+
+		m_player.Action();
+		m_player.Update();
+
+		m_playerbullet.Action();
+		m_playerbullet.Update();
+
+		m_gamescreen.Stage2Action();
+		m_gamescreen.Update();
+
+		m_timer.Action();
+		m_timer.Update();
 
 		break;
 
@@ -198,16 +236,28 @@ void Scene::StageInit(SceneType NowStage)
 
 		m_gamescreen.Init();
 
-		m_timer.Init();
+		m_timer.Init(); 
+
+		m_timer.Stage1Init();//ステージ1のときだけ初期化する関数
 
 		m_effectManager.Init(&bulletEffectTex);
 
-		m_count.Stage1Init(); //ステージ1のときだけ初期化する関数
+		m_count.Stage1Init(); 
 
 		break;
 
 	case SceneType::Stage2:
 
+		m_player.Init();
+
+		m_playerbullet.Init();
+
+		m_timer.Init();
+
+		m_gamescreen.Init();
+
+		m_count.Stage2Init();
+		
 		break;
 
 	case SceneType::Stage3:
