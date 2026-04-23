@@ -22,6 +22,8 @@ public:
 
 	void SceneTransitionDraw();  //シーン遷移用描画関数
 
+	void GameScreenImGui();
+
 	void ProductionDraw();  //演出用描画関数
 
 	//=========== セッター =================
@@ -43,6 +45,8 @@ public:
 	bool GetGameStartFlg() { return GameStartFlg; }
 
 	bool GetGameOverFlg() { return GameOverFlg; }
+
+	bool GetStageClearFlg() { return StageClearFlg; }
 
 private:
 

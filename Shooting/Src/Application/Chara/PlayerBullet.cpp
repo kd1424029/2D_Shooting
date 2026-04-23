@@ -31,80 +31,98 @@ void C_PlayerBullet::Action()
 
 	C_CharaBase* charabase = SCENE.GetCharaBase();
 
-	C_Count* cnt = SCENE.GetCount();
-
 	C_GameScreen* gamescreen = SCENE.GetGameScreen();
 
 	for (int i = 0; i < PlayerBulletNum; i++)
 	{
 		//発射処理(スペースキーを押したときかつスタートフラグが立っているときかつステージクリアフラグが立っていないとき)
-		if (GetAsyncKeyState(VK_SPACE) & 0x8000 && gamescreen->GetGameStartFlg() == true && cnt->GetStageClearFlg() == false)
+		if (GetAsyncKeyState(VK_SPACE) & 0x8000 && gamescreen->GetGameStartFlg() == true && gamescreen->GetStageClearFlg() == false &&	PlayerBulletCnt == 0)
 		{
-			if (PlayerBulletCnt == 0)
+
+			if (PlayerBulletAlive[i] == false)
 			{
-				if (PlayerBulletAlive[i] == false)
+				PlayerBulletAlive[i] = true;  //発射フラグ
+
+				//弾を上方向から出るようにする
+				if (player->GetRectUpFlg() == true)
 				{
-					PlayerBulletAlive[i] = true;  //発射フラグ
+					PlayerBulletX[i] = player->GetPos().x;
+					PlayerBulletY[i] = player->GetPos().y + player->GetRadius().y;
 
-					//弾を上方向から出るようにする
-					if (player->GetRectUpFlg() == true)
-					{
-						PlayerBulletX[i] = player->GetPos().x;
-						PlayerBulletY[i] = player->GetPos().y + player->GetRadius().y;
-
-						//発射時の方向を保存
-						PlayerBulletDirectionX[i] = 0;
-						PlayerBulletDirectionY[i] = 1;
-					}
-
-					//弾を下方向から出るようにする
-					else if (player->GetRectDownFlg() == true)
-					{
-						PlayerBulletX[i] = player->GetPos().x;
-						PlayerBulletY[i] = player->GetPos().y - player->GetRadius().y;
-
-						//発射時の方向を保存
-						PlayerBulletDirectionX[i] = 0;
-						PlayerBulletDirectionY[i] = -1;
-					}
-
-					//弾を左方向から出るようにする
-					else if (player->GetRectLeftFlg() == true)
-					{
-						PlayerBulletX[i] = player->GetPos().x - player->GetRadius().x;
-						PlayerBulletY[i] = player->GetPos().y;
-
-						//発射時の方向を保存
-						PlayerBulletDirectionX[i] = -1;
-						PlayerBulletDirectionY[i] = 0;
-					}
-
-					//弾を右方向から出るようにする
-					else if (player->GetRectRightFlg() == true)
-					{
-						PlayerBulletX[i] = player->GetPos().x + player->GetRadius().x;
-						PlayerBulletY[i] = player->GetPos().y;
-
-						//発射時の方向を保存
-						PlayerBulletDirectionX[i] = 1;
-						PlayerBulletDirectionY[i] = 0;
-					}
-
-					PlayerBulletCnt = 600; //1秒間隔で打てるようにする
-
-					break;
+					//発射時の方向を保存
+					PlayerBulletDirectionX[i] = 0;
+					PlayerBulletDirectionY[i] = 1;
 				}
-			}
-		}
 
-		//弾移動(プレイヤーの弾が生存状態でかつ敵が生存状態でかつプレイヤーが生存状態のとき))
-		if (PlayerBulletAlive[i] == true && enemy->GetAlive() == true && player->GetAlive() == true)
+				//弾を下方向から出るようにする
+				else if (player->GetRectDownFlg() == true)
+				{
+					PlayerBulletX[i] = player->GetPos().x;
+					PlayerBulletY[i] = player->GetPos().y - player->GetRadius().y;
+
+					//発射時の方向を保存
+					PlayerBulletDirectionX[i] = 0;
+					PlayerBulletDirectionY[i] = -1;
+				}
+
+				//弾を左方向から出るようにする
+				else if (player->GetRectLeftFlg() == true)
+				{
+					PlayerBulletX[i] = player->GetPos().x - player->GetRadius().x;
+					PlayerBulletY[i] = player->GetPos().y;
+
+					//発射時の方向を保存
+					PlayerBulletDirectionX[i] = -1;
+					PlayerBulletDirectionY[i] = 0;
+				}
+
+				//弾を右方向から出るようにする
+				else if (player->GetRectRightFlg() == true)
+				{
+					PlayerBulletX[i] = player->GetPos().x + player->GetRadius().x;
+					PlayerBulletY[i] = player->GetPos().y;
+
+					//発射時の方向を保存
+					PlayerBulletDirectionX[i] = 1;
+					PlayerBulletDirectionY[i] = 0;
+				}
+
+				PlayerBulletCnt = 600; //1秒間隔で打てるようにする
+
+				break;
+			}
+
+		}
+		//カウント処理
+		PlayerBulletCnt--;
+		if (PlayerBulletCnt < 0)
+		{
+			PlayerBulletCnt = 0;
+		}
+	}
+
+	//敵が1体でも生きているかを調べるフラグ
+	bool EnemyAlive = false;
+
+	for (auto& Enemy : enemy->GetEnemyList())
+	{
+		if (Enemy.m_alive == true)
+		{
+			EnemyAlive = true;
+			break; // 1体でも見つかればOK
+		}
+	}
+
+	for (int i = 0; i < PlayerBulletNum; i++)
+	{
+		//弾移動(プレイヤーの弾が生存状態でかつプレイヤーが生存状態のときかつステージクリアフラグが立っていないとき)
+		if (PlayerBulletAlive[i] == true && player->GetAlive() == true && gamescreen->GetStageClearFlg() == false)
 		{
 			PlayerBulletX[i] += PlayerBulletDirectionX[i] * PlayerBulletMoveSpeed[i];
 			PlayerBulletY[i] += PlayerBulletDirectionY[i] * PlayerBulletMoveSpeed[i];
 
 			//弾が画面外に出たら消滅状態にする
-			if (PlayerBulletY[i] > ScreenTop || PlayerBulletY[i] < ScreenBottom || PlayerBulletX[i] > ScreenRight || PlayerBulletX[i] < ScreenLeft)
+			if (PlayerBulletY[i] > ScreenTop || PlayerBulletY[i] < ScreenBottom || PlayerBulletX[i] > ScreenRight || PlayerBulletX[i] < ScreenLeft && EnemyAlive == true)
 			{
 				PlayerBulletAlive[i] = false;
 
@@ -122,49 +140,41 @@ void C_PlayerBullet::Action()
 				}
 
 			}
+		}
 
-			//自機の弾と敵の当たり判定処理
-			float Bottom = enemy->GetPos().x - PlayerBulletX[i];     //底辺(X座標の差)
-			float Height = enemy->GetPos().y - PlayerBulletY[i];     //高さ(Y座標の差)
-			float Hypotenuse = sqrt(Bottom * Bottom + Height * Height);  //斜辺(距離)
-
-			if (Hypotenuse < PlayerBulletRadius + charabase->GetRadius()) //衝突していたら(プレイヤーの弾半径＋敵の半径(プレイヤーと同じ半径だから共通ゲッター使用))
+		for (auto& Enemy : enemy->GetEnemyList())
+		{
+		
+			//弾移動(プレイヤーの弾が生存状態でかつプレイヤーが生存状態のときかつステージクリアフラグが立っていないときかつ敵が生きている時)
+			if (PlayerBulletAlive[i] == true && player->GetAlive() == true && gamescreen->GetStageClearFlg() == false && Enemy.m_alive == true)
 			{
-				enemy->SetAlive(false);  //敵を倒す
+				//自機の弾と敵の当たり判定処理
+				float Bottom = Enemy.m_pos.x - PlayerBulletX[i];     //底辺(X座標の差)
+				float Height = Enemy.m_pos.y - PlayerBulletY[i];     //高さ(Y座標の差)
+				float Hypotenuse = sqrt(Bottom * Bottom + Height * Height);  //斜辺(距離)
 
-				PlayerBulletAlive[i] = false;  //プレイヤーの弾も消す
-
-
-				for (int count = 0; count < BulletEffectNUM; count++)
+				if (Hypotenuse < PlayerBulletRadius + charabase->GetRadius()) //衝突していたら(プレイヤーの弾半径＋敵の半径(プレイヤーと同じ半径だから共通ゲッター使用))
 				{
-					//エフェクトの発生
-					SCENE.GetEffectManager()->Add(
-						{ PlayerBulletX[i], PlayerBulletY[i] }, // 発生場所
-						{ Rnd() * 3 - 1,Rnd() * 3 - 1 },       // 飛び散る方向
-						2.0f,                                   // サイズ
-						{ 1, 1, 1, 1 },                         // 色
-						60                                      // 寿命
-					);
+					Enemy.m_alive = false; // 敵を倒す
+
+					PlayerBulletAlive[i] = false;  //プレイヤーの弾も消す
+
+
+					for (int count = 0; count < BulletEffectNUM; count++)
+					{
+						//エフェクトの発生
+						SCENE.GetEffectManager()->Add(
+							{ PlayerBulletX[i], PlayerBulletY[i] }, // 発生場所
+							{ Rnd() * 3 - 1,Rnd() * 3 - 1 },       // 飛び散る方向
+							2.0f,                                   // サイズ
+							{ 1, 1, 1, 1 },                         // 色
+							60                                      // 寿命
+						);
+					}
+
+					break; // 弾が消えたのでこの弾の判定は終了
+
 				}
-
-			}
-		}
-
-		//カウント処理
-		PlayerBulletCnt--;
-		if (PlayerBulletCnt < 0)
-		{
-			PlayerBulletCnt = 0;
-		}
-
-		if (enemy->GetAlive() == false)
-		{
-			StageClearTimer--;  //敵を倒してすぐ演出しないようにするためのタイマーをカウント
-
-			//1.0秒後くらいからステージクリアフラグを立てる
-			if (StageClearTimer < 0)
-			{
-				gamescreen->SetStageClearFlg(true);  //ステージ1クリア
 			}
 		}
 	}
@@ -173,10 +183,10 @@ void C_PlayerBullet::Action()
 
 void C_PlayerBullet::Update()
 {
-	C_Count* cnt = SCENE.GetCount();
+	C_GameScreen* gameScreen = SCENE.GetGameScreen();
 
 	//ステージクリアフラグが立っていないときのみプレイヤー弾の更新を受け付ける
-	if (cnt->GetStageClearFlg() == false)
+	if (gameScreen->GetStageClearFlg() == false)
 	{
 
 		for (int i = 0; i < PlayerBulletNum; i++)

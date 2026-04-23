@@ -22,6 +22,7 @@ struct Param
 	Math::Color		m_color;
 	float			m_lifespan;
 	bool			m_bRepeat;
+	int             m_MoveState;   //“G‚Ì“®‚«
 };
 
 class C_CharaBase

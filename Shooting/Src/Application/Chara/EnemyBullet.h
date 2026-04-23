@@ -1,5 +1,6 @@
 #pragma once
 #include"CharaBase.h"
+#include <vector>
 
 class C_EnemyBullet
 {

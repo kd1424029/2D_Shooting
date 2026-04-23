@@ -33,13 +33,13 @@ void Scene::Draw2D()
 
 		m_player.Draw();
 
-		m_enemy.Stage1Draw();
+		m_enemy.Draw();
 
 		m_enemybullet.Draw();
 
 		m_playerbullet.Draw();
 		
-		m_count.Stage1Draw();
+		m_count.Draw();
 
 		m_effectManager.Draw();
 
@@ -55,7 +55,13 @@ void Scene::Draw2D()
 
 		m_player.Draw();
 
+		m_enemy.Draw();
+
 		m_playerbullet.Draw();
+
+		m_count.Draw();
+
+		m_effectManager.Draw();
 
 		m_gamescreen.ProductionDraw();
 		
@@ -115,7 +121,7 @@ void Scene::Update()
 		m_player.Update();
 
 		m_enemy.Stage1Action();
-		m_enemy.Stage1Update();
+		m_enemy.Update();
 
 		m_playerbullet.Action();
 		m_playerbullet.Update();
@@ -130,7 +136,7 @@ void Scene::Update()
 		m_timer.Update();
 
 		m_count.Stage1Action();
-		m_count.Stage1Update();
+		m_count.Update();
 
 		m_effectManager.Update();
 
@@ -141,6 +147,9 @@ void Scene::Update()
 		m_player.Action();
 		m_player.Update();
 
+		m_enemy.Stage2Action();
+		m_enemy.Update();
+
 		m_playerbullet.Action();
 		m_playerbullet.Update();
 
@@ -149,6 +158,11 @@ void Scene::Update()
 
 		m_timer.Action();
 		m_timer.Update();
+
+		m_count.Stage2Action();
+		m_count.Update();
+
+		m_effectManager.Update();
 
 		break;
 
@@ -250,11 +264,15 @@ void Scene::StageInit(SceneType NowStage)
 
 		m_player.Init();
 
+		m_enemy.Stage2Init();
+
 		m_playerbullet.Init();
 
 		m_timer.Init();
 
 		m_gamescreen.Init();
+
+		m_effectManager.Init(&bulletEffectTex);
 
 		m_count.Stage2Init();
 		
@@ -301,6 +319,8 @@ void Scene::ImGuiUpdate()
 		ImGui::Text("FPS : %d", APP.m_fps);
 
 		m_player.PlayerImGui();
+
+		m_gamescreen.GameScreenImGui();
 	}
 	ImGui::End();
 }

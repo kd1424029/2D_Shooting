@@ -3,20 +3,35 @@
 
 void C_Enemy::Stage1Init()
 {
-	Enemy.m_pos.x = 0;
-	Enemy.m_pos.y = -316;
 
-	Enemy.m_move.x = 1;   //移動スピード
-	Enemy.m_move.y = 1;   //移動スピード
+	m_EnemyList.clear();
 
-	Enemy.m_radius.x = 32;
-	Enemy.m_radius.y = 32;
+	//配置したい座標のリスト
+	vector<Math::Vector2> EnemyPosList = {
+	{0.0f,-316},
+	};
 
-	Enemy.m_rect = { 0,0,64,64 };
+	Math::Vector2 m_pos1 = EnemyPosList[0];
 
-	Enemy.m_alive = true;
+	Param newBlock;
 
-	MoveState = 0;
+	newBlock.m_pos = { m_pos1.x , m_pos1.y };
+
+	newBlock.m_rect = { 0,0,64,64 };
+
+	newBlock.m_move.x = 1;   //移動スピード
+	newBlock.m_move.y = 1;   //移動スピード
+
+	newBlock.m_radius.x = 32;
+	newBlock.m_radius.y = 32;
+
+	newBlock.m_MoveState = 0;
+
+	newBlock.m_alive = true;
+	newBlock.m_tex = Enemy.m_tex;
+
+	m_EnemyList.push_back(newBlock);
+	
 }
 
 void C_Enemy::Stage2Init()
@@ -26,15 +41,23 @@ void C_Enemy::Stage2Init()
 	//配置したい座標のリスト
 	vector<Math::Vector2> EnemyPosList = {
 	{0.0f,-316},
-	{-316,0.0f},
+	{-371,0.0f},
 	};
 
 	Math::Vector2 m_pos1 = EnemyPosList[0];
 
 	Param newBlock;
 	newBlock.m_pos = { m_pos1.x , m_pos1.y };
+
 	newBlock.m_rect = { 0,0,64,64 };
+
+	newBlock.m_move.x = 1;   //移動スピード
+	newBlock.m_move.y = 1;   //移動スピード
+
+	newBlock.m_MoveState = 0;
+
 	newBlock.m_alive = true;
+
 	newBlock.m_tex = Enemy.m_tex;
 
 	m_EnemyList.push_back(newBlock);
@@ -44,9 +67,18 @@ void C_Enemy::Stage2Init()
 
 	Param newBlock2;
 	newBlock2.m_pos = { m_pos2.x,m_pos2.y };
+
 	newBlock2.m_rect = { 64,0,64,64 };
+
+	newBlock2.m_move.x = 2;   //移動スピード
+	newBlock2.m_move.y = 2;   //移動スピード
+
+	newBlock2.m_MoveState = 0;
+
 	newBlock2.m_alive = true;
+
 	newBlock2.m_tex = Enemy.m_tex;
+
 
 	m_EnemyList.push_back(newBlock2);
 
@@ -60,65 +92,139 @@ void C_Enemy::Stage1Action()
 
 	if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false && player->GetAlive() == true)
 	{
-		switch (MoveState)
+
+		for (auto& enemy : m_EnemyList)
 		{
 
-		case 0: //右移動
+			switch (enemy.m_MoveState)
+			{
 
-			if (Enemy.m_pos.x < 50)
-			{
-				Enemy.m_pos.x += Enemy.m_move.x;
-			}
-			else
-			{
-				MoveState = 1;
-			}
-			break;
+			case 0: //右移動
 
-		case 1:  //左移動
+				if (enemy.m_pos.x < 50)
+				{
+					enemy.m_pos.x += enemy.m_move.x;
+				}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
 
-			if (Enemy.m_pos.x > -50)
-			{
-				Enemy.m_pos.x -= Enemy.m_move.x;
+			case 1:  //左移動
+
+				if (enemy.m_pos.x > -50)
+				{
+					enemy.m_pos.x -= enemy.m_move.x;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
 			}
-			else
-			{
-				MoveState = 0;
-			}
-			break;
 		}
 	}
 }
 
 void C_Enemy::Stage2Action()
 {
-	
-}
+	C_GameScreen* gameScreen = SCENE.GetGameScreen();
 
-void C_Enemy::Stage1Update()
-{
-	if (Enemy.m_alive == true)
+	C_Player* player = SCENE.GetPlayer();
+
+	if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false && player->GetAlive() == true)
 	{
-		Enemy.m_transMat = Math::Matrix::CreateTranslation(Enemy.m_pos.x, Enemy.m_pos.y, 0);
-		Enemy.m_mat = Enemy.m_transMat;
+
+		for (int i = 0;i < m_EnemyList.size(); i++)
+		{
+			auto& enemy = m_EnemyList[i];
+
+			if (i == 0)
+			{
+				switch (enemy.m_MoveState)
+				{
+
+				case 0: //右移動
+
+					if (enemy.m_pos.x < 50)
+					{
+						enemy.m_pos.x += enemy.m_move.x;
+					}
+					else
+					{
+						enemy.m_MoveState = 1;
+					}
+					break;
+
+				case 1:  //左移動
+
+					if (enemy.m_pos.x > -50)
+					{
+						enemy.m_pos.x -= enemy.m_move.x;
+					}
+					else
+					{
+						enemy.m_MoveState = 0;
+					}
+					break;
+				}
+			}
+
+			if (i == 1)
+			{
+				switch (enemy.m_MoveState)
+				{
+
+				case 0: //上移動
+
+					if (enemy.m_pos.y < 50)
+					{
+						enemy.m_pos.y += enemy.m_move.y;
+					}
+					else
+					{
+						enemy.m_MoveState = 1;
+					}
+					break;
+
+				case 1:  //下移動
+
+					if (enemy.m_pos.y > -50)
+					{
+						enemy.m_pos.y -= enemy.m_move.y;
+					}
+					else
+					{
+						enemy.m_MoveState = 0;
+					}
+					break;
+				}
+			}
+		}
 	}
 }
 
-void C_Enemy::Stage2Update()
+void C_Enemy::Update()
 {
-	
-}
-
-void C_Enemy::Stage1Draw()
-{
-	if (Enemy.m_alive == true)
+	for (auto& enemy : m_EnemyList)
 	{
-		SHADER.m_spriteShader.SetMatrix(Enemy.m_mat);
-		SHADER.m_spriteShader.DrawTex(Enemy.m_tex, Enemy.m_rect, 1.0f);
+		if (enemy.m_alive == true)
+		{
+			enemy.m_transMat = Math::Matrix::CreateTranslation(enemy.m_pos.x, enemy.m_pos.y, 0);
+			enemy.m_mat = enemy.m_transMat;
+		}
 	}
 }
 
-void C_Enemy::Stage2Draw()
+void C_Enemy::Draw()
 {
-	
+	for (auto& enemy : m_EnemyList)
+	{
+		if (enemy.m_alive == true)
+		{
+			SHADER.m_spriteShader.SetMatrix(enemy.m_mat);
+			SHADER.m_spriteShader.DrawTex(enemy.m_tex, enemy.m_rect, 1.0f);
+		}
+	}
 }

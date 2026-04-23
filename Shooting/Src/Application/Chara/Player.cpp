@@ -34,18 +34,18 @@ void C_Player::Init()
 	m_BeforeKeyLeft = false;
 	m_RectLeftFlg = false;     //Rect切り替えフラグ (Bulletクラスで必要)
 
+
+	GameOverTimer = 600;
 }
 
 void C_Player::Action()
 {
-	C_Count* cnt = SCENE.GetCount();
 
-	C_GameScreen* gamestart = SCENE.GetGameScreen();
+	C_GameScreen* gamescreen= SCENE.GetGameScreen();
 
 	//ステージクリアフラグが立っていないときかつスタートフラグが立っているときプレイヤーの操作を受け付ける
-	if (cnt->GetStageClearFlg() == false && gamestart->GetGameStartFlg() == true)
+	if (gamescreen->GetStageClearFlg() == false && gamescreen->GetGameStartFlg() == true)
 	{
-
 
 		if (Player.m_alive == true)
 		{
@@ -181,8 +181,6 @@ void C_Player::Action()
 
 void C_Player::Update()
 {
-	C_Count* cnt = SCENE.GetCount();
-
 	if (Player.m_alive == true)
 	{
 		Player.m_transMat = Math::Matrix::CreateTranslation(Player.m_pos.x, Player.m_pos.y, 0);

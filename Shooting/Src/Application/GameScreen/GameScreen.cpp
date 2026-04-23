@@ -89,6 +89,7 @@ void C_GameScreen::Stage1Action()
 		if (GameStart.alpha <= 0.0f)
 		{
 			GameStartFlg = true;
+			SceneTransition.alpha = 0.0f;
 		}
 	}
 
@@ -141,9 +142,6 @@ void C_GameScreen::Stage1Action()
 
 void C_GameScreen::Stage2Action()
 {
-
-	StageClearFlg = false;
-
 	// スタート演出制御
 	if (!GameStartFlg)
 	{
@@ -170,49 +168,49 @@ void C_GameScreen::Stage2Action()
 	}
 
 
-	////ステージクリア演出制御
-	//if (StageClearFlg == true)
-	//{
-	//	StageClearTimer++;
+	//ステージクリア演出制御
+	if (StageClearFlg == true)
+	{
+		StageClearTimer++;
 
-	//	// 1.0秒後くらいからフェード開始
-	//	if (StageClearTimer > 60)
-	//	{
-	//		StageClear.alpha -= 0.02f;
+		// 1.0秒後くらいからフェード開始
+		if (StageClearTimer > 60)
+		{
+			StageClear.alpha -= 0.02f;
 
-	//		SceneTransition.alpha += 0.02f; //ゲーム画面を暗くする用
-	//	}
+			SceneTransition.alpha += 0.02f; //ゲーム画面を暗くする用
+		}
 
-	//	// 完全に消えたらシーン切り替え
-	//	if (StageClear.alpha < -0.5f)
-	//	{
-	//		StageClearFlg = false;
+		// 完全に消えたらシーン切り替え
+		if (StageClear.alpha < -0.5f)
+		{
+			StageClearFlg = false;
 
-	//		SCENE.SetAnimationScene(SceneType::Stage2); //ステージ2へ遷移
-	//	}
-	//}
+			SCENE.SetAnimationScene(SceneType::Stage3); //ステージ2へ遷移
+		}
+	}
 
-	////ゲームオーバー演出制御
-	//if (GameOverFlg == true)
-	//{
-	//	GameOverTimer++;
+	//ゲームオーバー演出制御
+	if (GameOverFlg == true)
+	{
+		GameOverTimer++;
 
-	//	// 1.0秒後くらいからフェード開始
-	//	if (GameOverTimer > 60)
-	//	{
-	//		GameOver.alpha -= 0.02f;
+		// 1.0秒後くらいからフェード開始
+		if (GameOverTimer > 60)
+		{
+			GameOver.alpha -= 0.02f;
 
-	//		SceneTransition.alpha += 0.02f; //ゲーム画面を暗くする用
-	//	}
+			SceneTransition.alpha += 0.02f; //ゲーム画面を暗くする用
+		}
 
-	//	// 完全に消えたらシーン切り替え
-	//	if (GameOver.alpha < -0.5f)
-	//	{
-	//		GameOverFlg = false;
+		// 完全に消えたらシーン切り替え
+		if (GameOver.alpha < -0.5f)
+		{
+			GameOverFlg = false;
 
-	//		SCENE.SetAnimationScene(SceneType::Result); //リザルトへ遷移
-	//	}
-	//}
+			SCENE.SetAnimationScene(SceneType::Result); //リザルトへ遷移
+		}
+	}
 }
 
 
@@ -315,4 +313,11 @@ void C_GameScreen::ProductionDraw()
 
 	//==============================================
 
+}
+
+void C_GameScreen::GameScreenImGui()
+{
+	ImGui::Text("StageClearFlg:%d", StageClearFlg);
+	ImGui::Text("GameStartFlg:%d", GameStartFlg);
+	ImGui::Text("GameOverFlg:%d", GameOverFlg);
 }

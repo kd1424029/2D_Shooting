@@ -40,7 +40,7 @@ void C_Count::Stage1Init()
 
 	//======================================
 
-	StageClearFlg = false;   //ステージクリアフラグを初期化
+	StageClearTimer = 30;  //ステージクリア演出用タイマーを初期化
 }
 
 void C_Count::Stage2Init()
@@ -81,44 +81,63 @@ void C_Count::Stage2Init()
 
 	//======================================
 
-	StageClearFlg = false;   //ステージクリアフラグを初期化
+
+	StageClearTimer = 30;  //ステージクリア演出用タイマーを初期化
 }
 
 void C_Count::Stage1Action()
 {
 	C_Enemy* enemy = SCENE.GetEnemy();
 
-	//敵の数をカウント
-	if (enemy->GetAlive() == false)
-	{
-		m_CntList[0].m_rect = { 0,0,64,64 };
+	C_GameScreen* gamescreen = SCENE.GetGameScreen();
 
-		StageClearFlg = true;       //敵が0になったらステージクリアフラグを立てる
+	//敵生存状況を取得
+	int aliveCount = enemy->GetAliveCount();
+
+	// 生存数に応じて表示を切り替え
+	switch (aliveCount) {
+
+	case 0:
+		m_CntList[0].m_rect = { 0, 0, 64, 64 }; //case 0はクリア表示
+		if (SCENE.GetEnemy()->GetAliveCount() == 0) {
+			// ここでステージクリアの演出タイマーを動かす
+			StageClearTimer--;
+			if (StageClearTimer < 0) {
+				gamescreen->SetStageClearFlg(true);
+			}
+		}
+		break;
 	}
 }
 
 void C_Count::Stage2Action()
 {
 	C_Enemy* enemy = SCENE.GetEnemy();
+
+	C_GameScreen* gamescreen = SCENE.GetGameScreen();
+
 	int aliveCount = enemy->GetAliveCount(); // 生存数を取得
 
 	// 生存数に応じて表示を切り替え
 	switch (aliveCount) {
 
-	case 2:
-		m_CntList[0].m_rect = { 128, 0, 64, 64 };  // 2の画像
-		break;
 	case 1:
 		m_CntList[0].m_rect = { 64, 0, 64, 64 }; // 1の画像
 		break;
 	case 0:
 		m_CntList[0].m_rect = { 0, 0, 64, 64 }; // 0（またはクリア表示）
-		StageClearFlg = true;
+		if (SCENE.GetEnemy()->GetAliveCount() == 0) {
+			// ここでステージクリアの演出タイマーを動かす
+			StageClearTimer--;
+			if (StageClearTimer < 0) {
+				gamescreen->SetStageClearFlg(true);
+			}
+		}
 		break;
 	}
 }
 
-void C_Count::Stage1Update()
+void C_Count::Update()
 {
 	
 	for (auto& cnt : m_CntList)
@@ -129,17 +148,7 @@ void C_Count::Stage1Update()
 	}	
 }
 
-void C_Count::Stage2Update()
-{
-	for (auto& cnt : m_CntList)
-	{
-		cnt.m_transMat = Math::Matrix::CreateTranslation(cnt.m_pos.x, cnt.m_pos.y, 0);
-		cnt.m_scaleMat = Math::Matrix::CreateScale(cnt.m_scale, cnt.m_scale, 0);
-		cnt.m_mat = cnt.m_scaleMat * cnt.m_transMat;
-	}
-}
-
-void C_Count::Stage1Draw()
+void C_Count::Draw()
 {
 
 	for (auto& cnt : m_CntList)
@@ -149,11 +158,3 @@ void C_Count::Stage1Draw()
 	}
 }
 
-void C_Count::Stage2Draw()
-{
-	for (auto& cnt : m_CntList)
-	{
-		SHADER.m_spriteShader.SetMatrix(cnt.m_mat);
-		SHADER.m_spriteShader.DrawTex(cnt.m_tex, cnt.m_rect, 1.0f);
-	}
-}

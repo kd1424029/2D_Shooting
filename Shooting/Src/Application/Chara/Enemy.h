@@ -17,13 +17,13 @@ public:
 	void Stage1Action();
 	void Stage2Action();
 
-	void Stage1Update();
-	void Stage2Update();
+	void Update();
 
-	void Stage1Draw();
-	void Stage2Draw();
+	void Draw();
 
 	//=========== ÉQÉbÉ^Å[ =================
+	Param* GetParam() { return &Enemy; }
+	vector<Param>& GetEnemyList() { return m_EnemyList; }
 	Math::Vector2 GetPos() { return Enemy.m_pos; }
 	Math::Vector2 GetRadius() { return Enemy.m_radius; }
 	bool GetAlive() { return Enemy.m_alive; }

@@ -17,22 +17,21 @@ public:
 	void Stage1Action();
 	void Stage2Action();
 
-	void Stage1Update();
-	void Stage2Update();
+	void Update();
 
-	void Stage1Draw();
-	void Stage2Draw();
+	void Draw();
 
 	//=========== セッター =================
 	void SetTex(KdTexture* tex) { Cnt.m_tex = tex; }
 
 	//========== ゲッター =================
-	bool GetStageClearFlg() { return StageClearFlg; }
 	
 private:
 
 	vector<Object> m_CntList;
 
 	bool StageClearFlg;   //ステージクリアフラグ
+
+	int StageClearTimer;  //ステージクリア演出用タイマー	
 
 };

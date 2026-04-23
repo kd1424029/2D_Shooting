@@ -105,12 +105,11 @@ void C_Timer::Init()
 
 void C_Timer::Action()
 {
-	C_Count* cnt = SCENE.GetCount();
-
+	
 	C_GameScreen* gameScreen = SCENE.GetGameScreen();
 
 	//ステージクリアフラグが立っていないかつスタートフラグが立っているときのみタイマーの更新を受け付ける
-	if (cnt->GetStageClearFlg() == false && gameScreen->GetGameStartFlg() == true)
+	if (gameScreen->GetStageClearFlg() == false && gameScreen->GetGameStartFlg() == true)
 	{
 
 		//経過時間を加算 (APP.m_DeltaTime はフレーム間の時間)
@@ -160,10 +159,10 @@ void C_Timer::Action()
 
 void C_Timer::Update()
 {
-	C_Count* cnt = SCENE.GetCount();
+	C_GameScreen* gameScreen = SCENE.GetGameScreen();
 
 	//ステージクリアフラグが立っていないときのみタイマーの更新を受け付ける
-	if (cnt->GetStageClearFlg() == false)
+	if (gameScreen->GetStageClearFlg() == false)
 	{
 
 		//============= タイマー用 ===========

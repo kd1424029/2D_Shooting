@@ -59,4 +59,6 @@ private:
 	bool m_BeforeKeyLeft = false;
 	bool m_RectLeftFlg = false;     //Rect切り替えフラグ (Bulletクラスで必要)
 
+
+	float GameOverTimer;   //プレイヤーが死んですぐ演出しないようにするためのタイマー
 };
