@@ -45,6 +45,8 @@ private:
 
 	bool SceneFlg;
 
+	bool TitleStartFlg;
+
 	//計算後に二度と使わないから構造体に入れない
 	float angle;  //移動する角度
 	float angle2;  //移動する角度

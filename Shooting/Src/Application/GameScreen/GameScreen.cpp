@@ -16,7 +16,7 @@ void C_GameScreen::Init()
 	GameStart.m_pos.x = 0;
 	GameStart.m_pos.y = 0;
 
-	GameStart.m_scale = 1.5f;
+	GameStart.m_scale = 1.7f;
 
 	GameStart.m_rect = { 0,128,128,64 };
 
@@ -32,7 +32,7 @@ void C_GameScreen::Init()
 	StageClear.m_pos.x = 0;
 	StageClear.m_pos.y = 0;
 
-	StageClear.m_scale = 1.5f;
+	StageClear.m_scale = 1.7f;
 
 	StageClear.m_rect = { 320,64,256,64 };
 
@@ -62,7 +62,7 @@ void C_GameScreen::Init()
 	GameOver.m_pos.x = 0;
 	GameOver.m_pos.y = 0;
 
-	GameOver.m_scale = 1.5f;
+	GameOver.m_scale = 1.7f;
 
 	GameOver.m_rect = { 256,0,256,64 };
 

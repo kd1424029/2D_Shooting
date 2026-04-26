@@ -48,6 +48,8 @@ void Scene::Draw2D()
 
 	case SceneType::GameOverResult:
 
+		m_result.Draw();
+
 		break;
 
 	case SceneType::ClearResult:
@@ -157,6 +159,10 @@ void Scene::Update()
 		break;
 
 	case SceneType::GameOverResult:
+
+		m_result.Action();
+
+		m_result.Update();
 
 		break;
 
@@ -330,6 +336,10 @@ void Scene::StageInit(SceneType NowStage)
 
 	case SceneType::GameOverResult:
 
+		LoadResultTexture();
+
+		m_result.GameOverInit();
+
 		break;
 
 	case SceneType::ClearResult:
@@ -478,6 +488,29 @@ void Scene::LoadTitleTexture()
 
 	m_title.SetObjectCircleTex(&bulletEffectTex);
 }
+
+void Scene::LoadResultTexture()
+{
+	sceneTransitionTex.Load("Texture/Screen/SceneTransition.png");
+
+	gameUiTex.Load("Texture/Screen/UI.png");
+
+	bulletEffectTex.Load("Texture/Effect/Effect.png");
+
+	m_result.SetResultBackTex(&sceneTransitionTex);
+
+	m_result.SetResultGameOverTex(&gameUiTex);
+
+	m_result.SetResultSceneBackTex(&gameUiTex);
+
+	m_result.SetResultSceneTransitionTex(&sceneTransitionTex);
+
+	m_result.SetObjectResultStarTex(&bulletEffectTex);
+
+	m_result.SetObjectResultDiamondTex(&bulletEffectTex);
+
+	m_result.SetObjectResultCircleTex(&bulletEffectTex);
+}
 //=============================================================
 
 //================ 各ステージ解放 =============================
@@ -487,6 +520,12 @@ void Scene::ReleaseTexture(SceneType NowStage)
 	switch (NowStage) {
 		//タイトル画面
 	case SceneType::Title:
+
+		bulletEffectTex.Release();
+
+		gameScreenTex.Release();
+
+		gameUiTex.Release();
 
 		sceneTransitionTex.Release();
 
@@ -581,6 +620,12 @@ void Scene::ReleaseTexture(SceneType NowStage)
 		break;
 
 	case SceneType::GameOverResult:
+
+		bulletEffectTex.Release();
+
+		gameScreenTex.Release();
+
+		gameUiTex.Release();
 
 		break;
 

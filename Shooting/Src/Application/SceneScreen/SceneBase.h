@@ -48,5 +48,11 @@ protected:
 	ObjectParam ObjectStar;
 	ObjectParam ObjectDiamond;
 	ObjectParam ObjectCircle;
-	ObjectParam Result;
+	ObjectParam ObjectResultStar;
+	ObjectParam ObjectResultDiamond;
+	ObjectParam ObjectResultCircle;
+	ObjectParam ResultBack;
+	ObjectParam ResultGameOver;
+	ObjectParam ResultSceneBack;
+	ObjectParam ResultSceneTransition;
 };

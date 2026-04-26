@@ -10,6 +10,7 @@
 #include "GameScreen/GameScreenBlock.h"
 #include "Chara/BulletEffectManager.h"
 #include "SceneScreen/Title.h"
+#include "SceneScreen/Result.h"
 
 enum SceneType
 {
@@ -74,6 +75,9 @@ private:
 	//========= タイトル ===============
 	C_Title m_title;
 
+	//========= リザルト ===============
+	C_Result m_result;
+
 public:
 
 	// 初期設定
@@ -88,6 +92,8 @@ public:
 	void StageBlockTexture();
 
 	void LoadTitleTexture(); 
+
+	void LoadResultTexture(); 
 
 	void ReleaseTexture(SceneType NowStage);
 

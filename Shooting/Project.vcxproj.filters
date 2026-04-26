@@ -189,6 +189,9 @@
     <ClInclude Include="Src\Application\GameScreen\GameScreenBlock.h">
       <Filter>Src\Application\GameScreen</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\SceneScreen\Result.h">
+      <Filter>Src\Application\SceneScreen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -283,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameScreen\GameScreenBlock.cpp">
       <Filter>Src\Application\GameScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\SceneScreen\Result.cpp">
+      <Filter>Src\Application\SceneScreen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

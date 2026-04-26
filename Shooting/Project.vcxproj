@@ -173,6 +173,7 @@
     <ClInclude Include="Src\Application\GameScreen\Timer.h" />
     <ClInclude Include="Src\Application\Scene.h" />
     <ClInclude Include="Src\Application\main.h" />
+    <ClInclude Include="Src\Application\SceneScreen\Result.h" />
     <ClInclude Include="Src\Application\SceneScreen\SceneBase.h" />
     <ClInclude Include="Src\Application\SceneScreen\Title.h" />
     <ClInclude Include="Src\System\Audio\KdAudio.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="Src\Application\GameScreen\Timer.cpp" />
     <ClCompile Include="Src\Application\Scene.cpp" />
     <ClCompile Include="Src\Application\main.cpp" />
+    <ClCompile Include="Src\Application\SceneScreen\Result.cpp" />
     <ClCompile Include="Src\Application\SceneScreen\Title.cpp" />
     <ClCompile Include="Src\System\Audio\KdAudio.cpp" />
     <ClCompile Include="src\System\Direct3D\KdDirect3D.cpp" />
