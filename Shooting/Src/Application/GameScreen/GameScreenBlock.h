@@ -19,8 +19,12 @@ public:
 
 	void Draw();
 
-	void ObjectHit(Object* a_base);  //オブジェクトの当たり判定
+	float Rnd();
 
+	void ObjectPlayerHit(Object* a_base);  //オブジェクトの当たり判定
+
+	bool ObjectBulletHit(float bulletX, float bulletY);  //オブジェクトの当たり判定
+	
 	//=========== セッター =================
 	void SetTex(KdTexture* tex) { Block.m_tex = tex; }
 

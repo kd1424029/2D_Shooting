@@ -36,9 +36,7 @@ void Scene::Draw2D()
 
 	case SceneType::Stage3:
 
-		DrawStage();
-
-		m_block.Draw();
+		DrawBlockStage();
 
 		break;
 
@@ -93,6 +91,8 @@ void Scene::Update()
 
 		CommonUpdate();
 		
+		m_player.Update();
+
 		m_enemy.Stage1Action();
 		
 		m_gameScreen.Stage1Action();
@@ -106,6 +106,8 @@ void Scene::Update()
 	
 		CommonUpdate();
 
+		m_player.Update();
+
 		m_enemy.Stage2Action();
 		
 		m_gameScreen.Stage2Action();
@@ -116,16 +118,13 @@ void Scene::Update()
 
 	case SceneType::Stage3:
 
-		CommonUpdate();
+		CommonBlockUpdate();
 
 		m_enemy.Stage3Action();
 		
 		m_gameScreen.Stage3Action();
 		
 		m_count.Stage3Action();
-
-		m_block.Action();
-		m_block.Update();
 
 		break;
 
@@ -151,7 +150,6 @@ void Scene::Update()
 void Scene::CommonUpdate()
 {
 	m_player.Action();
-	m_player.Update();
 
 	m_playerBullet.Action();
 	m_playerBullet.Update();
@@ -169,6 +167,34 @@ void Scene::CommonUpdate()
 	m_count.Update();
 
 	m_effectManager.Update();
+}
+
+void Scene::CommonBlockUpdate()
+{
+	m_player.Action();
+
+	m_playerBullet.Action();
+	m_playerBullet.Update();
+
+	m_gameScreen.Update();
+
+	m_enemy.Update();
+
+	m_enemyBullet.Action();
+	m_enemyBullet.Update();
+
+	m_timer.Action();
+	m_timer.Update();
+
+	m_count.Update();
+
+	m_effectManager.Update();
+
+	m_block.Action();
+
+	m_player.Update();
+
+	m_block.Update();
 }
 
 void Scene::Init()
@@ -198,6 +224,29 @@ void Scene::DrawStage()
 	m_enemyBullet.Draw();
 
 	m_playerBullet.Draw();
+
+	m_count.Draw();
+
+	m_effectManager.Draw();
+
+	m_gameScreen.ProductionDraw();
+}
+
+void Scene::DrawBlockStage()
+{
+	m_gameScreen.Draw();
+
+	m_timer.Draw();
+
+	m_player.Draw();
+
+	m_enemy.Draw();
+
+	m_enemyBullet.Draw();
+
+	m_playerBullet.Draw();
+
+	m_block.Draw();
 
 	m_count.Draw();
 

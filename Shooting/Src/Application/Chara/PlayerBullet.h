@@ -27,9 +27,12 @@ public:
 
 	float Rnd();
 
+	//=========== ゲッター =================
+	float GetPlayerBulletNum() { return PlayerBulletNum; }
+	
 	//=========== セッター =================
 	void SetTex(KdTexture* tex) { m_tex = tex; }
-
+	
 private:
 
 	const float ScreenTop = 350;
@@ -46,6 +49,8 @@ private:
 
 	float PlayerBulletX[PlayerBulletNum];
 	float PlayerBulletY[PlayerBulletNum];
+	float PlayerBulletRadiusX[PlayerBulletNum];
+	float PlayerBulletRadiusY[PlayerBulletNum];
 	float PlayerBulletDirectionX[PlayerBulletNum];    //Bullet発射後の方向固定用
 	float PlayerBulletDirectionY[PlayerBulletNum];    //Bullet発射後の方向固定用
 	float PlayerBulletMoveX[PlayerBulletNum];

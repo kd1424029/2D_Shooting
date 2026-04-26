@@ -10,6 +10,9 @@ void C_EnemyBullet::Init()
 
 		EnemyBulletAlive[i] = false;
 
+		EnemyBulletRadiusX[i] = 8;
+		EnemyBulletRadiusY[i] = 8;
+
 		EnemyBulletMoveX[i] = 3;
 		EnemyBulletMoveY[i] = 3;
 
@@ -144,6 +147,23 @@ void C_EnemyBullet::Action()
 				//実際に座標を更新する
 				EnemyBulletX[i] += EnemyBulletMoveX[i];
 				EnemyBulletY[i] += EnemyBulletMoveY[i];
+
+				// ブロックとの当たり判定
+				C_GameScreenBlock* block = SCENE.GetGameScreenBlock();
+				if (block->ObjectBulletHit(EnemyBulletX[i], EnemyBulletY[i]))
+				{
+					EnemyBulletAlive[i] = false;
+
+					for (int count = 0; count < BulletEffectNUM; count++)
+					{
+						SCENE.GetEffectManager()->Add(
+							{ EnemyBulletX[i],EnemyBulletY[i] },
+							{ Rnd() * 3 - 1, Rnd() * 3 - 1 },
+							2.0f, { 1, 1, 1, 1 }, 60
+						);
+					}
+					continue; // 弾が消えたので以降の判定はスキップ
+				}
 
 				//弾が画面外に出たら消滅状態にする
 				if (EnemyBulletY[i] > ScreenTop || EnemyBulletY[i] < ScreenBottom || EnemyBulletX[i] > ScreenRight || EnemyBulletX[i] < ScreenLeft)

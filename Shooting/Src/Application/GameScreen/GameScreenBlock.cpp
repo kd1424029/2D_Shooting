@@ -17,8 +17,8 @@ void C_GameScreenBlock::Init()
 	newBlock.m_pos = { m_pos1.x , m_pos1.y };
 	newBlock.m_scale = 1.0f;
 
-	newBlock.m_radiusX = 66.0f;
-	newBlock.m_radiusY = 34.0f;
+	newBlock.m_radiusX = 64.0f;
+	newBlock.m_radiusY = 32.0f;
 
 	newBlock.m_rect = { 0,0,128,64 };
 	newBlock.m_tex = Block.m_tex;
@@ -32,8 +32,8 @@ void C_GameScreenBlock::Init()
 	newBlock2.m_pos = { m_pos2.x,m_pos2.y };
 	newBlock2.m_scale = 1.0f;
 
-	newBlock2.m_radiusX = 34.0f;
-	newBlock2.m_radiusY = 66.0f;
+	newBlock2.m_radiusX = 32.0f;
+	newBlock2.m_radiusY = 64.0f;
 
 	newBlock2.m_rect = { 128,0,64,128 };
 	newBlock2.m_tex = Block.m_tex;
@@ -46,7 +46,7 @@ void C_GameScreenBlock::Action()
 {
 	for (auto& block : m_BlockList)
 	{
-		ObjectHit(&block);
+		ObjectPlayerHit(&block);
 	}
 }
 
@@ -70,55 +70,91 @@ void C_GameScreenBlock::Draw()
 	}
 }
 
-void C_GameScreenBlock::ObjectHit(Object* a_base)
+void C_GameScreenBlock::ObjectPlayerHit(Object* a_base)
 {
-	C_Player* player = SCENE.GetPlayer();	//プレイヤーのインスタンス情報を獲得
+	C_Player* player = SCENE.GetPlayer();
 
-	//プレイヤー
-	const float playerRight = player->GetPos().x + player->GetRadius().x;
-	const float playerLeft = player->GetPos().x - player->GetRadius().x;
-	const float playerTop = player->GetPos().y + player->GetRadius().y;
-	const float playerBottom = player->GetPos().y - player->GetRadius().y;
+	//現在の位置（移動後）での重なり具合を計算
+	float PlayerRight = player->GetPos().x + player->GetRadius().x;
+	float PlayerLeft = player->GetPos().x - player->GetRadius().x;
+	float PlayerTop = player->GetPos().y + player->GetRadius().y;
+	float PlayerBottom = player->GetPos().y - player->GetRadius().y;
 
-	const float nextRight = player->GetFuturePos().x + player->GetRadius().x;
-	const float nextLeft = player->GetFuturePos().x - player->GetRadius().x;
-	const float nextTop = player->GetFuturePos().y + player->GetRadius().y;
-	const float nextBottom = player->GetFuturePos().y - player->GetRadius().y;
+	float BlockRight = a_base->m_pos.x + a_base->m_radiusX;
+	float BlockLeft = a_base->m_pos.x - a_base->m_radiusX;
+	float BlockTop = a_base->m_pos.y + a_base->m_radiusY;
+	float BlockBottom = a_base->m_pos.y - a_base->m_radiusY;
 
-	//ブロック
-	const float blockRight = a_base->m_pos.x + a_base->m_radiusX;
-	const float blockLeft = a_base->m_pos.x - a_base->m_radiusX;
-	const float blockTop = a_base->m_pos.y + a_base->m_radiusY;
-	const float blockBottom = a_base->m_pos.y - a_base->m_radiusY;
+	//そもそも重なっているかチェック（AABB判定）
+	if (PlayerLeft >= BlockRight || PlayerRight <= BlockLeft || PlayerBottom >= BlockTop || PlayerTop <= BlockBottom) return;
 
-	//上下で重なった場合
-	if (playerRight > blockLeft && blockRight > playerLeft)
+	//各方向のめり込み量（侵入深さ）を計算
+	float NextLeft = PlayerRight - BlockLeft; //プレイヤーの右側がブロックの左側にどれだけ入ったか
+	float NextRight = BlockRight - PlayerLeft; //プレイヤーの左側がブロックの右側にどれだけ入ったか
+	float NextTop = BlockTop - PlayerBottom; //プレイヤーの下側がブロックの上側にどれだけ入ったか
+	float NextBottom = PlayerTop - BlockBottom; //プレイヤーの上側がブロックの下側にどれだけ入ったか
+
+	//一番浅い（値が小さい）侵入方向を探す
+	float MinOverLap = min(min(NextLeft, NextRight), min(NextTop, NextBottom));
+
+	//最小の侵入軸に対してのみ補正を行う
+	if (MinOverLap == NextLeft)
 	{
-		//上判定
-		if (nextBottom < blockTop && blockTop < nextTop)
-		{
-			player->SetPosY(blockTop + player->GetRadius().y);
-		}
-		//下判定
-		else if (nextTop > blockBottom && blockBottom > nextBottom)
-		{
-			player->SetPosY(blockBottom - player->GetRadius().y);
-		}
+		player->SetPosX(BlockLeft - player->GetRadius().x);
+		player->SetMoveX(0);
 	}
 
-	//左右で重なった場合
-	if (playerTop > blockBottom && blockTop > playerBottom)
+	else if (MinOverLap == NextRight)
 	{
-		//右判定
-		if (nextLeft < blockRight && nextRight > blockRight)
-		{
-			player->SetPosX(blockRight + player->GetRadius().x);
-		}
-		//左判定
-		else if (nextRight > blockLeft && nextLeft < blockLeft)
-		{
-			player->SetPosX(blockLeft - player->GetRadius().x);
-		}
+		player->SetPosX(BlockRight + player->GetRadius().x);
+		player->SetMoveX(0);
+	}
+
+	else if (MinOverLap == NextTop)
+	{
+		player->SetPosY(BlockTop + player->GetRadius().y);
+		player->SetMoveY(0); 
+	}
+
+	else if (MinOverLap == NextBottom)
+	{
+		player->SetPosY(BlockBottom - player->GetRadius().y);
+		player->SetMoveY(0);
 	}
 }
 
+bool C_GameScreenBlock::ObjectBulletHit(float bulletX, float bulletY)
+{
+	
+	const float BulletRadius = 8;
+	for (auto& block : m_BlockList)
+	{
+		float BulletRight = bulletX + BulletRadius;
+		float BulletLeft = bulletX - BulletRadius;
+		float BulletTop = bulletY + BulletRadius;
+		float BulletBottom = bulletY - BulletRadius;
+
+		float BlockRight = block.m_pos.x + block.m_radiusX;
+		float BlockLeft = block.m_pos.x - block.m_radiusX;
+		float BlockTop = block.m_pos.y + block.m_radiusY;
+		float BlockBottom = block.m_pos.y - block.m_radiusY;
+
+		// 重なっていなければスキップ
+		if (BulletLeft >= BlockRight || BulletRight <= BlockLeft ||
+			BulletBottom >= BlockTop || BulletTop <= BlockBottom)
+		{
+			continue; // ← return ではなく continue（次のブロックへ）
+		}
+
+		// 当たっていた
+		return true; // ← 呼び出し側でエフェクト・弾消滅を行う
+	}
+
+	return false; // どのブロックにも当たらなかった
+}
+
+
+float C_GameScreenBlock::Rnd()
+{
+	return rand() / (float)RAND_MAX;
+}

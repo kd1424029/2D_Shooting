@@ -38,6 +38,7 @@ public:
 
 	//==================== ゲッター ======================
 	float GetRadius() { return 32.0f; }   //プレイヤー、敵の共通半径
+	float GetBulletRadius() { return 8.0f; }   //プレイヤー、敵の弾共通半径
 
 protected:
 

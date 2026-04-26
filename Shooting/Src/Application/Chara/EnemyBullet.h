@@ -38,6 +38,8 @@ private:
 
 	float EnemyBulletX[EnemyBulletNum];
 	float EnemyBulletY[EnemyBulletNum];
+	float EnemyBulletRadiusX[EnemyBulletNum];
+	float EnemyBulletRadiusY[EnemyBulletNum];
 	float EnemyBulletMoveX[EnemyBulletNum];
 	float EnemyBulletMoveY[EnemyBulletNum];
 	float EnemyBulletAlive[EnemyBulletNum]; //ê∂ë∂èÛë‘

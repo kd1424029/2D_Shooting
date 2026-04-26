@@ -6,8 +6,8 @@ void C_Player::Init()
 	Player.m_pos.x = 0;
 	Player.m_pos.y = 100;
 
-	Player.m_move.x = 2;   //移動スピード
-	Player.m_move.y = 2;   //移動スピード
+	Player.m_move.x = 0;   //移動スピード
+	Player.m_move.y = 0;   //移動スピード
 
 	Player.m_radius.x = 32;
 	Player.m_radius.y = 32;
@@ -40,6 +40,10 @@ void C_Player::Init()
 
 void C_Player::Action()
 {
+
+	Player.m_move.x = 0;   //移動スピード
+	Player.m_move.y = 0;   //移動スピード
+
 	C_GameScreen* gamescreen= SCENE.GetGameScreen();
 
 	C_Enemy* enemy = SCENE.GetEnemy();
@@ -53,11 +57,13 @@ void C_Player::Action()
 			//============ 左右移動 ====================
 			if (GetAsyncKeyState('A') & 0x8000)
 			{
+				Player.m_move.x = 2;
 				Player.m_pos.x -= Player.m_move.x;
 			}
 
 			if (GetAsyncKeyState('D') & 0x8000)
 			{
+				Player.m_move.x = 2;
 				Player.m_pos.x += Player.m_move.x;
 			}
 
@@ -68,11 +74,13 @@ void C_Player::Action()
 			//============ 上下移動 ====================
 			if (GetAsyncKeyState('W') & 0x8000)
 			{
+				Player.m_move.y = 2;
 				Player.m_pos.y += Player.m_move.y;
 			}
 
 			if (GetAsyncKeyState('S') & 0x8000)
 			{
+				Player.m_move.y = 2;
 				Player.m_pos.y -= Player.m_move.y;
 			}
 			//========================================== 

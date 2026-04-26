@@ -8,6 +8,8 @@ void C_PlayerBullet::Init()
 		PlayerBulletX[i] = 0;
 		PlayerBulletY[i] = 0;
 
+		PlayerBulletRadiusX[i] = 8;
+		PlayerBulletRadiusY[i] = 8;
 
 		PlayerBulletDirectionX[i] = 0;
 		PlayerBulletDirectionY[i] = 0;
@@ -32,6 +34,8 @@ void C_PlayerBullet::Action()
 	C_CharaBase* charabase = SCENE.GetCharaBase();
 
 	C_GameScreen* gamescreen = SCENE.GetGameScreen();
+
+	C_GameScreenBlock* block = SCENE.GetGameScreenBlock();
 
 	for (int i = 0; i < PlayerBulletNum; i++)
 	{
@@ -120,6 +124,23 @@ void C_PlayerBullet::Action()
 		{
 			PlayerBulletX[i] += PlayerBulletDirectionX[i] * PlayerBulletMoveSpeed[i];
 			PlayerBulletY[i] += PlayerBulletDirectionY[i] * PlayerBulletMoveSpeed[i];
+
+			// ブロックとの当たり判定
+			C_GameScreenBlock* block = SCENE.GetGameScreenBlock();
+			if (block->ObjectBulletHit(PlayerBulletX[i], PlayerBulletY[i]))
+			{
+				PlayerBulletAlive[i] = false;
+
+				for (int count = 0; count < BulletEffectNUM; count++)
+				{
+					SCENE.GetEffectManager()->Add(
+						{ PlayerBulletX[i], PlayerBulletY[i] },
+						{ Rnd() * 3 - 1, Rnd() * 3 - 1 },
+						2.0f, { 1, 1, 1, 1 }, 60
+					);
+				}
+				continue; // 弾が消えたので以降の判定はスキップ
+			}
 
 			//弾が画面外に出たら消滅状態にする
 			if (PlayerBulletY[i] > ScreenTop || PlayerBulletY[i] < ScreenBottom || PlayerBulletX[i] > ScreenRight || PlayerBulletX[i] < ScreenLeft && EnemyAlive == true)

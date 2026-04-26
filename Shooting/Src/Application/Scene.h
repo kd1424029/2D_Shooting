@@ -96,10 +96,14 @@ public:
 
 	void CommonUpdate();
 
+	void CommonBlockUpdate();
+
 	// •`‰æˆ—
 	void Draw2D();
 
 	void DrawStage();
+
+	void DrawBlockStage();
 
 	// GUIˆ—
 	void ImGuiUpdate();
