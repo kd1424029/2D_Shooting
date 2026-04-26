@@ -109,7 +109,7 @@ void C_Timer::Action()
 	C_GameScreen* gameScreen = SCENE.GetGameScreen();
 
 	//ステージクリアフラグが立っていないかつスタートフラグが立っているときのみタイマーの更新を受け付ける
-	if (gameScreen->GetStageClearFlg() == false && gameScreen->GetGameStartFlg() == true)
+	if (gameScreen->GetStageClearFlg() == false && gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
 	{
 
 		//経過時間を加算 (APP.m_DeltaTime はフレーム間の時間)
@@ -118,6 +118,7 @@ void C_Timer::Action()
 		//秒数から表示すべき数字を算出
 		int Seconds = (int)ElapsedTime % 60;
 
+		//分数から表示すべき数字を算出
 		int Minutes = (int)ElapsedTime / 60;
 
 		int DigitSeconds1 = Seconds % 10; // 1秒単位の桁
@@ -206,5 +207,4 @@ void C_Timer::Draw()
 	SHADER.m_spriteShader.DrawTex(Colon.m_tex, Colon.m_rect, 1.0f);
 
 	//===================================
-
 }

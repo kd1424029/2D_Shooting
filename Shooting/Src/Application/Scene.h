@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Chara/Player.h"
 #include "Chara/PlayerBullet.h"
 #include "Chara/Enemy.h"
@@ -6,7 +7,9 @@
 #include "GameScreen/GameScreen.h"
 #include "GameScreen/Timer.h"
 #include "GameScreen/Count.h"
+#include "GameScreen/GameScreenBlock.h"
 #include "Chara/BulletEffectManager.h"
+#include "SceneScreen/Title.h"
 
 enum SceneType
 {
@@ -14,6 +17,7 @@ enum SceneType
 	Stage1,             //ステージ１
 	Stage2,             //ステージ2
 	Stage3,             //ステージ3
+	Stage4,             //ステージ4
 	Result,	            //リザルト
 	
 };
@@ -31,30 +35,25 @@ private:
 	KdTexture playerTex;
 
 	//============ 弾 ===============
-	C_PlayerBullet m_playerbullet;
+	C_PlayerBullet m_playerBullet;
 	KdTexture bulletTex;
 
-	C_EnemyBullet m_enemybullet;
-	KdTexture enemybulletTex;
+	C_EnemyBullet m_enemyBullet;
+	KdTexture enemyBulletTex;
 	//=========== 敵 ================
 	C_Enemy m_enemy;
 	KdTexture enemyTex;
 
 	//========= ゲーム画面 ==========
-	C_GameScreen m_gamescreen;
-	KdTexture gamescreenTex;
+	C_GameScreen m_gameScreen;
+	KdTexture gameScreenTex;
 
-	C_GameScreen m_gamestart;
-	KdTexture gamestartTex;
+	KdTexture gameUiTex;
 
-	C_GameScreen m_stageclear;
-	KdTexture stageclearTex;
+	KdTexture sceneTransitionTex;
 
-	C_GameScreen m_gameover;
-	KdTexture gameoverTex;
-
-	C_GameScreen m_scenetransition;
-	KdTexture scenetransitionTex;
+	C_GameScreenBlock m_block;
+	KdTexture blockTex;
 
 	//========= タイマー ============
 	C_Timer m_timer;
@@ -65,11 +64,14 @@ private:
 	KdTexture countTex;
 
 	//=========　キャラ共通用 =======
-	C_CharaBase m_charabase;
+	C_CharaBase m_charaBase;
 	
 	//========= 弾エフェクトマネージャ =======
 	C_EffectManager m_effectManager; 
 	KdTexture bulletEffectTex;     
+
+	//========= タイトル ===============
+	C_Title m_title;
 
 public:
 
@@ -78,14 +80,26 @@ public:
 
 	void StageInit(SceneType NowStage);    //各ステージごとの初期化
 
+	void CommonInit();                     //各ステージの共通初期化
+
+	void StageTexture();
+
+	void LoadTitleTexture(); 
+
+	void ReleaseTexture(SceneType NowStage);
+
 	// 解放
 	void Release();
 
 	// 更新処理
 	void Update();
 
+	void CommonUpdate();
+
 	// 描画処理
 	void Draw2D();
+
+	void DrawStage();
 
 	// GUI処理
 	void ImGuiUpdate();
@@ -93,17 +107,19 @@ public:
 	//=============== ゲッター ================
 	C_Player* GetPlayer() { return &m_player; }
 
-	C_PlayerBullet* GetBullet() { return &m_playerbullet; }
+	C_PlayerBullet* GetBullet() { return &m_playerBullet; }
 
 	C_Enemy* GetEnemy() { return &m_enemy; }
 
-	C_EnemyBullet* GetEnemyBullet() { return &m_enemybullet; }
+	C_EnemyBullet* GetEnemyBullet() { return &m_enemyBullet; }
 
-	C_GameScreen* GetGameScreen() { return &m_gamescreen; }
+	C_GameScreen* GetGameScreen() { return &m_gameScreen; }
+
+	C_GameScreenBlock* GetGameScreenBlock() { return &m_block; }
 
 	C_Timer* GetTimer() { return &m_timer; }
 
-	C_CharaBase* GetCharaBase() { return &m_charabase; }
+	C_CharaBase* GetCharaBase() { return &m_charaBase; }
 
 	C_Count* GetCount() { return &m_count; }
 
@@ -116,6 +132,8 @@ public:
 private:
 
 	Scene() {}
+
+	int waitFrame = 0;
 
 public:
 	static Scene& GetInstance()

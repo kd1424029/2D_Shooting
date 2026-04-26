@@ -29,9 +29,8 @@ private:
 	const float ScreenLeft = -405;
 	const float ScreenRight = 405;
 
-	static const int EnemyBulletNum = 10; //弾数
-	float EnemyBulletCnt; //弾発射間隔 (1秒)
-
+	static const int EnemyBulletNum = 40; //弾数
+	
 	float EnemyBulletHomingCnt[EnemyBulletNum];      //ホーミングカウント
 	const float EnemyBulletHomingLimitCnt = 30; //ホーミングする最大時間(1秒間)
 
@@ -48,7 +47,6 @@ private:
 	Math::Matrix m_transMat[EnemyBulletNum];	//移動行列
 	Math::Matrix m_mat[EnemyBulletNum];			//合成行列
 
-
-	float GameOverTimer;   //プレイヤーが死んですぐ演出しないようにするためのタイマー
+	Math::Rectangle EnemyBulletRect[EnemyBulletNum];
 
 };

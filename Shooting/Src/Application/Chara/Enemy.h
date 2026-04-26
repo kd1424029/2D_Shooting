@@ -13,9 +13,11 @@ public:
 
 	void Stage1Init();
 	void Stage2Init();
+	void Stage3Init();
 
 	void Stage1Action();
 	void Stage2Action();
+	void Stage3Action();
 
 	void Update();
 

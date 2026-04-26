@@ -85,6 +85,13 @@ public:
 		DrawTex(tex, 0, 0, srcRect.width, srcRect.height, &srcRect, &Math::Color(1, 1, 1, alpha), pivot);
 	}
 
+	//テクスチャの切り抜き範囲（srcRect）を指定しつつ、独自の色（color）で描画する
+	void DrawTex(const KdTexture* tex, const Math::Rectangle* srcRect, const Math::Color& color, const Math::Vector2& pivot = { 0.5f, 0.5f })
+	{
+		if (tex == nullptr) return;
+		DrawTex(tex, 0, 0, srcRect->width, srcRect->height, srcRect, &color, pivot);
+	}
+
 	//４・５月の授業用文字表示
 	void DrawString(float _x, float _y, const char _text[], const Math::Vector4& _color)
 	{

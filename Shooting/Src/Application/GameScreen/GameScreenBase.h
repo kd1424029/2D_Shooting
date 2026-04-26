@@ -42,5 +42,6 @@ protected:
 	Object GameStart;
 	Object StageClear;
 	Object SceneTransition;
+	Object Block;
 	Object GameOver;
 };

@@ -3,17 +3,11 @@
 
 void Scene::Draw2D()
 {
-
-	//初期化直後の数フレームは描画させないためのフラグ
-	static int waitFrame = 0;
-	if (PrevScene != AnimationScene) {
-		waitFrame = 5; // 5フレームだけ描画を待機させる
-	}
-
+	//初期化直後の数フレームは描画させないためのコード
 	if (waitFrame > 0) {
 		waitFrame--;
 
-		m_gamescreen.SceneTransitionDraw();
+		m_gameScreen.SceneTransitionDraw();
 
 		return; // 描画をスキップして真っ暗にする
 	}
@@ -23,51 +17,34 @@ void Scene::Draw2D()
 
 		//タイトル画面
 	case SceneType::Title:
+
+		m_title.Draw();
+
 		break;
 
 	case SceneType::Stage1:
 
-		m_gamescreen.Draw();
-
-		m_timer.Draw();
-
-		m_player.Draw();
-
-		m_enemy.Draw();
-
-		m_enemybullet.Draw();
-
-		m_playerbullet.Draw();
-		
-		m_count.Draw();
-
-		m_effectManager.Draw();
-
-		m_gamescreen.ProductionDraw();
+		DrawStage();
 
 		break;
 
 	case SceneType::Stage2:
 
-		m_gamescreen.Draw();
-
-		m_timer.Draw();
-
-		m_player.Draw();
-
-		m_enemy.Draw();
-
-		m_playerbullet.Draw();
-
-		m_count.Draw();
-
-		m_effectManager.Draw();
-
-		m_gamescreen.ProductionDraw();
+		DrawStage();
 		
 		break;
 
 	case SceneType::Stage3:
+
+		DrawStage();
+
+		m_block.Draw();
+
+		break;
+
+	case SceneType::Stage4:
+
+		
 
 		break;
 
@@ -101,72 +78,58 @@ void Scene::Update()
 		AnimationScene = Result;
 	}
 
-	//================ シーン遷移の初期化関係処理 ===================
-	if (PrevScene != AnimationScene)
-	{
-		StageInit(AnimationScene); // シーンが変わった瞬間だけ初期化
-		PrevScene = AnimationScene;
-	}
-	//===============================================================
-
 	//各シーンの描画処理
 	switch (AnimationScene) {
 		//タイトル画面
 	case SceneType::Title:
+
+		m_title.Action();
+
+		m_title.Update();
+
 		break;
 
 	case SceneType::Stage1:
 
-		m_player.Action();
-		m_player.Update();
-
-		m_enemy.Stage1Action();
-		m_enemy.Update();
-
-		m_playerbullet.Action();
-		m_playerbullet.Update();
-
-		m_enemybullet.Action();
-		m_enemybullet.Update();
+		CommonUpdate();
 		
-		m_gamescreen.Stage1Action();
-		m_gamescreen.Update();
-
-		m_timer.Action();
-		m_timer.Update();
-
+		m_enemy.Stage1Action();
+		
+		m_gameScreen.Stage1Action();
+		
 		m_count.Stage1Action();
-		m_count.Update();
-
-		m_effectManager.Update();
-
+		
 		break;
 
 	case SceneType::Stage2:
 
-		m_player.Action();
-		m_player.Update();
+	
+		CommonUpdate();
 
 		m_enemy.Stage2Action();
-		m_enemy.Update();
-
-		m_playerbullet.Action();
-		m_playerbullet.Update();
-
-		m_gamescreen.Stage2Action();
-		m_gamescreen.Update();
-
-		m_timer.Action();
-		m_timer.Update();
-
+		
+		m_gameScreen.Stage2Action();
+		
 		m_count.Stage2Action();
-		m_count.Update();
-
-		m_effectManager.Update();
-
+	
 		break;
 
 	case SceneType::Stage3:
+
+		CommonUpdate();
+
+		m_enemy.Stage3Action();
+		
+		m_gameScreen.Stage3Action();
+		
+		m_count.Stage3Action();
+
+		m_block.Action();
+		m_block.Update();
+
+		break;
+
+	case SceneType::Stage4:
 
 		break;
 
@@ -174,87 +137,103 @@ void Scene::Update()
 
 		break;
 	}
+
+	//================ シーン遷移の初期化関係処理 ===================
+	if (PrevScene != AnimationScene) {
+		waitFrame = 5;
+		StageInit(AnimationScene);
+		PrevScene = AnimationScene;
+	}
+	//===============================================================
+
+}
+
+void Scene::CommonUpdate()
+{
+	m_player.Action();
+	m_player.Update();
+
+	m_playerBullet.Action();
+	m_playerBullet.Update();
+
+	m_gameScreen.Update();
+
+	m_enemy.Update();
+
+	m_enemyBullet.Action();
+	m_enemyBullet.Update();
+
+	m_timer.Action();
+	m_timer.Update();
+
+	m_count.Update();
+
+	m_effectManager.Update();
 }
 
 void Scene::Init()
 {
-	playerTex.Load("Texture/Player/player.png");
-
-	bulletTex.Load("Texture/Player/Bullet.png");
-
-	enemyTex.Load("Texture/Enemy/Enemy.png");
-
-	gamescreenTex.Load("Texture/Screen/GameScreen.png");
-
-	gamestartTex.Load("Texture/Screen/UI.png");
-
-	gameoverTex.Load("Texture/Screen/UI.png");
-
-	timerTex.Load("Texture/Screen/Timer.png");
-
-	countTex.Load("Texture/Screen/Count.png");
-
-	scenetransitionTex.Load("Texture/Screen/SceneTransition.png");
-
-	bulletEffectTex.Load("Texture/Effect/Effect.png");
-
-	m_player.SetTex(&playerTex);
-
-	m_playerbullet.SetTex(&bulletTex);
-
-	m_enemy.SetTex(&enemyTex);
-
-	m_gamescreen.SetGameScreenTex(&gamescreenTex);
-
-	m_gamescreen.SetGameStartTex(&gamestartTex);
-
-	m_gamescreen.SetStageClearTex(&gamestartTex);
-
-	m_gamescreen.SetGameOverTex(&gameoverTex);
-
-	m_gamescreen.SetSceneTransitionTex(&scenetransitionTex);
-
-	m_timer.SetTex(&timerTex);
-
-	m_enemybullet.SetTex(&bulletTex);
-
-	m_count.SetTex(&countTex);
-
 	//================= シーン遷移の初期化関係処理 ===================
 
 	AnimationScene = SceneType::Title; //最初はタイトル画面から
 	PrevScene = AnimationScene;
 
+	StageInit(AnimationScene);
+
 	//===============================================================
 
 }
 
+//===================== 共通ステージDraw ===================
+void Scene::DrawStage()
+{
+	m_gameScreen.Draw();
+
+	m_timer.Draw();
+
+	m_player.Draw();
+
+	m_enemy.Draw();
+
+	m_enemyBullet.Draw();
+
+	m_playerBullet.Draw();
+
+	m_count.Draw();
+
+	m_effectManager.Draw();
+
+	m_gameScreen.ProductionDraw();
+}
+//=========================================================
+
+
+//======================== 各ステージ初期化 ==========================
 void Scene::StageInit(SceneType NowStage)
 {
+
+	ReleaseTexture(NowStage);
 
 	//各シーンの描画処理
 	switch (NowStage) {
 		//タイトル画面
 	case SceneType::Title:
+
+		LoadTitleTexture();
+
+		m_title.Init();
+
 		break;
 
 	case SceneType::Stage1:
 
-		m_player.Init();
+		StageTexture();
+
+		CommonInit();
 
 		m_enemy.Stage1Init();
 
-		m_playerbullet.Init();
-
-		m_enemybullet.Init();
-
-		m_gamescreen.Init();
-
-		m_timer.Init(); 
-
 		m_timer.Stage1Init();//ステージ1のときだけ初期化する関数
-
-		m_effectManager.Init(&bulletEffectTex);
 
 		m_count.Stage1Init(); 
 
@@ -262,17 +241,11 @@ void Scene::StageInit(SceneType NowStage)
 
 	case SceneType::Stage2:
 
-		m_player.Init();
+		StageTexture();
+
+		CommonInit();
 
 		m_enemy.Stage2Init();
-
-		m_playerbullet.Init();
-
-		m_timer.Init();
-
-		m_gamescreen.Init();
-
-		m_effectManager.Init(&bulletEffectTex);
 
 		m_count.Stage2Init();
 		
@@ -280,30 +253,215 @@ void Scene::StageInit(SceneType NowStage)
 
 	case SceneType::Stage3:
 
+		StageTexture();
+
+		blockTex.Load("Texture/Screen/GameScreenBlock.png");
+
+		m_block.SetTex(&blockTex);
+
+		CommonInit();
+
+		m_enemy.Stage3Init();
+
+		m_count.Stage3Init();
+
+		m_block.Init();
+
+		break;
+
+	case SceneType::Stage4:
+
+	
+
 		break;
 	}
 }
+//==================================================================
+
+
+//================== ステージ共通初期化 =====================
+void Scene::CommonInit()
+{
+	m_player.Init();
+
+	m_playerBullet.Init();
+
+	m_enemyBullet.Init();
+
+	m_gameScreen.Init();
+
+	m_timer.Init();
+
+	m_effectManager.Init(&bulletEffectTex);
+}
+//==========================================================
+
+//================== ステージ共通読み込み =====================
+void Scene::StageTexture()
+{
+	playerTex.Load("Texture/Player/player.png");
+
+	bulletTex.Load("Texture/Bullet/Bullet.png");
+
+	enemyTex.Load("Texture/Enemy/Enemy.png");
+
+	gameScreenTex.Load("Texture/Screen/GameScreen.png");
+
+	gameUiTex.Load("Texture/Screen/UI.png");
+
+	timerTex.Load("Texture/Screen/Timer.png");
+
+	countTex.Load("Texture/Screen/Count.png");
+
+	sceneTransitionTex.Load("Texture/Screen/SceneTransition.png");
+
+	bulletEffectTex.Load("Texture/Effect/Effect.png");
+
+
+	m_player.SetTex(&playerTex);
+
+	m_playerBullet.SetTex(&bulletTex);
+
+	m_enemy.SetTex(&enemyTex);
+
+	m_gameScreen.SetGameScreenTex(&gameScreenTex);
+
+	m_gameScreen.SetGameStartTex(&gameUiTex);
+
+	m_gameScreen.SetStageClearTex(&gameUiTex);
+
+	m_gameScreen.SetGameOverTex(&gameUiTex);
+
+	m_gameScreen.SetSceneTransitionTex(&sceneTransitionTex);
+
+	m_timer.SetTex(&timerTex);
+
+	m_enemyBullet.SetTex(&bulletTex);
+
+	m_count.SetTex(&countTex);
+}
+//================================================================
+
+//==================== タイトル読み込み ========================
+void Scene::LoadTitleTexture()
+{
+	sceneTransitionTex.Load("Texture/Screen/SceneTransition.png");
+
+	gameUiTex.Load("Texture/Screen/UI.png");
+
+	bulletEffectTex.Load("Texture/Effect/Effect.png");
+
+	m_title.SetTitleBackTex(&sceneTransitionTex);
+
+	m_title.SetTitleNameTex(&gameUiTex);
+
+	m_title.SetTitleStartTex(&gameUiTex);
+
+	m_title.SetTitleSceneTransitionTex(&sceneTransitionTex);
+
+	m_title.SetObjectStarTex(&bulletEffectTex);
+
+	m_title.SetObjectDiamondTex(&bulletEffectTex);
+
+	m_title.SetObjectCircleTex(&bulletEffectTex);
+}
+//=============================================================
+
+//================ 各ステージ解放 =============================
+void Scene::ReleaseTexture(SceneType NowStage)
+{
+	//各シーンの描画処理
+	switch (NowStage) {
+		//タイトル画面
+	case SceneType::Title:
+
+		sceneTransitionTex.Release();
+
+		break;
+
+	case SceneType::Stage1:
+
+		playerTex.Release();
+
+		enemyTex.Release();
+
+		bulletTex.Release();
+
+		bulletEffectTex.Release();
+
+		gameScreenTex.Release();
+
+		gameUiTex.Release();
+
+		timerTex.Release();
+
+		countTex.Release();
+
+		sceneTransitionTex.Release();
+
+		break;
+
+	case SceneType::Stage2:
+
+		playerTex.Release();
+
+		enemyTex.Release();
+
+		bulletTex.Release();
+
+		bulletEffectTex.Release();
+
+		gameScreenTex.Release();
+
+		gameUiTex.Release();
+
+		timerTex.Release();
+
+		countTex.Release();
+
+		sceneTransitionTex.Release();
+
+		break;
+
+	case SceneType::Stage3:
+
+		playerTex.Release();
+
+		enemyTex.Release();
+
+		bulletTex.Release();
+
+		gameScreenTex.Release();
+
+		gameUiTex.Release();
+
+		timerTex.Release();
+
+		countTex.Release();
+
+		blockTex.Release();
+
+		sceneTransitionTex.Release();
+
+		break;
+
+	case SceneType::Stage4:
+
+		
+
+		break;
+
+	case SceneType::Result:
+
+		break;
+
+	}
+}
+//=========================================================
 
 void Scene::Release()
 {
-	// 画像の解放処理
-	playerTex.Release();
-
-	enemyTex.Release();
-
-	bulletTex.Release();
-
-	gamescreenTex.Release();
-
-	gamestartTex.Release();
-
-	gameoverTex.Release();
-
-	timerTex.Release();
-
-	countTex.Release();
-
-	scenetransitionTex.Release();
+	ReleaseTexture(AnimationScene);
 }
 
 void Scene::ImGuiUpdate()
@@ -320,7 +478,8 @@ void Scene::ImGuiUpdate()
 
 		m_player.PlayerImGui();
 
-		m_gamescreen.GameScreenImGui();
+		m_gameScreen.GameScreenImGui();
+
 	}
 	ImGui::End();
 }

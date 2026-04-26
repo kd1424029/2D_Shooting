@@ -23,6 +23,8 @@ struct Param
 	float			m_lifespan;
 	bool			m_bRepeat;
 	int             m_MoveState;   //“G‚Ì“®‚«
+
+	int             m_BulletTimer; //“G‚ª’e‚ğ”­Ë‚·‚é‚Ü‚Å‚Ìƒ^ƒCƒ}[
 };
 
 class C_CharaBase

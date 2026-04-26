@@ -22,6 +22,9 @@ public:
 	//=========== ゲッター =================
 	Math::Vector2 GetPos() { return Player.m_pos; }
 	Math::Vector2 GetRadius() { return Player.m_radius; }
+	Math::Vector2 GetFuturePos() { return Player.m_pos + Player.m_move; }
+	float GetMoveY() { return Player.m_move.y; }
+	float GetMoveX() { return Player.m_move.x; }
 	bool GetRectUpFlg() { return m_RectUpFlg; }
 	bool GetRectDownFlg() { return m_RectDownFlg; }
 	bool GetRectLeftFlg() { return m_RectLeftFlg; }
@@ -31,6 +34,12 @@ public:
 
 	//=========== セッター =================
 	void SetTex(KdTexture* tex) { Player.m_tex = tex; }
+
+	void SetPosY(float m_pos) { Player.m_pos.y = m_pos; }
+	void SetPosX(float m_pos) { Player.m_pos.x = m_pos; }
+
+	void SetMoveY(float m_move) { Player.m_move.y = m_move; }
+	void SetMoveX(float m_move) { Player.m_move.x = m_move; }
 
 	void SetAlive(bool alive) { Player.m_alive = alive; }
 

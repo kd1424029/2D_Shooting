@@ -116,7 +116,7 @@ void C_PlayerBullet::Action()
 	for (int i = 0; i < PlayerBulletNum; i++)
 	{
 		//弾移動(プレイヤーの弾が生存状態でかつプレイヤーが生存状態のときかつステージクリアフラグが立っていないとき)
-		if (PlayerBulletAlive[i] == true && player->GetAlive() == true && gamescreen->GetStageClearFlg() == false)
+		if (PlayerBulletAlive[i] == true  && gamescreen->GetStageClearFlg() == false && gamescreen->GetGameOverFlg() == false)
 		{
 			PlayerBulletX[i] += PlayerBulletDirectionX[i] * PlayerBulletMoveSpeed[i];
 			PlayerBulletY[i] += PlayerBulletDirectionY[i] * PlayerBulletMoveSpeed[i];
@@ -146,7 +146,7 @@ void C_PlayerBullet::Action()
 		{
 		
 			//弾移動(プレイヤーの弾が生存状態でかつプレイヤーが生存状態のときかつステージクリアフラグが立っていないときかつ敵が生きている時)
-			if (PlayerBulletAlive[i] == true && player->GetAlive() == true && gamescreen->GetStageClearFlg() == false && Enemy.m_alive == true)
+			if (PlayerBulletAlive[i] == true  && gamescreen->GetStageClearFlg() == false && Enemy.m_alive == true && gamescreen->GetGameOverFlg() == false)
 			{
 				//自機の弾と敵の当たり判定処理
 				float Bottom = Enemy.m_pos.x - PlayerBulletX[i];     //底辺(X座標の差)

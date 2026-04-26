@@ -45,7 +45,7 @@ void C_BulletEffect::Update(Math::Vector2 a_pos, bool a_move)
 	if (BulletEffect.m_pos.x <= -640)BulletEffect.m_move.x *= -1;
 
 	//™X‚É¬‚³‚­‚È‚é
-	BulletEffect.m_size *= 0.90f;
+	BulletEffect.m_size *= 0.9f;
 	
 	Math::Matrix scaleMat = Math::Matrix::CreateScale(BulletEffect.m_size);
 	Math::Matrix transMat = Math::Matrix::CreateTranslation(BulletEffect.m_pos.x, BulletEffect.m_pos.y, 0);

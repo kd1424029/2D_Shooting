@@ -49,7 +49,7 @@
     <Filter Include="Src\Application\SceneScreen">
       <UniqueIdentifier>{164640ac-c5cc-4255-8b57-93cb85698dd8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Chara\GameScreen">
+    <Filter Include="Src\Application\GameScreen">
       <UniqueIdentifier>{f6204641-0dd2-43b5-a51b-1fb41b2070f6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -148,10 +148,10 @@
       <Filter>Src\Application</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameScreen\GameScreen.h">
-      <Filter>Src\Application\Chara\GameScreen</Filter>
+      <Filter>Src\Application\GameScreen</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameScreen\GameScreenBase.h">
-      <Filter>Src\Application\Chara\GameScreen</Filter>
+      <Filter>Src\Application\GameScreen</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Chara\PlayerBullet.h">
       <Filter>Src\Application\Chara</Filter>
@@ -169,10 +169,10 @@
       <Filter>Src\Application\Chara</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameScreen\Timer.h">
-      <Filter>Src\Application\Chara\GameScreen</Filter>
+      <Filter>Src\Application\GameScreen</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameScreen\Count.h">
-      <Filter>Src\Application\Chara\GameScreen</Filter>
+      <Filter>Src\Application\GameScreen</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Chara\BulletEffect.h">
       <Filter>Src\Application\Chara</Filter>
@@ -185,6 +185,9 @@
     </ClInclude>
     <ClInclude Include="Src\Application\SceneScreen\SceneBase.h">
       <Filter>Src\Application\SceneScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameScreen\GameScreenBlock.h">
+      <Filter>Src\Application\GameScreen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -208,9 +211,6 @@
     </ClCompile>
     <ClCompile Include="..\Library\imgui\imgui_widgets.cpp">
       <Filter>Library\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\main.cpp">
-      <Filter>Src\Application</Filter>
     </ClCompile>
     <ClCompile Include="src\System\Direct3D\KdDirect3D.cpp">
       <Filter>Src\System\Direct3D</Filter>
@@ -252,7 +252,7 @@
       <Filter>Src\Application</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameScreen\GameScreen.cpp">
-      <Filter>Src\Application\Chara\GameScreen</Filter>
+      <Filter>Src\Application\GameScreen</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Chara\PlayerBullet.cpp">
       <Filter>Src\Application\Chara</Filter>
@@ -267,16 +267,22 @@
       <Filter>Src\Application\Chara</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameScreen\Timer.cpp">
-      <Filter>Src\Application\Chara\GameScreen</Filter>
+      <Filter>Src\Application\GameScreen</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameScreen\Count.cpp">
-      <Filter>Src\Application\Chara\GameScreen</Filter>
+      <Filter>Src\Application\GameScreen</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Chara\BulletEffect.cpp">
       <Filter>Src\Application\Chara</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\SceneScreen\Title.cpp">
       <Filter>Src\Application\SceneScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\main.cpp">
+      <Filter>Src\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameScreen\GameScreenBlock.cpp">
+      <Filter>Src\Application\GameScreen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

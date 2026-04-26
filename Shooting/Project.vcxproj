@@ -169,6 +169,7 @@
     <ClInclude Include="Src\Application\GameScreen\Count.h" />
     <ClInclude Include="Src\Application\GameScreen\GameScreen.h" />
     <ClInclude Include="Src\Application\GameScreen\GameScreenBase.h" />
+    <ClInclude Include="Src\Application\GameScreen\GameScreenBlock.h" />
     <ClInclude Include="Src\Application\GameScreen\Timer.h" />
     <ClInclude Include="Src\Application\Scene.h" />
     <ClInclude Include="Src\Application\main.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="Src\Application\Chara\Player.cpp" />
     <ClCompile Include="Src\Application\GameScreen\Count.cpp" />
     <ClCompile Include="Src\Application\GameScreen\GameScreen.cpp" />
+    <ClCompile Include="Src\Application\GameScreen\GameScreenBlock.cpp" />
     <ClCompile Include="Src\Application\GameScreen\Timer.cpp" />
     <ClCompile Include="Src\Application\Scene.cpp" />
     <ClCompile Include="Src\Application\main.cpp" />

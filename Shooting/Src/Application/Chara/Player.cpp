@@ -35,18 +35,18 @@ void C_Player::Init()
 	m_RectLeftFlg = false;     //Rect切り替えフラグ (Bulletクラスで必要)
 
 
-	GameOverTimer = 600;
+	GameOverTimer = 30;
 }
 
 void C_Player::Action()
 {
-
 	C_GameScreen* gamescreen= SCENE.GetGameScreen();
 
+	C_Enemy* enemy = SCENE.GetEnemy();
+	
 	//ステージクリアフラグが立っていないときかつスタートフラグが立っているときプレイヤーの操作を受け付ける
 	if (gamescreen->GetStageClearFlg() == false && gamescreen->GetGameStartFlg() == true)
 	{
-
 		if (Player.m_alive == true)
 		{
 
@@ -177,10 +177,22 @@ void C_Player::Action()
 
 		}
 	}
+
+	if (Player.m_alive == false && gamescreen->GetStageClearFlg() == false)
+	{
+		GameOverTimer--;
+
+		if (GameOverTimer < 0)
+		{
+			//ゲームオーバーにする
+			gamescreen->SetGameOverFlg(true);
+		}
+	}
 }
 
 void C_Player::Update()
 {
+
 	if (Player.m_alive == true)
 	{
 		Player.m_transMat = Math::Matrix::CreateTranslation(Player.m_pos.x, Player.m_pos.y, 0);
