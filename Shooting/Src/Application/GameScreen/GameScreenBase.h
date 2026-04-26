@@ -17,6 +17,8 @@ struct Object
 	float m_scale;				//拡大
 	bool m_alive;				//表示・非表示
 	float alpha;                //透明度
+
+	int             m_MoveState;   //ブロックの動き
 	
 };
 

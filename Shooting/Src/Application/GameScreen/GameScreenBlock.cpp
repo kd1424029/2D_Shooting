@@ -1,7 +1,7 @@
 #include"GameScreenBlock.h"
 #include"../Scene.h"
 
-void C_GameScreenBlock::Init()
+void C_GameScreenBlock::Stage3Init()
 {
 	m_BlockList.clear();
 
@@ -42,6 +42,120 @@ void C_GameScreenBlock::Init()
 
 }
 
+void C_GameScreenBlock::Stage4Init()
+{
+	m_BlockList.clear();
+
+	//配置したい座標のリスト
+	vector<Math::Vector2> BlockPosList = {
+	{(64.0f * 8.0f) - 640,(-64.0f * 5.0f) + 360},
+	{(64.0f * 12.0f) - 640,(-64.0f * 5.0f) + 360},
+	{(64.0f * 15.35f) - 640,(-64.0f * 3.0f) + 360},
+	{(64.0f * 4.65f) - 640,(-64.0f * 3.0f) + 360},
+	{(64.0f * 15.35f) - 640,(-64.0f * 8.0f) + 360},
+	{(64.0f * 4.65f) - 640,(-64.0f * 8.0f) + 360},
+	};
+
+	Math::Vector2 m_pos1 = BlockPosList[0];
+
+	Object newBlock;
+	newBlock.m_pos = { m_pos1.x , m_pos1.y };
+	newBlock.m_scale = 1.0f;
+
+	newBlock.m_radiusX = 32.0f;
+	newBlock.m_radiusY = 64.0f;
+
+	newBlock.m_move.x = 1;   //移動スピード
+	newBlock.m_move.y = 1;   //移動スピード
+
+	newBlock.m_MoveState = 0;
+
+	newBlock.m_rect = { 128,0,64,128 };
+	newBlock.m_tex = Block.m_tex;
+
+	m_BlockList.push_back(newBlock);
+
+
+	Math::Vector2 m_pos2 = BlockPosList[1];
+
+	Object newBlock2;
+	newBlock2.m_pos = { m_pos2.x,m_pos2.y };
+	newBlock2.m_scale = 1.0f;
+
+	newBlock2.m_radiusX = 32.0f;
+	newBlock2.m_radiusY = 64.0f;
+
+	newBlock2.m_move.x = 1;   //移動スピード
+	newBlock2.m_move.y = 1;   //移動スピード
+
+	newBlock2.m_MoveState = 0;
+
+	newBlock2.m_rect = { 128,0,64,128 };
+	newBlock2.m_tex = Block.m_tex;
+
+	m_BlockList.push_back(newBlock2);
+
+
+	Math::Vector2 m_pos3 = BlockPosList[2];
+
+	Object newBlock3;
+	newBlock3.m_pos = { m_pos3.x,m_pos3.y };
+	newBlock3.m_scale = 1.0f;
+
+	newBlock3.m_radiusX = 64.0f;
+	newBlock3.m_radiusY = 32.0f;
+
+	newBlock3.m_MoveState = 0;
+
+	newBlock3.m_rect = { 0,0,128,64 };
+	newBlock3.m_tex = Block.m_tex;
+
+	m_BlockList.push_back(newBlock3);
+
+	Math::Vector2 m_pos4 = BlockPosList[3];
+
+	Object newBlock4;
+	newBlock4.m_pos = { m_pos4.x,m_pos4.y };
+	newBlock4.m_scale = 1.0f;
+
+	newBlock4.m_radiusX = 64.0f;
+	newBlock4.m_radiusY = 32.0f;
+
+	newBlock4.m_rect = { 0,0,128,64 };
+	newBlock4.m_tex = Block.m_tex;
+
+	m_BlockList.push_back(newBlock4);
+
+	Math::Vector2 m_pos5 = BlockPosList[4];
+
+	Object newBlock5;
+	newBlock5.m_pos = { m_pos5.x,m_pos5.y };
+	newBlock5.m_scale = 1.0f;
+
+	newBlock5.m_radiusX = 64.0f;
+	newBlock5.m_radiusY = 32.0f;
+
+	newBlock5.m_rect = { 0,0,128,64 };
+	newBlock5.m_tex = Block.m_tex;
+
+	m_BlockList.push_back(newBlock5);
+
+	Math::Vector2 m_pos6 = BlockPosList[5];
+
+	Object newBlock6;
+	newBlock6.m_pos = { m_pos6.x,m_pos6.y };
+	newBlock6.m_scale = 1.0f;
+
+	newBlock6.m_radiusX = 64.0f;
+	newBlock6.m_radiusY = 32.0f;
+
+	newBlock6.m_rect = { 0,0,128,64 };
+	newBlock6.m_tex = Block.m_tex;
+
+	m_BlockList.push_back(newBlock6);
+}
+
+
 void C_GameScreenBlock::Action()
 {
 	for (auto& block : m_BlockList)
@@ -50,6 +164,84 @@ void C_GameScreenBlock::Action()
 	}
 }
 
+void C_GameScreenBlock::Stage4Action()
+{
+
+	C_GameScreen* gamescreen = SCENE.GetGameScreen();
+
+	if (gamescreen->GetGameStartFlg() == true && gamescreen->GetGameOverFlg() == false && gamescreen->GetStageClearFlg() == false)
+	{
+
+		for (int i = 0; i < m_BlockList.size(); i++)
+		{
+
+			auto& block = m_BlockList[i];
+
+			ObjectPlayerHit(&block);
+
+
+			if (i == 0)
+			{
+				switch (block.m_MoveState)
+				{
+				case 0: //上移動
+
+					if (block.m_pos.y < 90)
+					{
+						block.m_pos.y += block.m_move.y;
+					}
+					else
+					{
+						block.m_MoveState = 1;
+					}
+					break;
+
+				case 1:  //下移動
+
+					if (block.m_pos.y > -60)
+					{
+						block.m_pos.y -= block.m_move.y;
+					}
+					else
+					{
+						block.m_MoveState = 0;
+					}
+					break;
+				}
+			}
+
+			if (i == 1)
+			{
+				switch (block.m_MoveState)
+				{
+				case 0: //下移動
+
+					if (block.m_pos.y > -60)
+					{
+						block.m_pos.y -= block.m_move.y;
+					}
+					else
+					{
+						block.m_MoveState = 1;
+					}
+					break;
+
+				case 1:  //上移動
+
+					if (block.m_pos.y < 90)
+					{
+						block.m_pos.y += block.m_move.y;
+					}
+					else
+					{
+						block.m_MoveState = 0;
+					}
+					break;
+				}
+			}
+		}
+	}
+}
 
 void C_GameScreenBlock::Update()
 {
@@ -66,7 +258,7 @@ void C_GameScreenBlock::Draw()
 	for (auto& block : m_BlockList)
 	{
 		SHADER.m_spriteShader.SetMatrix(block.m_mat);
-		SHADER.m_spriteShader.DrawTex(block.m_tex, block.m_rect, 1.0f);
+		SHADER.m_spriteShader.DrawTex(block.m_tex, block.m_rect, 0.6f);
 	}
 }
 

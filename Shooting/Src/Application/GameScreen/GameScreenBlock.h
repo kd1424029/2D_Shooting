@@ -11,9 +11,13 @@ public:
 	C_GameScreenBlock() {}
 	~C_GameScreenBlock() {}
 
-	void Init();
+	void Stage3Init();
+
+	void Stage4Init();
 
 	void Action();
+
+	void Stage4Action();
 
 	void Update();
 

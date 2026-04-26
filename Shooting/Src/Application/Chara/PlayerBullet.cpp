@@ -125,7 +125,7 @@ void C_PlayerBullet::Action()
 			PlayerBulletX[i] += PlayerBulletDirectionX[i] * PlayerBulletMoveSpeed[i];
 			PlayerBulletY[i] += PlayerBulletDirectionY[i] * PlayerBulletMoveSpeed[i];
 
-			// ブロックとの当たり判定
+			//ブロックとの当たり判定
 			C_GameScreenBlock* block = SCENE.GetGameScreenBlock();
 			if (block->ObjectBulletHit(PlayerBulletX[i], PlayerBulletY[i]))
 			{

@@ -16,6 +16,8 @@ public:
 
 	void Stage3Action();
 
+	void Stage4Action();
+
 	void Update();
 
 	void Draw();

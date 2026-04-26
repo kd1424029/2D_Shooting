@@ -113,6 +113,28 @@ void C_EnemyBullet::Action()
 						}
 					}
 				}
+
+				//敵4体目
+				if (enemy == 3)
+				{
+					if (Enemy[enemy].m_BulletTimer == 0)
+					{
+						if (EnemyBulletAlive[EnemyBullet] == false && Enemy[enemy].m_alive == true)
+						{
+							//弾を銃器の前から出るようにする
+							EnemyBulletX[EnemyBullet] = Enemy[enemy].m_pos.x - Enemy[enemy].m_radius.x;
+							EnemyBulletY[EnemyBullet] = Enemy[enemy].m_pos.y;
+							EnemyBulletAlive[EnemyBullet] = true;
+
+							EnemyBulletRect[EnemyBullet] = { 64,0,16,16 };
+
+							Enemy[enemy].m_BulletTimer = 120;   //2秒間隔で打つようにする
+							EnemyBulletHomingCnt[EnemyBullet] = 0;  //ホーミングカウントをリセット
+
+							break;
+						}
+					}
+				}
 			}
 		}
 
@@ -148,7 +170,7 @@ void C_EnemyBullet::Action()
 				EnemyBulletX[i] += EnemyBulletMoveX[i];
 				EnemyBulletY[i] += EnemyBulletMoveY[i];
 
-				// ブロックとの当たり判定
+				//ブロックとの当たり判定
 				C_GameScreenBlock* block = SCENE.GetGameScreenBlock();
 				if (block->ObjectBulletHit(EnemyBulletX[i], EnemyBulletY[i]))
 				{

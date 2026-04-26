@@ -18,7 +18,8 @@ enum SceneType
 	Stage2,             //ステージ2
 	Stage3,             //ステージ3
 	Stage4,             //ステージ4
-	Result,	            //リザルト
+	GameOverResult,	            //リザルト
+	ClearResult,	    //リザルト
 	
 };
 
@@ -84,6 +85,8 @@ public:
 
 	void StageTexture();
 
+	void StageBlockTexture();
+
 	void LoadTitleTexture(); 
 
 	void ReleaseTexture(SceneType NowStage);
@@ -95,8 +98,6 @@ public:
 	void Update();
 
 	void CommonUpdate();
-
-	void CommonBlockUpdate();
 
 	// 描画処理
 	void Draw2D();

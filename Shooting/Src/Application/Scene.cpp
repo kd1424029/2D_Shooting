@@ -42,11 +42,15 @@ void Scene::Draw2D()
 
 	case SceneType::Stage4:
 
-		
+		DrawBlockStage();
 
 		break;
 
-	case SceneType::Result:
+	case SceneType::GameOverResult:
+
+		break;
+
+	case SceneType::ClearResult:
 
 		break;
 	}
@@ -73,7 +77,7 @@ void Scene::Update()
 	}
 	if (GetAsyncKeyState('4') & 0x0001)
 	{
-		AnimationScene = Result;
+		AnimationScene = GameOverResult;
 	}
 
 	//各シーンの描画処理
@@ -118,7 +122,7 @@ void Scene::Update()
 
 	case SceneType::Stage3:
 
-		CommonBlockUpdate();
+		CommonUpdate();
 
 		m_enemy.Stage3Action();
 		
@@ -126,13 +130,37 @@ void Scene::Update()
 		
 		m_count.Stage3Action();
 
+		m_block.Action();
+
+		m_player.Update();
+
+		m_block.Update();
+
 		break;
 
 	case SceneType::Stage4:
 
+		CommonUpdate();
+
+		m_enemy.Stage4Action();
+
+		m_gameScreen.Stage4Action();
+
+		m_count.Stage4Action();
+
+		m_block.Stage4Action();
+
+		m_player.Update();
+
+		m_block.Update();
+
 		break;
 
-	case SceneType::Result:
+	case SceneType::GameOverResult:
+
+		break;
+
+	case SceneType::ClearResult:
 
 		break;
 	}
@@ -167,34 +195,6 @@ void Scene::CommonUpdate()
 	m_count.Update();
 
 	m_effectManager.Update();
-}
-
-void Scene::CommonBlockUpdate()
-{
-	m_player.Action();
-
-	m_playerBullet.Action();
-	m_playerBullet.Update();
-
-	m_gameScreen.Update();
-
-	m_enemy.Update();
-
-	m_enemyBullet.Action();
-	m_enemyBullet.Update();
-
-	m_timer.Action();
-	m_timer.Update();
-
-	m_count.Update();
-
-	m_effectManager.Update();
-
-	m_block.Action();
-
-	m_player.Update();
-
-	m_block.Update();
 }
 
 void Scene::Init()
@@ -302,11 +302,7 @@ void Scene::StageInit(SceneType NowStage)
 
 	case SceneType::Stage3:
 
-		StageTexture();
-
-		blockTex.Load("Texture/Screen/GameScreenBlock.png");
-
-		m_block.SetTex(&blockTex);
+		StageBlockTexture();
 
 		CommonInit();
 
@@ -314,13 +310,29 @@ void Scene::StageInit(SceneType NowStage)
 
 		m_count.Stage3Init();
 
-		m_block.Init();
+		m_block.Stage3Init();
 
 		break;
 
 	case SceneType::Stage4:
 
-	
+		StageBlockTexture();
+
+		CommonInit();
+
+		m_enemy.Stage4Init();
+
+		m_count.Stage4Init();
+
+		m_block.Stage4Init();
+
+		break;
+
+	case SceneType::GameOverResult:
+
+		break;
+
+	case SceneType::ClearResult:
 
 		break;
 	}
@@ -343,7 +355,9 @@ void Scene::CommonInit()
 
 	m_effectManager.Init(&bulletEffectTex);
 }
+
 //==========================================================
+
 
 //================== ステージ共通読み込み =====================
 void Scene::StageTexture()
@@ -366,6 +380,56 @@ void Scene::StageTexture()
 
 	bulletEffectTex.Load("Texture/Effect/Effect.png");
 
+	blockTex.Load("Texture/Screen/GameScreenBlock.png");
+
+	m_player.SetTex(&playerTex);
+
+	m_playerBullet.SetTex(&bulletTex);
+
+	m_enemy.SetTex(&enemyTex);
+
+	m_gameScreen.SetGameScreenTex(&gameScreenTex);
+
+	m_gameScreen.SetGameStartTex(&gameUiTex);
+
+	m_gameScreen.SetStageClearTex(&gameUiTex);
+
+	m_gameScreen.SetGameOverTex(&gameUiTex);
+
+	m_gameScreen.SetSceneTransitionTex(&sceneTransitionTex);
+
+	m_timer.SetTex(&timerTex);
+
+	m_enemyBullet.SetTex(&bulletTex);
+
+	m_count.SetTex(&countTex);
+
+	m_block.SetTex(&blockTex);
+}
+
+void Scene::StageBlockTexture()
+{
+	playerTex.Load("Texture/Player/player.png");
+
+	bulletTex.Load("Texture/Bullet/Bullet.png");
+
+	enemyTex.Load("Texture/Enemy/Enemy.png");
+
+	gameScreenTex.Load("Texture/Screen/GameScreen.png");
+
+	gameUiTex.Load("Texture/Screen/UI.png");
+
+	timerTex.Load("Texture/Screen/Timer.png");
+
+	countTex.Load("Texture/Screen/Count.png");
+
+	sceneTransitionTex.Load("Texture/Screen/SceneTransition.png");
+
+	bulletEffectTex.Load("Texture/Effect/Effect.png");
+
+	blockTex.Load("Texture/Screen/GameScreenBlock.png");
+
+	m_block.SetTex(&blockTex);
 
 	m_player.SetTex(&playerTex);
 
@@ -496,11 +560,31 @@ void Scene::ReleaseTexture(SceneType NowStage)
 
 	case SceneType::Stage4:
 
-		
+		playerTex.Release();
+
+		enemyTex.Release();
+
+		bulletTex.Release();
+
+		gameScreenTex.Release();
+
+		gameUiTex.Release();
+
+		timerTex.Release();
+
+		countTex.Release();
+
+		blockTex.Release();
+
+		sceneTransitionTex.Release();
 
 		break;
 
-	case SceneType::Result:
+	case SceneType::GameOverResult:
+
+		break;
+
+	case SceneType::ClearResult:
 
 		break;
 
