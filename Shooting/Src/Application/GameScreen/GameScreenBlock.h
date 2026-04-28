@@ -15,15 +15,25 @@ public:
 
 	void Stage4Init();
 
+	void HardStage2Init();
+
+	void HardStage3Init();
+
+	void HardStage4Init();
+
 	void Action();
 
 	void Stage4Action();
+
+	void HardStage2Action();
 
 	void Update();
 
 	void Draw();
 
 	float Rnd();
+
+	void Clear() { m_BlockList.clear(); }//Stage1やStage2でリストの中身を残さないため
 
 	void ObjectPlayerHit(Object* a_base);  //オブジェクトの当たり判定
 

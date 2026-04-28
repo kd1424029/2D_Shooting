@@ -39,7 +39,7 @@ void C_PlayerBullet::Action()
 
 	for (int i = 0; i < PlayerBulletNum; i++)
 	{
-		//発射処理(スペースキーを押したときかつスタートフラグが立っているときかつステージクリアフラグが立っていないとき)
+		//==================== 発射処理 ==============================
 		if (GetAsyncKeyState(VK_SPACE) & 0x8000 && gamescreen->GetGameStartFlg() == true && gamescreen->GetStageClearFlg() == false &&	PlayerBulletCnt == 0)
 		{
 
@@ -105,6 +105,8 @@ void C_PlayerBullet::Action()
 		}
 	}
 
+	//============================================================
+
 	//敵が1体でも生きているかを調べるフラグ
 	bool EnemyAlive = false;
 
@@ -117,6 +119,7 @@ void C_PlayerBullet::Action()
 		}
 	}
 
+	//==================== 弾の当たり判定系 ==============================
 	for (int i = 0; i < PlayerBulletNum; i++)
 	{
 		//弾移動(プレイヤーの弾が生存状態でかつプレイヤーが生存状態のときかつステージクリアフラグが立っていないとき)
@@ -199,6 +202,8 @@ void C_PlayerBullet::Action()
 			}
 		}
 	}
+
+	//============================================================
 
 }
 

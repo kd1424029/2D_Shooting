@@ -15,6 +15,8 @@ public:
 
 	void Init();
 
+	void GameClearInit();
+
 	void Action();
 
 	void Update();
@@ -23,6 +25,7 @@ public:
 
 	//=========== ゲッター =================
 	static C_Timer& GetInstance() {static C_Timer instance; return instance;}
+	vector<Object>& GetTimerList() { return m_TimerList; }
 
 	//=========== セッター =================
 	void SetTex(KdTexture* tex) { Timer.m_tex = tex; }

@@ -38,6 +38,43 @@ void C_Player::Init()
 	GameOverTimer = 30;
 }
 
+void C_Player::HardSrage2Init()
+{
+	Player.m_pos.x = 0;
+	Player.m_pos.y = -100;
+
+	Player.m_move.x = 0;   //移動スピード
+	Player.m_move.y = 0;   //移動スピード
+
+	Player.m_radius.x = 32;
+	Player.m_radius.y = 32;
+
+	Player.m_rect = { 0,0,64,64 };
+
+	Player.m_alive = true;
+
+	// ↑キー用
+	m_NowKeyUp = false;
+	m_BeforeKeyUp = false;
+	m_RectUpFlg = true;     //Rect切り替えフラグ (Bulletクラスで必要) 最初は上向きなのでtrue
+	// →キー用
+	m_NowKeyRight = false;
+	m_BeforeKeyRight = false;
+	m_RectRightFlg = false;     //Rect切り替えフラグ (Bulletクラスで必要)
+
+	// ↓キー用
+	m_NowKeyDown = false;
+	m_BeforeKeyDown = false;
+	m_RectDownFlg = false;     //Rect切り替えフラグ (Bulletクラスで必要)
+	// ←キー用
+	m_NowKeyLeft = false;
+	m_BeforeKeyLeft = false;
+	m_RectLeftFlg = false;     //Rect切り替えフラグ (Bulletクラスで必要)
+
+
+	GameOverTimer = 30;
+}
+
 void C_Player::Action()
 {
 

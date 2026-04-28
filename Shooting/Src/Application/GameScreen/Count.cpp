@@ -158,7 +158,7 @@ void C_Count::Stage4Init()
 	Object newBlock2;
 	newBlock2.m_pos = { m_pos2.x,m_pos2.y };
 	newBlock2.m_scale = 1.5f;
-	newBlock2.m_rect = { 192,64,64,64 };
+	newBlock2.m_rect = { 0,64,64,64 };
 	newBlock2.m_tex = Cnt.m_tex;
 
 	m_CntList.push_back(newBlock2);
@@ -169,89 +169,101 @@ void C_Count::Stage4Init()
 	StageClearTimer = 30;  //ステージクリア演出用タイマーを初期化
 }
 
-void C_Count::Stage1Action()
+void C_Count::HardStage1Init()
 {
-	C_Enemy* enemy = SCENE.GetEnemy();
 
-	C_GameScreen* gamescreen = SCENE.GetGameScreen();
+	m_CntList.clear();
 
-	//敵生存状況を取得
-	int aliveCount = enemy->GetAliveCount();
+	//配置したい座標のリスト
+	vector<Math::Vector2> CntPosList = {
+	{(64.0f * 18.2f) - 640,(-64.0f * 6.0f) + 360},
+	{(64.0f * 18.2f) - 640,(-64.0f * 2.3f) + 360},
+	};
 
-	// 生存数に応じて表示を切り替え
-	switch (aliveCount) {
 
-	case 0:
-		m_CntList[0].m_rect = { 0, 0, 64, 64 }; //case 0はクリア表示
-		if (SCENE.GetEnemy()->GetAliveCount() == 0) {
-			// ここでステージクリアの演出タイマーを動かす
-			StageClearTimer--;
-			if (StageClearTimer < 0 && gamescreen->GetGameOverFlg() == false) {
-				gamescreen->SetStageClearFlg(true);
-			}
-		}
-		break;
-	}
+	//============= 敵カウント用 ===========
+	Math::Vector2 m_pos1 = CntPosList[0];
+
+	Object newBlock;
+	newBlock.m_pos = { m_pos1.x , m_pos1.y };
+	newBlock.m_scale = 1.5f;
+	newBlock.m_rect = { 64,0,64,64 };
+	newBlock.m_tex = Cnt.m_tex;
+
+	m_CntList.push_back(newBlock);
+
+	//======================================
+
+	//========== ステージカウント用 ========
+
+	Math::Vector2 m_pos2 = CntPosList[1];
+
+	Object newBlock2;
+	newBlock2.m_pos = { m_pos2.x,m_pos2.y };
+	newBlock2.m_scale = 1.5f;
+	newBlock2.m_rect = { 0,64,64,64 };
+	newBlock2.m_tex = Cnt.m_tex;
+
+	m_CntList.push_back(newBlock2);
+
+	//======================================
+
+	StageClearTimer = 30;  //ステージクリア演出用タイマーを初期化
 }
 
-void C_Count::Stage2Action()
+void C_Count::HardStage2Init()
 {
-	C_Enemy* enemy = SCENE.GetEnemy();
+	m_CntList.clear();
 
-	C_GameScreen* gamescreen = SCENE.GetGameScreen();
+	//配置したい座標のリスト
+	vector<Math::Vector2> CntPosList = {
+	{(64.0f * 18.2f) - 640,(-64.0f * 6.0f) + 360},
+	{(64.0f * 18.2f) - 640,(-64.0f * 2.3f) + 360},
+	};
 
-	int aliveCount = enemy->GetAliveCount(); // 生存数を取得
 
-	// 生存数に応じて表示を切り替え
-	switch (aliveCount) {
+	//============= 敵カウント用 ===========
+	Math::Vector2 m_pos1 = CntPosList[0];
 
-	case 1:
-		m_CntList[0].m_rect = { 64, 0, 64, 64 }; // 1の画像
-		break;
-	case 0:
-		m_CntList[0].m_rect = { 0, 0, 64, 64 }; //case 0はクリア表示
-		if (SCENE.GetEnemy()->GetAliveCount() == 0) {
-			// ここでステージクリアの演出タイマーを動かす
-			StageClearTimer--;
-			if (StageClearTimer < 0 && gamescreen->GetGameOverFlg() == false) {
-				gamescreen->SetStageClearFlg(true);
-			}
-		}
-		break;
-	}
+	Object newBlock;
+	newBlock.m_pos = { m_pos1.x , m_pos1.y };
+	newBlock.m_scale = 1.5f;
+	newBlock.m_rect = { 192,0,64,64 };
+	newBlock.m_tex = Cnt.m_tex;
+
+	m_CntList.push_back(newBlock);
+
+	//======================================
+
+	//========== ステージカウント用 ========
+
+	Math::Vector2 m_pos2 = CntPosList[1];
+
+	Object newBlock2;
+	newBlock2.m_pos = { m_pos2.x,m_pos2.y };
+	newBlock2.m_scale = 1.5f;
+	newBlock2.m_rect = { 64,64,64,64 };
+	newBlock2.m_tex = Cnt.m_tex;
+
+	m_CntList.push_back(newBlock2);
+
+	//======================================
+
+
+	StageClearTimer = 30;  //ステージクリア演出用タイマーを初期化
 }
 
-void C_Count::Stage3Action()
+void C_Count::HardStage3Init()
 {
-	C_Enemy* enemy = SCENE.GetEnemy();
-
-	C_GameScreen* gamescreen = SCENE.GetGameScreen();
-
-	int aliveCount = enemy->GetAliveCount(); // 生存数を取得
-
-	// 生存数に応じて表示を切り替え
-	switch (aliveCount) {
-
-	case 2:
-		m_CntList[0].m_rect = { 128, 0, 64, 64 }; // 2の画像
-		break;
-	case 1:
-		m_CntList[0].m_rect = { 64, 0, 64, 64 }; // 1の画像
-		break;
-	case 0:
-		m_CntList[0].m_rect = { 0, 0, 64, 64 }; //case 0はクリア表示
-		if (SCENE.GetEnemy()->GetAliveCount() == 0) {
-			// ここでステージクリアの演出タイマーを動かす
-			StageClearTimer--;
-			if (StageClearTimer < 0 && gamescreen->GetGameOverFlg() == false) {
-				gamescreen->SetStageClearFlg(true);
-			}
-		}
-		break;
-	}
+	
 }
 
-void C_Count::Stage4Action()
+void C_Count::HardStage4Init()
+{
+
+}
+
+void C_Count::Action()
 {
 	C_Enemy* enemy = SCENE.GetEnemy();
 

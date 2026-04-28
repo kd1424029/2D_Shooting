@@ -155,6 +155,34 @@ void C_GameScreenBlock::Stage4Init()
 	m_BlockList.push_back(newBlock6);
 }
 
+void C_GameScreenBlock::HardStage2Init()
+{
+	m_BlockList.clear();
+
+	//配置したい座標のリスト
+	vector<Math::Vector2> BlockPosList = {
+	{(64.0f * 8.0f) - 640,(-64.0f * 6.0f) + 360},
+	};
+
+	Math::Vector2 m_pos1 = BlockPosList[0];
+
+	Object newBlock;
+	newBlock.m_pos = { m_pos1.x , m_pos1.y };
+	newBlock.m_scale = 1.0f;
+
+	newBlock.m_move.x = 2;   //移動スピード
+	newBlock.m_move.y = 2;   //移動スピード
+
+	newBlock.m_MoveState = 0;
+
+	newBlock.m_radiusX = 32.0f;
+	newBlock.m_radiusY = 64.0f;
+
+	newBlock.m_rect = { 128,0,64,128 };
+	newBlock.m_tex = Block.m_tex;
+
+	m_BlockList.push_back(newBlock);
+}
 
 void C_GameScreenBlock::Action()
 {
@@ -239,6 +267,51 @@ void C_GameScreenBlock::Stage4Action()
 					break;
 				}
 			}
+		}
+	}
+}
+
+void C_GameScreenBlock::HardStage2Action()
+{
+	C_GameScreen* gamescreen = SCENE.GetGameScreen();
+
+	if (gamescreen->GetGameStartFlg() == true && gamescreen->GetGameOverFlg() == false && gamescreen->GetStageClearFlg() == false)
+	{
+
+		for (int i = 0; i < m_BlockList.size(); i++)
+		{
+
+			auto& block = m_BlockList[i];
+
+			ObjectPlayerHit(&block);
+
+			switch (block.m_MoveState)
+			{
+			case 0: //上移動
+
+				if (block.m_pos.y < 90)
+				{
+					block.m_pos.y += block.m_move.y;
+				}
+				else
+				{
+					block.m_MoveState = 1;
+				}
+				break;
+
+			case 1:  //下移動
+
+				if (block.m_pos.y > -60)
+				{
+					block.m_pos.y -= block.m_move.y;
+				}
+				else
+				{
+					block.m_MoveState = 0;
+				}
+				break;
+			}
+
 		}
 	}
 }
@@ -331,18 +404,18 @@ bool C_GameScreenBlock::ObjectBulletHit(float bulletX, float bulletY)
 		float BlockTop = block.m_pos.y + block.m_radiusY;
 		float BlockBottom = block.m_pos.y - block.m_radiusY;
 
-		// 重なっていなければスキップ
+		//重なっていなければスキップ
 		if (BulletLeft >= BlockRight || BulletRight <= BlockLeft ||
 			BulletBottom >= BlockTop || BulletTop <= BlockBottom)
 		{
-			continue; // ← return ではなく continue（次のブロックへ）
+			continue; //return ではなくcontinueで次のブロックへ
 		}
 
-		// 当たっていた
-		return true; // ← 呼び出し側でエフェクト・弾消滅を行う
+		//当たっていた
+		return true; //呼び出し側でエフェクト、弾消滅を行う
 	}
 
-	return false; // どのブロックにも当たらなかった
+	return false; //どのブロックにも当たらなかった
 }
 
 

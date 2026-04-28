@@ -16,10 +16,21 @@ public:
 	void Stage3Init();
 	void Stage4Init();
 
+	void HardStage1Init();
+	void HardStage2Init();
+	void HardStage3Init();
+	void HardStage4Init();
+
+	//“G‚ÌˆÚ“®‚·‚é—Ê‚ªˆá‚¤‚½‚ß•ª‚¯‚é
 	void Stage1Action();
 	void Stage2Action();
 	void Stage3Action();
 	void Stage4Action();
+
+	void HardStage1Action();
+	void HardStage2Action();
+	void HardStage3Action();
+	void HardStage4Action();
 
 	void Update();
 

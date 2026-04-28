@@ -18,6 +18,14 @@ public:
 
 	void Stage4Action();
 
+	void HardStage1Action();
+
+	void HardStage2Action();
+
+	void HardStage3Action();
+
+	void HardStage4Action();
+
 	void Update();
 
 	void Draw();

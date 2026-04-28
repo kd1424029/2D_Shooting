@@ -9,7 +9,7 @@ void Scene::Draw2D()
 
 		m_gameScreen.SceneTransitionDraw();
 
-		return; // 描画をスキップして真っ暗にする
+		return; //描画をスキップして真っ暗にする
 	}
 
 	//各シーンの描画処理
@@ -46,6 +46,27 @@ void Scene::Draw2D()
 
 		break;
 
+	case SceneType::HardStage1:
+
+		DrawStage();
+
+		break;
+
+	case SceneType::HardStage2:
+
+		DrawBlockStage();
+
+		break;
+
+	case SceneType::HardStage3:
+;
+
+		break;
+
+	case SceneType::HardStage4:
+
+		break;
+
 	case SceneType::GameOverResult:
 
 		m_result.Draw();
@@ -54,13 +75,15 @@ void Scene::Draw2D()
 
 	case SceneType::ClearResult:
 
+		m_result.GameClearDraw();
+
 		break;
 	}
 }
 
 void Scene::Update()
 {
-
+	//============== デバッグキー =======================
 	if (GetAsyncKeyState('M') & 0x0001)
 	{
 		AnimationScene = Title;
@@ -79,8 +102,17 @@ void Scene::Update()
 	}
 	if (GetAsyncKeyState('4') & 0x0001)
 	{
+		AnimationScene = Stage4;
+	}
+	if (GetAsyncKeyState('5') & 0x0001)
+	{
+		AnimationScene = ClearResult;
+	}
+	if (GetAsyncKeyState('6') & 0x0001)
+	{
 		AnimationScene = GameOverResult;
 	}
+	//====================================================
 
 	//各シーンの描画処理
 	switch (AnimationScene) {
@@ -102,9 +134,7 @@ void Scene::Update()
 		m_enemy.Stage1Action();
 		
 		m_gameScreen.Stage1Action();
-		
-		m_count.Stage1Action();
-		
+	
 		break;
 
 	case SceneType::Stage2:
@@ -118,8 +148,6 @@ void Scene::Update()
 		
 		m_gameScreen.Stage2Action();
 		
-		m_count.Stage2Action();
-	
 		break;
 
 	case SceneType::Stage3:
@@ -130,8 +158,6 @@ void Scene::Update()
 		
 		m_gameScreen.Stage3Action();
 		
-		m_count.Stage3Action();
-
 		m_block.Action();
 
 		m_player.Update();
@@ -148,13 +174,48 @@ void Scene::Update()
 
 		m_gameScreen.Stage4Action();
 
-		m_count.Stage4Action();
-
 		m_block.Stage4Action();
 
 		m_player.Update();
 
 		m_block.Update();
+
+		break;
+
+	case SceneType::HardStage1:
+
+		CommonUpdate();
+
+		m_enemy.HardStage1Action();
+
+		m_gameScreen.HardStage1Action();
+
+		m_player.Update();
+
+		break;
+
+	case SceneType::HardStage2:
+
+		CommonUpdate();
+
+		m_enemy.HardStage2Action();
+
+		m_gameScreen.HardStage2Action();
+
+		m_block.HardStage2Action();
+
+		m_player.Update();
+
+		m_block.Update();
+
+		break;
+
+	case SceneType::HardStage3:
+		;
+
+		break;
+
+	case SceneType::HardStage4:
 
 		break;
 
@@ -168,12 +229,19 @@ void Scene::Update()
 
 	case SceneType::ClearResult:
 
+		m_result.GameClearAction();
+
+		m_result.Update();
+
+		m_timer.Update();
+
 		break;
 	}
 
 	//================ シーン遷移の初期化関係処理 ===================
-	if (PrevScene != AnimationScene) {
-		waitFrame = 5;
+	if (PrevScene != AnimationScene) 
+	{
+		waitFrame = 5; //初期化直後の数フレームは描画させないためのコードで使ってる変数
 		StageInit(AnimationScene);
 		PrevScene = AnimationScene;
 	}
@@ -198,6 +266,7 @@ void Scene::CommonUpdate()
 	m_timer.Action();
 	m_timer.Update();
 
+	m_count.Action();
 	m_count.Update();
 
 	m_effectManager.Update();
@@ -334,6 +403,47 @@ void Scene::StageInit(SceneType NowStage)
 
 		break;
 
+	case SceneType::HardStage1:
+
+		StageTexture();
+
+		CommonHardInit();
+
+		m_player.Init();
+
+		m_enemy.HardStage1Init();
+
+		m_timer.Stage1Init();//ステージ1のときだけ初期化する関数
+
+		m_count.HardStage1Init();
+
+		break;
+
+	case SceneType::HardStage2:
+
+		StageBlockTexture();
+
+		CommonHardInit();
+
+		m_player.HardSrage2Init();
+
+		m_enemy.HardStage2Init();
+
+		m_count.HardStage2Init();
+
+		m_block.HardStage2Init();
+
+		break;
+
+	case SceneType::HardStage3:
+		;
+
+		break;
+
+	case SceneType::HardStage4:
+
+		break;
+
 	case SceneType::GameOverResult:
 
 		LoadResultTexture();
@@ -343,6 +453,12 @@ void Scene::StageInit(SceneType NowStage)
 		break;
 
 	case SceneType::ClearResult:
+
+		LoadResultTexture();
+
+		m_result.GameClearInit();
+
+		m_timer.GameClearInit();
 
 		break;
 	}
@@ -364,6 +480,24 @@ void Scene::CommonInit()
 	m_timer.Init();
 
 	m_effectManager.Init(&bulletEffectTex);
+
+	m_block.Clear();
+}
+
+void Scene::CommonHardInit()
+{
+
+	m_playerBullet.Init();
+
+	m_enemyBullet.HardInit();
+
+	m_gameScreen.Init();
+
+	m_timer.Init();
+
+	m_effectManager.Init(&bulletEffectTex);
+
+	m_block.Clear();
 }
 
 //==========================================================
@@ -390,8 +524,6 @@ void Scene::StageTexture()
 
 	bulletEffectTex.Load("Texture/Effect/Effect.png");
 
-	blockTex.Load("Texture/Screen/GameScreenBlock.png");
-
 	m_player.SetTex(&playerTex);
 
 	m_playerBullet.SetTex(&bulletTex);
@@ -413,8 +545,6 @@ void Scene::StageTexture()
 	m_enemyBullet.SetTex(&bulletTex);
 
 	m_count.SetTex(&countTex);
-
-	m_block.SetTex(&blockTex);
 }
 
 void Scene::StageBlockTexture()
@@ -482,6 +612,10 @@ void Scene::LoadTitleTexture()
 
 	m_title.SetTitleSceneTransitionTex(&sceneTransitionTex);
 
+	m_title.SetTitleModeTex(&gameUiTex);
+
+	m_title.SetTitleModeUITex(&gameUiTex);
+
 	m_title.SetObjectStarTex(&bulletEffectTex);
 
 	m_title.SetObjectDiamondTex(&bulletEffectTex);
@@ -504,6 +638,8 @@ void Scene::LoadResultTexture()
 	m_result.SetResultSceneBackTex(&gameUiTex);
 
 	m_result.SetResultSceneTransitionTex(&sceneTransitionTex);
+
+	m_result.SetResultTimeTex(&gameUiTex);
 
 	m_result.SetObjectResultStarTex(&bulletEffectTex);
 
@@ -619,6 +755,25 @@ void Scene::ReleaseTexture(SceneType NowStage)
 
 		break;
 
+	case SceneType::HardStage1:
+
+
+		break;
+
+	case SceneType::HardStage2:
+
+
+		break;
+
+	case SceneType::HardStage3:
+		;
+
+		break;
+
+	case SceneType::HardStage4:
+
+		break;
+
 	case SceneType::GameOverResult:
 
 		bulletEffectTex.Release();
@@ -630,6 +785,12 @@ void Scene::ReleaseTexture(SceneType NowStage)
 		break;
 
 	case SceneType::ClearResult:
+
+		bulletEffectTex.Release();
+
+		gameScreenTex.Release();
+
+		gameUiTex.Release();
 
 		break;
 

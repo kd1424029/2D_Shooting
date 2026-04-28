@@ -11,6 +11,8 @@ public:
 
 	void Init();
 
+	void HardInit();
+
 	void Action();
 
 	void Update();
@@ -43,6 +45,8 @@ private:
 	float EnemyBulletMoveX[EnemyBulletNum];
 	float EnemyBulletMoveY[EnemyBulletNum];
 	float EnemyBulletAlive[EnemyBulletNum]; //生存状態
+
+	float EnemyBulletSpeed;
 
 	KdTexture* m_tex;			//画像のポインタ
 	Math::Matrix m_scaleMat[EnemyBulletNum];	//拡大行列

@@ -20,13 +20,15 @@ public:
 	void Draw();
 
 	//=========== ゲッター =================
-	
+	bool GetTitleModeFlg() { return TitleModeFlg; }
 
 	//=========== セッター =================
 	void SetTitleNameTex(KdTexture* tex) { TitleName.m_tex = tex; }
 	void SetTitleBackTex(KdTexture* tex) { TitleBack.m_tex = tex; }
 	void SetTitleStartTex(KdTexture* tex) { TitleStart.m_tex = tex; }
 	void SetTitleSceneTransitionTex(KdTexture* tex) { TitleSceneTransition.m_tex = tex; }
+	void SetTitleModeTex(KdTexture* tex) { TitleMode.m_tex = tex; }
+	void SetTitleModeUITex(KdTexture* tex) { TitleModeUI.m_tex = tex; }
 
 	void SetObjectStarTex(KdTexture* tex) { ObjectStar.m_tex = tex; }
 	void SetObjectDiamondTex(KdTexture* tex) { ObjectDiamond.m_tex = tex; }
@@ -47,7 +49,14 @@ private:
 
 	bool TitleStartFlg;
 
+	bool TitleModeFlg;
+
+	bool m_prevEnterKey;
+
 	//計算後に二度と使わないから構造体に入れない
 	float angle;  //移動する角度
 	float angle2;  //移動する角度
+	float angle3;  //移動する角度
+
+	int NowPick;
 };

@@ -16,10 +16,12 @@ public:
 	void Stage3Init();
 	void Stage4Init();
 
-	void Stage1Action();
-	void Stage2Action();
-	void Stage3Action();
-	void Stage4Action();
+	void HardStage1Init();
+	void HardStage2Init();
+	void HardStage3Init();
+	void HardStage4Init();
+
+	void Action();
 
 	void Update();
 

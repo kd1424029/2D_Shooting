@@ -19,7 +19,11 @@ enum SceneType
 	Stage2,             //ステージ2
 	Stage3,             //ステージ3
 	Stage4,             //ステージ4
-	GameOverResult,	            //リザルト
+	HardStage1,         //ハードステージ１
+	HardStage2,			//ハードステージ2
+	HardStage3,			//ハードステージ3
+	HardStage4,         //ハードステージ4
+	GameOverResult,		//リザルト
 	ClearResult,	    //リザルト
 	
 };
@@ -87,6 +91,8 @@ public:
 
 	void CommonInit();                     //各ステージの共通初期化
 
+	void CommonHardInit();                     //各ステージの共通初期化
+
 	void StageTexture();
 
 	void StageBlockTexture();
@@ -129,6 +135,8 @@ public:
 	C_GameScreenBlock* GetGameScreenBlock() { return &m_block; }
 
 	C_Timer* GetTimer() { return &m_timer; }
+
+	C_Title* GetTitle() { return &m_title; }
 
 	C_CharaBase* GetCharaBase() { return &m_charaBase; }
 

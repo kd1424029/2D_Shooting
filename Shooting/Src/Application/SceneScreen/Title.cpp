@@ -11,6 +11,9 @@ void C_Title::Init()
 	{(64.0f * 10.0f) - 640,(-64.0f * 2.5f) + 360},
 	{(64.0f * 10.0f) - 640,(-64.0f * 7.0f) + 360},
 	{0.0f, 0.0f},
+	{ (64.0f * 12.5f) - 640, (-64.0f * 9.0f) + 360 },
+	{(64.0f * 8.4f) - 640,(-64.0f * 9.0f) + 360},
+	{(64.0f * 9.9f) - 640,(-64.0f * 8.83f) + 360},
 	};
 
 
@@ -70,6 +73,49 @@ void C_Title::Init()
 
 	//=======================================
 
+	//============= モード ==================
+	Math::Vector2 m_pos5 = TitlePosList[4];
+
+	ObjectParam newBlock5;
+	newBlock5.m_pos = { m_pos5.x , m_pos5.y };
+	newBlock5.m_scale = 2.0f;
+	newBlock5.m_alpha = 1.0f;
+	newBlock5.m_rect = { 704, 64, 192, 64 };
+	newBlock5.m_tex = TitleMode.m_tex;
+
+	TitleModeFlg = false;
+
+	m_TitleList.push_back(newBlock5);
+	//=======================================
+
+	//============= ゲームモードUI ==================
+	Math::Vector2 m_pos6 = TitlePosList[5];
+
+	ObjectParam newBlock6;
+	newBlock6.m_pos = { m_pos6.x , m_pos6.y };
+	newBlock6.m_scale = 2.0f;
+	newBlock6.m_alpha = 1.0f;
+	newBlock6.m_addAlpha = 0.02f;
+	newBlock6.m_rect = { 576,64,128,64 };
+	newBlock6.m_tex = TitleModeUI.m_tex;
+
+	m_TitleList.push_back(newBlock6);
+	//=======================================
+
+	//============= コロン ==================
+	Math::Vector2 m_pos7 = TitlePosList[6];
+
+	ObjectParam newBlock7;
+	newBlock7.m_pos = { m_pos7.x , m_pos7.y };
+	newBlock7.m_scale = 2.5f;
+	newBlock7.m_alpha = 1.0f;
+	newBlock7.m_addAlpha = 0.02f;
+	newBlock7.m_rect = { 768,128,64,64 };
+	newBlock7.m_tex = TitleModeUI.m_tex;
+
+	m_TitleList.push_back(newBlock7);
+	//=======================================
+
 	//============= オブジェクト系 =============
 	m_ObjectList.clear();
 
@@ -120,7 +166,7 @@ void C_Title::Init()
 
 		//ランダムな移動方向
 		angle2 = (float)(rand() % 360) * (3.14159f / 180.0f);
-		object2.m_moveDir = { cosf(angle), sinf(angle) };
+		object2.m_moveDir = { cosf(angle2), sinf(angle2) };
 
 		// ランダムな回転速度
 		object2.m_addRot = (float)(rand() % 5 + 1) * 0.01f;
@@ -148,8 +194,8 @@ void C_Title::Init()
 		object3.m_color = { red, green, blue, 1.0f };
 
 		//ランダムな移動方向
-		angle = (float)(rand() % 360) * (3.14159f / 180.0f);
-		object3.m_moveDir = { cosf(angle), sinf(angle) };
+		angle3 = (float)(rand() % 360) * (3.14159f / 180.0f);
+		object3.m_moveDir = { cosf(angle3), sinf(angle3) };
 
 		// ランダムな回転速度
 		object3.m_addRot = (float)(rand() % 5 + 1) * 0.01f;
@@ -159,11 +205,26 @@ void C_Title::Init()
 		m_ObjectList.push_back(object3);
 	}
 	//======================================
+
+	NowPick = 0;//現在の選択位置
+
+	m_prevEnterKey = false;
 }
 
 void C_Title::Action()
 {
-	if (GetAsyncKeyState(VK_RETURN) & 0x8000 && TitleStartFlg == true)
+
+	if (GetAsyncKeyState(VK_UP) & 0x0001)
+	{
+		NowPick = 0;
+	}
+
+	if (GetAsyncKeyState(VK_DOWN) & 0x0001)
+	{
+		NowPick = 1;
+	}
+
+	if (GetAsyncKeyState(VK_RETURN) & 0x8000 && TitleStartFlg == true && NowPick == 0)
 	{
 		SceneFlg = true;
 	}
@@ -173,7 +234,7 @@ void C_Title::Action()
 	{
 		auto& title = m_TitleList[i];
 
-		if (i == 2)
+		if (i == 2 && NowPick == 0)
 		{
 			title.m_alpha += title.m_addAlpha;
 
@@ -183,14 +244,18 @@ void C_Title::Action()
 				title.m_addAlpha *= -1;
 			}
 
-			else if (title.m_alpha <= 0.0f)
+			else if (title.m_alpha <= 0.3f)
 			{
-				title.m_alpha = 0.0f;
+				title.m_alpha = 0.3f;
 				title.m_addAlpha *= -1;
 			}
 		}
+		else if(i == 2 && NowPick == 1)
+		{
+			title.m_alpha = 1.0f;
+		}
 
-		if (i == 3 && SceneFlg == true)
+		if (i == 3 && SceneFlg == true && NowPick == 0)
 		{
 			title.m_alpha += title.m_addAlpha;
 
@@ -198,7 +263,14 @@ void C_Title::Action()
 			{
 				SceneFlg = false;
 
-				SCENE.SetAnimationScene(SceneType::Stage1); //ステージ1へ遷移
+				if (TitleModeFlg == false)
+				{
+					SCENE.SetAnimationScene(SceneType::Stage1); //ステージ1へ遷移
+				}
+				else if(TitleModeFlg == true)
+				{
+					SCENE.SetAnimationScene(SceneType::HardStage1); //ハードステージ1へ遷移
+				}
 			}
 
 		}
@@ -214,6 +286,51 @@ void C_Title::Action()
 			}
 		}
 
+		if (i == 4 && NowPick == 1)
+		{
+			//キーエッジ検出（毎フレーム1回だけ行う)
+			bool enterDown = (GetAsyncKeyState(VK_RETURN) & 0x8000) != 0;
+			bool enterTriggered = enterDown && !m_prevEnterKey;  //押した瞬間だけ true
+			m_prevEnterKey = enterDown;                          //今フレームの状態を保存
+
+			//条件チェック
+			if (enterTriggered && TitleStartFlg && NowPick == 1)
+			{
+				if (!TitleModeFlg)
+				{
+					title.m_pos = { (64.0f * 11.9f) - 640, (-64.0f * 9.0f) + 360 };
+					title.m_rect = { 768, 0, 128, 64 };
+					TitleModeFlg = true;
+				}
+				else
+				{
+					title.m_pos = { (64.0f * 12.5f) - 640, (-64.0f * 9.0f) + 360 };
+					title.m_rect = { 704, 64, 192, 64 };
+					TitleModeFlg = false;
+				}
+			}
+		}
+
+		if (i == 5 && NowPick == 1)
+		{
+			title.m_alpha += title.m_addAlpha;
+
+			if (title.m_alpha > 1.0f)
+			{
+				title.m_alpha = 1.0f;
+				title.m_addAlpha *= -1.0;
+			}
+
+			else if (title.m_alpha <= 0.3f)
+			{
+				title.m_alpha = 0.3f;
+				title.m_addAlpha *= -1.0;
+			}
+		}
+		else if (i == 5 && NowPick == 0)
+		{
+			title.m_alpha = 1.0f;
+		}
 	}
 
 	//============ Object関連 =====================

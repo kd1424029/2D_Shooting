@@ -60,7 +60,7 @@ void C_BulletEffect::Draw()
 
 float C_BulletEffect::Rnd()
 {
-	return 0.0f;
+	return rand() / (float)RAND_MAX;
 }
 
 void C_BulletEffect::Emit(Math::Vector2 a_pos, Math::Vector2 a_move, float a_size, Math::Color a_color, int a_lifeapan, bool a_bRepeat)

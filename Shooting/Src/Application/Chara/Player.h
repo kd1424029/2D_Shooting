@@ -9,6 +9,7 @@ public:
 	~C_Player() {}
 
 	void Init();
+	void HardSrage2Init();
 
 	void Action();
 
@@ -53,20 +54,20 @@ private:
 	// ↑キー用
 	bool m_NowKeyUp= false;
 	bool m_BeforeKeyUp = false;
-	bool m_RectUpFlg = false;     //Rect切り替えフラグ (Bulletクラスで必要)
+	bool m_RectUpFlg = false;        //Rect切り替えフラグ (PlayerBulletクラスで必要)
 	// →キー用
 	bool m_NowKeyRight = false;
 	bool m_BeforeKeyRight = false;
-	bool m_RectRightFlg = false;     //Rect切り替えフラグ (Bulletクラスで必要)
+	bool m_RectRightFlg = false;     //Rect切り替えフラグ (PlayerBulletクラスで必要)
 
 	// ↓キー用
 	bool m_NowKeyDown = false;
 	bool m_BeforeKeyDown = false;
-	bool m_RectDownFlg = false;     //Rect切り替えフラグ (Bulletクラスで必要)
+	bool m_RectDownFlg = false;     //Rect切り替えフラグ (PlayerBulletクラスで必要)
 	// ←キー用
 	bool m_NowKeyLeft = false;
 	bool m_BeforeKeyLeft = false;
-	bool m_RectLeftFlg = false;     //Rect切り替えフラグ (Bulletクラスで必要)
+	bool m_RectLeftFlg = false;     //Rect切り替えフラグ (PlayerBulletクラスで必要)
 
 
 	float GameOverTimer;   //プレイヤーが死んですぐ演出しないようにするためのタイマー

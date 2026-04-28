@@ -13,13 +13,37 @@ void C_EnemyBullet::Init()
 		EnemyBulletRadiusX[i] = 8;
 		EnemyBulletRadiusY[i] = 8;
 
-		EnemyBulletMoveX[i] = 3;
-		EnemyBulletMoveY[i] = 3;
+		EnemyBulletMoveX[i] = 0;
+		EnemyBulletMoveY[i] = 0;
 
 		EnemyBulletRect[i] = { 16,0,16,16 };
 
 		EnemyBulletHomingCnt[i] = 0;
 	}
+
+	EnemyBulletSpeed = 0;
+}
+
+void C_EnemyBullet::HardInit()
+{
+	for (int i = 0; i < EnemyBulletNum; i++)
+	{
+		EnemyBulletX[i] = 0;
+		EnemyBulletY[i] = 0;
+
+		EnemyBulletAlive[i] = false;
+
+		EnemyBulletRadiusX[i] = 8;
+		EnemyBulletRadiusY[i] = 8;
+
+		EnemyBulletMoveX[i] = 0;
+		EnemyBulletMoveY[i] = 0;
+
+		EnemyBulletRect[i] = { 16,0,16,16 };
+
+		EnemyBulletHomingCnt[i] = 0;
+	}
+	EnemyBulletSpeed = 0;
 }
 
 void C_EnemyBullet::Action()
@@ -31,6 +55,8 @@ void C_EnemyBullet::Action()
 	C_CharaBase* charabase = SCENE.GetCharaBase();
 
 	C_GameScreen* gamescreen = SCENE.GetGameScreen();
+
+	C_Title* title = SCENE.GetTitle();
 
 	//ステージクリアフラグが立っていないときかつスタートフラグが立っているときかつ
 	//ゲームオーバーフラグが立っていないときかつプレイヤーが生存しているとき敵の弾の更新を受け付ける
@@ -100,8 +126,8 @@ void C_EnemyBullet::Action()
 						if (EnemyBulletAlive[EnemyBullet] == false && Enemy[enemy].m_alive == true)
 						{
 							//弾を銃器の前から出るようにする
-							EnemyBulletX[EnemyBullet] = Enemy[enemy].m_pos.x + Enemy[enemy].m_radius.x;
-							EnemyBulletY[EnemyBullet] = Enemy[enemy].m_pos.y;
+							EnemyBulletX[EnemyBullet] = Enemy[enemy].m_pos.x;
+							EnemyBulletY[EnemyBullet] = Enemy[enemy].m_pos.y - Enemy[enemy].m_radius.y;
 							EnemyBulletAlive[EnemyBullet] = true;
 
 							EnemyBulletRect[EnemyBullet] = { 48,0,16,16 };
@@ -157,8 +183,17 @@ void C_EnemyBullet::Action()
 					//atan2を使って、プレイヤーがいる方向の角度を求める
 					float EnemyBulletAngle = atan2f(DistanceY, DistanceX);
 
-					//弾のスピード(固定値)を決める
-					float EnemyBulletSpeed = 2.0f;
+					if (title->GetTitleModeFlg() == false)
+					{
+						//弾のスピード(固定値)を決める
+						EnemyBulletSpeed = 2.0f;
+					}
+
+					if (title->GetTitleModeFlg() == true)
+					{
+						//弾のスピード(固定値)を決める
+						EnemyBulletSpeed = 3.0f;
+					}
 
 					//角度から新しい移動量を計算する
 					EnemyBulletMoveX[i] = cosf(EnemyBulletAngle) * EnemyBulletSpeed;

@@ -45,14 +45,20 @@ protected:
 	ObjectParam TitleStart;
 	ObjectParam TitleBack;
 	ObjectParam TitleSceneTransition;
+	ObjectParam TitleMode;
+	ObjectParam TitleModeUI;
+
 	ObjectParam ObjectStar;
 	ObjectParam ObjectDiamond;
 	ObjectParam ObjectCircle;
 	ObjectParam ObjectResultStar;
 	ObjectParam ObjectResultDiamond;
 	ObjectParam ObjectResultCircle;
+
 	ObjectParam ResultBack;
 	ObjectParam ResultGameOver;
 	ObjectParam ResultSceneBack;
 	ObjectParam ResultSceneTransition;
+	ObjectParam ResultTime;
+	
 };

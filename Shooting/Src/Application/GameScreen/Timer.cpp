@@ -84,7 +84,6 @@ void C_Timer::Init()
 	m_TimerList[3].m_rect = { ((long)(Seconds % 10) * 64), 0, 64, 64 };
 
 	//============= Colon用 ===============
-
 	Colon.m_pos.x = (64.0f * 18.3f) - 640;
 	Colon.m_pos.y = (-64.0f * 9.0f) + 360;
 
@@ -101,6 +100,85 @@ void C_Timer::Init()
 	TimerDigitCnt = 0;
 
 	//===================================
+}
+
+void C_Timer::GameClearInit()
+{
+	//============= タイマー用 ===========
+
+	m_TimerList.clear();
+
+	//配置したい座標のリスト
+	vector<Math::Vector2> TimerPosList = {
+	{(64.0f * 13.1f) - 640,(-64.0f * 6.5f) + 360},
+	{(64.0f * 13.7f) - 640,(-64.0f * 6.5f) + 360},
+	{(64.0f * 14.7f) - 640,(-64.0f * 6.5f) + 360},
+	{(64.0f * 15.3f) - 640,(-64.0f * 6.5f) + 360},
+	};
+
+	Math::Vector2 m_pos1 = TimerPosList[0];
+
+	Object newBlock;
+	newBlock.m_pos = { m_pos1.x , m_pos1.y };
+	newBlock.m_scale = 1.7f;
+	newBlock.m_rect = { 0,0,64,64 };
+	newBlock.m_tex = Timer.m_tex;
+
+	m_TimerList.push_back(newBlock);
+
+
+	Math::Vector2 m_pos2 = TimerPosList[1];
+
+	Object newBlock2;
+	newBlock2.m_pos = { m_pos2.x,m_pos2.y };
+	newBlock2.m_scale = 1.7f;
+	newBlock2.m_rect = { 0,0,64,64 };
+	newBlock2.m_tex = Timer.m_tex;
+
+	m_TimerList.push_back(newBlock2);
+
+	Math::Vector2 m_pos3 = TimerPosList[2];
+
+	Object newBlock3;
+	newBlock3.m_pos = { m_pos3.x,m_pos3.y };
+	newBlock3.m_scale = 1.7f;
+	newBlock3.m_rect = { 0,0,64,64 };
+	newBlock3.m_tex = Timer.m_tex;
+
+	m_TimerList.push_back(newBlock3);
+
+	Math::Vector2 m_pos4 = TimerPosList[3];
+
+	Object newBlock4;
+	newBlock4.m_pos = { m_pos4.x,m_pos4.y };
+	newBlock4.m_scale = 1.7f;
+	newBlock4.m_rect = { 0,0,64,64 };
+	newBlock4.m_tex = Timer.m_tex;
+
+	m_TimerList.push_back(newBlock4);
+
+	//=====================================
+
+	int Seconds = (int)ElapsedTime % 60;
+	int Minutes = (int)ElapsedTime / 60;
+
+	m_TimerList[0].m_rect = { ((long)((Minutes / 10) % 10) * 64), 0, 64, 64 };
+	m_TimerList[1].m_rect = { ((long)(Minutes % 10) * 64), 0, 64, 64 };
+	m_TimerList[2].m_rect = { ((long)((Seconds / 10) % 10) * 64), 0, 64, 64 };
+	m_TimerList[3].m_rect = { ((long)(Seconds % 10) * 64), 0, 64, 64 };
+
+	//============= Colon用 ===============
+
+	Colon.m_pos.x = (64.0f * 14.2f) - 640;
+	Colon.m_pos.y = (-64.0f * 6.5f) + 360;
+
+	Colon.m_scale = 0.5f;
+
+	Colon.m_rect = { 640,0,64,128 };
+
+	Colon.m_tex = Timer.m_tex;
+
+	//=====================================
 }
 
 void C_Timer::Action()
@@ -162,29 +240,23 @@ void C_Timer::Update()
 {
 	C_GameScreen* gameScreen = SCENE.GetGameScreen();
 
-	//ステージクリアフラグが立っていないときのみタイマーの更新を受け付ける
-	if (gameScreen->GetStageClearFlg() == false)
+	//============= タイマー用 ===========
+	for (auto& timer : m_TimerList)
 	{
-
-		//============= タイマー用 ===========
-
-		for (auto& timer : m_TimerList)
-		{
-			timer.m_transMat = Math::Matrix::CreateTranslation(timer.m_pos.x, timer.m_pos.y, 0);
-			timer.m_scaleMat = Math::Matrix::CreateScale(timer.m_scale, timer.m_scale, 0);
-			timer.m_mat = timer.m_scaleMat * timer.m_transMat;
-		}
-
-		//===================================
-
-		//============= Colon用 =============
-
-		Colon.m_transMat = Math::Matrix::CreateTranslation(Colon.m_pos.x, Colon.m_pos.y, 0);
-		Colon.m_scaleMat = Math::Matrix::CreateScale(Colon.m_scale, Colon.m_scale, 0);
-		Colon.m_mat = Colon.m_scaleMat * Colon.m_transMat;
-
-		//===================================
+		timer.m_transMat = Math::Matrix::CreateTranslation(timer.m_pos.x, timer.m_pos.y, 0);
+		timer.m_scaleMat = Math::Matrix::CreateScale(timer.m_scale, timer.m_scale, 0);
+		timer.m_mat = timer.m_scaleMat * timer.m_transMat;
 	}
+
+	//===================================
+
+	//============= Colon用 =============
+	Colon.m_transMat = Math::Matrix::CreateTranslation(Colon.m_pos.x, Colon.m_pos.y, 0);
+	Colon.m_scaleMat = Math::Matrix::CreateScale(Colon.m_scale, Colon.m_scale, 0);
+	Colon.m_mat = Colon.m_scaleMat * Colon.m_transMat;
+
+	//===================================
+
 }
 
 void C_Timer::Draw()

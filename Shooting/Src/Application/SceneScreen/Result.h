@@ -16,9 +16,13 @@ public:
 
 	void Action();
 
+	void GameClearAction();
+
 	void Update();
 
 	void Draw();
+
+	void GameClearDraw();
 
 	//=========== ゲッター =================
 
@@ -28,6 +32,7 @@ public:
 	void SetResultGameOverTex(KdTexture* tex) { ResultGameOver.m_tex = tex; }
 	void SetResultSceneBackTex(KdTexture* tex) { ResultSceneBack.m_tex = tex; }
 	void SetResultSceneTransitionTex(KdTexture* tex) { ResultSceneTransition.m_tex = tex; }
+	void SetResultTimeTex(KdTexture* tex) { ResultTime.m_tex = tex; }
 
 	void SetObjectResultStarTex(KdTexture* tex) { ObjectResultStar.m_tex = tex; }
 	void SetObjectResultDiamondTex(KdTexture* tex) { ObjectResultDiamond.m_tex = tex; }
@@ -50,4 +55,5 @@ private:
 	//計算後に二度と使わないから構造体に入れない
 	float angle;  //移動する角度
 	float angle2;  //移動する角度
+	float angle3;  //移動する角度
 };
