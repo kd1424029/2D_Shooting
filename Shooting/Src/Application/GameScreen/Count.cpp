@@ -158,7 +158,7 @@ void C_Count::Stage4Init()
 	Object newBlock2;
 	newBlock2.m_pos = { m_pos2.x,m_pos2.y };
 	newBlock2.m_scale = 1.5f;
-	newBlock2.m_rect = { 0,64,64,64 };
+	newBlock2.m_rect = { 192,64,64,64 };
 	newBlock2.m_tex = Cnt.m_tex;
 
 	m_CntList.push_back(newBlock2);

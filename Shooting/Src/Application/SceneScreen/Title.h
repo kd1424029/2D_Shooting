@@ -29,6 +29,7 @@ public:
 	void SetTitleSceneTransitionTex(KdTexture* tex) { TitleSceneTransition.m_tex = tex; }
 	void SetTitleModeTex(KdTexture* tex) { TitleMode.m_tex = tex; }
 	void SetTitleModeUITex(KdTexture* tex) { TitleModeUI.m_tex = tex; }
+	void SetTitlePickUITex(KdTexture* tex) { TitlePickUI.m_tex = tex; }
 
 	void SetObjectStarTex(KdTexture* tex) { ObjectStar.m_tex = tex; }
 	void SetObjectDiamondTex(KdTexture* tex) { ObjectDiamond.m_tex = tex; }

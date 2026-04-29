@@ -14,6 +14,7 @@ void C_Title::Init()
 	{ (64.0f * 12.5f) - 640, (-64.0f * 9.0f) + 360 },
 	{(64.0f * 8.4f) - 640,(-64.0f * 9.0f) + 360},
 	{(64.0f * 9.9f) - 640,(-64.0f * 8.83f) + 360},
+	{(64.0f * 10.0f) - 640,(-64.0f * 7.0f) + 360},
 	};
 
 
@@ -114,6 +115,19 @@ void C_Title::Init()
 	newBlock7.m_tex = TitleModeUI.m_tex;
 
 	m_TitleList.push_back(newBlock7);
+	//=======================================
+
+	//============= 選択UI ==================
+	Math::Vector2 m_pos8 = TitlePosList[7];
+
+	ObjectParam newBlock8;
+	newBlock8.m_pos = { m_pos8.x , m_pos8.y };
+	newBlock8.m_scale = 1.85f;
+	newBlock8.m_alpha = 1.0f;
+	newBlock8.m_rect = { 832,128,256,64 };
+	newBlock8.m_tex = TitlePickUI.m_tex;
+
+	m_TitleList.push_back(newBlock8);
 	//=======================================
 
 	//============= オブジェクト系 =============
@@ -330,6 +344,19 @@ void C_Title::Action()
 		else if (i == 5 && NowPick == 0)
 		{
 			title.m_alpha = 1.0f;
+		}
+
+		if (i == 7 && NowPick == 1)
+		{
+			title.m_rect = { 896,64,128,64 };
+			title.m_pos = { (64.0f * 8.0f) - 640,(-64.0f * 9.0f) + 360 };
+			title.m_scale = 1.6f;
+		}
+		else if (i == 7 && NowPick == 0)
+		{
+			title.m_rect = { 832,128,256,64 };
+			title.m_pos = { (64.0f * 10.0f) - 640,(-64.0f * 7.0f) + 360 };
+			title.m_scale = 1.85f;
 		}
 	}
 

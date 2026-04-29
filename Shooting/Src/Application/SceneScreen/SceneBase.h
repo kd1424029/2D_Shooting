@@ -47,6 +47,7 @@ protected:
 	ObjectParam TitleSceneTransition;
 	ObjectParam TitleMode;
 	ObjectParam TitleModeUI;
+	ObjectParam TitlePickUI;
 
 	ObjectParam ObjectStar;
 	ObjectParam ObjectDiamond;
