@@ -300,6 +300,7 @@ void Scene::CommonUpdate()
 	m_count.Update();
 
 	m_effectManager.Update();
+
 }
 
 void Scene::Init()
@@ -552,6 +553,7 @@ void Scene::CommonHardInit()
 
 	m_block.Clear();
 }
+
 
 //==========================================================
 

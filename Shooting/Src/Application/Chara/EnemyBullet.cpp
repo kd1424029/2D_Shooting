@@ -13,8 +13,8 @@ void C_EnemyBullet::Init()
 		EnemyBulletRadiusX[i] = 8;
 		EnemyBulletRadiusY[i] = 8;
 
-		EnemyBulletMoveX[i] = 0;
-		EnemyBulletMoveY[i] = 0;
+		EnemyBulletMoveX[i] = 2;
+		EnemyBulletMoveY[i] = 2;
 
 		EnemyBulletRect[i] = { 16,0,16,16 };
 
@@ -36,8 +36,8 @@ void C_EnemyBullet::HardInit()
 		EnemyBulletRadiusX[i] = 8;
 		EnemyBulletRadiusY[i] = 8;
 
-		EnemyBulletMoveX[i] = 0;
-		EnemyBulletMoveY[i] = 0;
+		EnemyBulletMoveX[i] = 3;
+		EnemyBulletMoveY[i] = 3;
 
 		EnemyBulletRect[i] = { 16,0,16,16 };
 
@@ -85,6 +85,9 @@ void C_EnemyBullet::Action()
 							EnemyBulletX[EnemyBullet] = Enemy[enemy].m_pos.x;
 							EnemyBulletY[EnemyBullet] = Enemy[enemy].m_pos.y + Enemy[enemy].m_radius.y;
 							EnemyBulletAlive[EnemyBullet] = true;
+		
+							EnemyBulletDirX[EnemyBullet] = 0.0f;  //Xは動かない
+							EnemyBulletDirY[EnemyBullet] = 2.0f;  //下へ直進
 
 							EnemyBulletRect[EnemyBullet] = { 16,0,16,16 };
 
@@ -108,6 +111,9 @@ void C_EnemyBullet::Action()
 							EnemyBulletY[EnemyBullet] = Enemy[enemy].m_pos.y;
 							EnemyBulletAlive[EnemyBullet] = true;
 
+							EnemyBulletDirX[EnemyBullet] = 2.0f;  //右へ直進
+							EnemyBulletDirY[EnemyBullet] = 0.0f;  //Yは動かない
+
 							EnemyBulletRect[EnemyBullet] = { 32,0,16,16 };
 
 							Enemy[enemy].m_BulletTimer = 120;   //2秒間隔で打つようにする
@@ -129,6 +135,9 @@ void C_EnemyBullet::Action()
 							EnemyBulletX[EnemyBullet] = Enemy[enemy].m_pos.x;
 							EnemyBulletY[EnemyBullet] = Enemy[enemy].m_pos.y - Enemy[enemy].m_radius.y;
 							EnemyBulletAlive[EnemyBullet] = true;
+
+							EnemyBulletDirX[EnemyBullet] = 0.0f;  //Xは動かない
+							EnemyBulletDirY[EnemyBullet] = -2.0f;  //下へ直進
 
 							EnemyBulletRect[EnemyBullet] = { 48,0,16,16 };
 
@@ -152,6 +161,9 @@ void C_EnemyBullet::Action()
 							EnemyBulletY[EnemyBullet] = Enemy[enemy].m_pos.y;
 							EnemyBulletAlive[EnemyBullet] = true;
 
+							EnemyBulletDirX[EnemyBullet] = -2.0f;  //左へ直進
+							EnemyBulletDirY[EnemyBullet] = 0.0f;  //Yは動かない
+
 							EnemyBulletRect[EnemyBullet] = { 64,0,16,16 };
 
 							Enemy[enemy].m_BulletTimer = 120;   //2秒間隔で打つようにする
@@ -173,7 +185,12 @@ void C_EnemyBullet::Action()
 			{
 				EnemyBulletHomingCnt[i]++;
 
-				if (EnemyBulletHomingCnt[i] < EnemyBulletHomingLimitCnt)
+				if (EnemyBulletHomingCnt[i] < EnemyBulletStraightLimitCnt) // 直進中
+				{
+					EnemyBulletX[i] += EnemyBulletDirX[i];
+					EnemyBulletY[i] += EnemyBulletDirY[i];
+				}
+				else if (EnemyBulletHomingCnt[i] < EnemyBulletHomingLimitCnt) // 追尾開始
 				{
 					//弾からプレイヤーへの距離と方向を計算
 					float DistanceX = player->GetPos().x - EnemyBulletX[i];
@@ -199,11 +216,15 @@ void C_EnemyBullet::Action()
 					EnemyBulletMoveX[i] = cosf(EnemyBulletAngle) * EnemyBulletSpeed;
 
 					EnemyBulletMoveY[i] = sinf(EnemyBulletAngle) * EnemyBulletSpeed;
-				}
 
-				//実際に座標を更新する
-				EnemyBulletX[i] += EnemyBulletMoveX[i];
-				EnemyBulletY[i] += EnemyBulletMoveY[i];
+					EnemyBulletX[i] += EnemyBulletMoveX[i];
+					EnemyBulletY[i] += EnemyBulletMoveY[i];
+				}
+				else //追尾終了後の移動
+				{
+					EnemyBulletX[i] += EnemyBulletMoveX[i];
+					EnemyBulletY[i] += EnemyBulletMoveY[i];
+				}
 
 				//ブロックとの当たり判定
 				C_GameScreenBlock* block = SCENE.GetGameScreenBlock();

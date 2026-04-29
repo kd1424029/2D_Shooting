@@ -82,6 +82,7 @@ private:
 	//========= ƒŠƒUƒ‹ƒg ===============
 	C_Result m_result;
 
+	
 public:
 
 	// ‰Šúİ’è

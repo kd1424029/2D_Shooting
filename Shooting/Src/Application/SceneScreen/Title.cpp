@@ -228,12 +228,12 @@ void C_Title::Init()
 void C_Title::Action()
 {
 
-	if (GetAsyncKeyState(VK_UP) & 0x0001)
+	if (GetAsyncKeyState(VK_UP) & 0x8000)
 	{
 		NowPick = 0;
 	}
 
-	if (GetAsyncKeyState(VK_DOWN) & 0x0001)
+	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
 	{
 		NowPick = 1;
 	}

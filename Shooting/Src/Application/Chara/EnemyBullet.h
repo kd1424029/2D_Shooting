@@ -36,10 +36,14 @@ private:
 	float EnemyBulletHomingCnt[EnemyBulletNum];      //ホーミングカウント
 	const float EnemyBulletHomingLimitCnt = 30; //ホーミングする最大時間(1秒間)
 
+	const float EnemyBulletStraightLimitCnt = 12; //ホーミングするまえの直進移動時間
+
 	const float EnemyBulletRadius = 8.0f;    //半径
 
 	float EnemyBulletX[EnemyBulletNum];
 	float EnemyBulletY[EnemyBulletNum];
+	float EnemyBulletDirX[EnemyBulletNum]; 
+	float EnemyBulletDirY[EnemyBulletNum]; 
 	float EnemyBulletRadiusX[EnemyBulletNum];
 	float EnemyBulletRadiusY[EnemyBulletNum];
 	float EnemyBulletMoveX[EnemyBulletNum];
