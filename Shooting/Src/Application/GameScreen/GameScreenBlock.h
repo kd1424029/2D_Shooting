@@ -27,6 +27,8 @@ public:
 
 	void HardStage2Action();
 
+	void HardStage3Action();
+
 	void Update();
 
 	void Draw();

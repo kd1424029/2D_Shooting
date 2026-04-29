@@ -488,7 +488,153 @@ void C_GameScreen::HardStage2Action()
 		{
 			StageClearFlg = false;
 
-			SCENE.SetAnimationScene(SceneType::HardStage3); //ハードステージ２へ遷移
+			SCENE.SetAnimationScene(SceneType::HardStage3); //ハードステージ3へ遷移
+		}
+	}
+
+	//ゲームオーバー演出制御
+	else if (GameOverFlg == true && StageClearFlg == false)
+	{
+		GameOverTimer++;
+
+		// 1.0秒後くらいからフェード開始
+		if (GameOverTimer > 60)
+		{
+			GameOver.alpha -= 0.02f;
+
+			SceneTransition.alpha += 0.02f; //ゲーム画面を暗くする用
+		}
+
+		// 完全に消えたらシーン切り替え
+		if (GameOver.alpha < -0.5f)
+		{
+			GameOverFlg = false;
+
+			SCENE.SetAnimationScene(SceneType::GameOverResult); //リザルトへ遷移
+		}
+	}
+}
+
+void C_GameScreen::HardStage3Action()
+{
+	// スタート演出制御
+	if (GameStartFlg == false)
+	{
+		StartTimer++;
+
+		SceneTransition.alpha -= 0.02f; //ゲーム画面を明るくする用
+
+		if (SceneTransition.alpha < 0.0f)
+		{
+			SceneTransition.alpha = 0.0f;
+		}
+
+		// 0.7秒後くらいからフェード開始
+		if (StartTimer > 50)
+		{
+			GameStart.alpha -= 0.02f;
+		}
+
+		// 完全に消えたらゲーム開始
+		if (GameStart.alpha <= 0.0f)
+		{
+			GameStartFlg = true;
+		}
+	}
+
+
+	//ステージクリア演出制御
+	else if (StageClearFlg == true && GameOverFlg == false)
+	{
+		StageClearTimer++;
+
+		// 1.0秒後くらいからフェード開始
+		if (StageClearTimer > 60)
+		{
+			StageClear.alpha -= 0.02f;
+
+			SceneTransition.alpha += 0.02f; //ゲーム画面を暗くする用
+		}
+
+		// 完全に消えたらシーン切り替え
+		if (StageClear.alpha < -0.5f)
+		{
+			StageClearFlg = false;
+
+			SCENE.SetAnimationScene(SceneType::HardStage4); //ハードステージ4へ遷移
+		}
+	}
+
+	//ゲームオーバー演出制御
+	else if (GameOverFlg == true && StageClearFlg == false)
+	{
+		GameOverTimer++;
+
+		// 1.0秒後くらいからフェード開始
+		if (GameOverTimer > 60)
+		{
+			GameOver.alpha -= 0.02f;
+
+			SceneTransition.alpha += 0.02f; //ゲーム画面を暗くする用
+		}
+
+		// 完全に消えたらシーン切り替え
+		if (GameOver.alpha < -0.5f)
+		{
+			GameOverFlg = false;
+
+			SCENE.SetAnimationScene(SceneType::GameOverResult); //リザルトへ遷移
+		}
+	}
+}
+
+void C_GameScreen::HardStage4Action()
+{
+	// スタート演出制御
+	if (GameStartFlg == false)
+	{
+		StartTimer++;
+
+		SceneTransition.alpha -= 0.02f; //ゲーム画面を明るくする用
+
+		if (SceneTransition.alpha < 0.0f)
+		{
+			SceneTransition.alpha = 0.0f;
+		}
+
+		// 0.7秒後くらいからフェード開始
+		if (StartTimer > 50)
+		{
+			GameStart.alpha -= 0.02f;
+		}
+
+		// 完全に消えたらゲーム開始
+		if (GameStart.alpha <= 0.0f)
+		{
+			GameStartFlg = true;
+		}
+	}
+
+
+	//ステージクリア演出制御
+	else if (StageClearFlg == true && GameOverFlg == false)
+	{
+		StageClearTimer++;
+
+		// 1.0秒後くらいからフェード開始
+		if (StageClearTimer > 60)
+		{
+			StageClear.alpha -= 0.02f;
+
+			SceneTransition.alpha += 0.02f; //ゲーム画面を暗くする用
+		}
+
+		// 完全に消えたらシーン切り替え
+		if (StageClear.alpha < -0.5f)
+		{
+			StageClearFlg = false;
+
+			SCENE.SetAnimationScene(SceneType::ClearResult); //クリアリザルトへ遷移
 		}
 	}
 

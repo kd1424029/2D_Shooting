@@ -60,10 +60,13 @@ void Scene::Draw2D()
 
 	case SceneType::HardStage3:
 ;
+        DrawBlockStage();
 
 		break;
 
 	case SceneType::HardStage4:
+
+		DrawBlockStage();
 
 		break;
 
@@ -103,6 +106,10 @@ void Scene::Update()
 	if (GetAsyncKeyState('4') & 0x0001)
 	{
 		AnimationScene = Stage4;
+	}
+	if (GetAsyncKeyState('7') & 0x0001)
+	{
+		AnimationScene = HardStage4;
 	}
 	if (GetAsyncKeyState('5') & 0x0001)
 	{
@@ -211,11 +218,34 @@ void Scene::Update()
 		break;
 
 	case SceneType::HardStage3:
-		;
+		
+		CommonUpdate();
+
+		m_enemy.HardStage3Action();
+
+		m_gameScreen.HardStage3Action();
+
+		m_block.HardStage3Action();
+
+		m_player.Update();
+
+		m_block.Update();
 
 		break;
 
 	case SceneType::HardStage4:
+
+		CommonUpdate();
+
+		m_enemy.HardStage4Action();
+
+		m_gameScreen.HardStage4Action();
+
+		m_block.Action();
+
+		m_player.Update();
+
+		m_block.Update();
 
 		break;
 
@@ -436,11 +466,34 @@ void Scene::StageInit(SceneType NowStage)
 		break;
 
 	case SceneType::HardStage3:
-		;
+		
+		StageBlockTexture();
+
+		CommonHardInit();
+
+		m_player.Init();
+
+		m_enemy.HardStage3Init();
+
+		m_count.HardStage3Init();
+
+		m_block.HardStage3Init();
 
 		break;
 
 	case SceneType::HardStage4:
+
+		StageBlockTexture();
+
+		CommonHardInit();
+
+		m_player.Init();
+
+		m_enemy.HardStage4Init();
+
+		m_count.HardStage4Init();
+
+		m_block.HardStage4Init();
 
 		break;
 
@@ -757,20 +810,87 @@ void Scene::ReleaseTexture(SceneType NowStage)
 
 	case SceneType::HardStage1:
 
+		playerTex.Release();
+
+		enemyTex.Release();
+
+		bulletTex.Release();
+
+		gameScreenTex.Release();
+
+		gameUiTex.Release();
+
+		timerTex.Release();
+
+		countTex.Release();
+
+		sceneTransitionTex.Release();
 
 		break;
 
 	case SceneType::HardStage2:
 
+		playerTex.Release();
+
+		enemyTex.Release();
+
+		bulletTex.Release();
+
+		gameScreenTex.Release();
+
+		gameUiTex.Release();
+
+		timerTex.Release();
+
+		countTex.Release();
+
+		blockTex.Release();
+
+		sceneTransitionTex.Release();
 
 		break;
 
 	case SceneType::HardStage3:
-		;
+		
+		playerTex.Release();
+
+		enemyTex.Release();
+
+		bulletTex.Release();
+
+		gameScreenTex.Release();
+
+		gameUiTex.Release();
+
+		timerTex.Release();
+
+		countTex.Release();
+
+		blockTex.Release();
+
+		sceneTransitionTex.Release();
 
 		break;
 
 	case SceneType::HardStage4:
+
+		playerTex.Release();
+
+		enemyTex.Release();
+
+		bulletTex.Release();
+
+		gameScreenTex.Release();
+
+		gameUiTex.Release();
+
+		timerTex.Release();
+
+		countTex.Release();
+
+		blockTex.Release();
+
+		sceneTransitionTex.Release();
 
 		break;
 

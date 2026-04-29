@@ -255,12 +255,86 @@ void C_Count::HardStage2Init()
 
 void C_Count::HardStage3Init()
 {
-	
+	m_CntList.clear();
+
+	//配置したい座標のリスト
+	vector<Math::Vector2> CntPosList = {
+	{(64.0f * 18.2f) - 640,(-64.0f * 6.0f) + 360},
+	{(64.0f * 18.2f) - 640,(-64.0f * 2.3f) + 360},
+	};
+
+
+	//============= 敵カウント用 ===========
+	Math::Vector2 m_pos1 = CntPosList[0];
+
+	Object newBlock;
+	newBlock.m_pos = { m_pos1.x , m_pos1.y };
+	newBlock.m_scale = 1.5f;
+	newBlock.m_rect = { 256,0,64,64 };
+	newBlock.m_tex = Cnt.m_tex;
+
+	m_CntList.push_back(newBlock);
+
+	//======================================
+
+	//========== ステージカウント用 ========
+
+	Math::Vector2 m_pos2 = CntPosList[1];
+
+	Object newBlock2;
+	newBlock2.m_pos = { m_pos2.x,m_pos2.y };
+	newBlock2.m_scale = 1.5f;
+	newBlock2.m_rect = { 128,64,64,64 };
+	newBlock2.m_tex = Cnt.m_tex;
+
+	m_CntList.push_back(newBlock2);
+
+	//======================================
+
+
+	StageClearTimer = 30;  //ステージクリア演出用タイマーを初期化
 }
 
 void C_Count::HardStage4Init()
 {
+	m_CntList.clear();
 
+	//配置したい座標のリスト
+	vector<Math::Vector2> CntPosList = {
+	{(64.0f * 18.2f) - 640,(-64.0f * 6.0f) + 360},
+	{(64.0f * 18.2f) - 640,(-64.0f * 2.3f) + 360},
+	};
+
+
+	//============= 敵カウント用 ===========
+	Math::Vector2 m_pos1 = CntPosList[0];
+
+	Object newBlock;
+	newBlock.m_pos = { m_pos1.x , m_pos1.y };
+	newBlock.m_scale = 1.5f;
+	newBlock.m_rect = { 384,0,64,64 };
+	newBlock.m_tex = Cnt.m_tex;
+
+	m_CntList.push_back(newBlock);
+
+	//======================================
+
+	//========== ステージカウント用 ========
+
+	Math::Vector2 m_pos2 = CntPosList[1];
+
+	Object newBlock2;
+	newBlock2.m_pos = { m_pos2.x,m_pos2.y };
+	newBlock2.m_scale = 1.5f;
+	newBlock2.m_rect = { 192,64,64,64 };
+	newBlock2.m_tex = Cnt.m_tex;
+
+	m_CntList.push_back(newBlock2);
+
+	//======================================
+
+
+	StageClearTimer = 30;  //ステージクリア演出用タイマーを初期化
 }
 
 void C_Count::Action()
@@ -274,6 +348,12 @@ void C_Count::Action()
 	// 生存数に応じて表示を切り替え
 	switch (aliveCount) {
 
+	case 5:
+		m_CntList[0].m_rect = { 320, 0, 64, 64 }; // 5の画像
+		break;
+	case 4:
+		m_CntList[0].m_rect = { 256, 0, 64, 64 }; // 4の画像
+		break;
 	case 3:
 		m_CntList[0].m_rect = { 192, 0, 64, 64 }; // 3の画像
 		break;

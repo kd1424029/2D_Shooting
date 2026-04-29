@@ -184,6 +184,124 @@ void C_GameScreenBlock::HardStage2Init()
 	m_BlockList.push_back(newBlock);
 }
 
+void C_GameScreenBlock::HardStage3Init()
+{
+	m_BlockList.clear();
+
+	//配置したい座標のリスト
+	vector<Math::Vector2> BlockPosList = {
+	{(64.0f * 8.0f) - 640,(-64.0f * 6.0f) + 360},
+	{(64.0f * 13.0f) - 640,(-64.0f * 6.0f) + 360},
+	};
+
+	Math::Vector2 m_pos1 = BlockPosList[0];
+
+	Object newBlock;
+	newBlock.m_pos = { m_pos1.x , m_pos1.y };
+	newBlock.m_scale = 1.0f;
+
+	newBlock.m_move.x = 2;   //移動スピード
+	newBlock.m_move.y = 2;   //移動スピード
+
+	newBlock.m_MoveState = 0;
+
+	newBlock.m_radiusX = 32.0f;
+	newBlock.m_radiusY = 64.0f;
+
+	newBlock.m_rect = { 128,0,64,128 };
+	newBlock.m_tex = Block.m_tex;
+
+	m_BlockList.push_back(newBlock);
+
+	Math::Vector2 m_pos2 = BlockPosList[1];
+
+	Object newBlock2;
+	newBlock2.m_pos = { m_pos2.x , m_pos2.y };
+	newBlock2.m_scale = 1.0f;
+
+	newBlock2.m_move.x = 2;   //移動スピード
+	newBlock2.m_move.y = 2;   //移動スピード
+
+	newBlock2.m_MoveState = 0;
+
+	newBlock2.m_radiusX = 32.0f;
+	newBlock2.m_radiusY = 64.0f;
+
+	newBlock2.m_rect = { 128,0,64,128 };
+	newBlock2.m_tex = Block.m_tex;
+
+	m_BlockList.push_back(newBlock2);
+}
+
+void C_GameScreenBlock::HardStage4Init()
+{
+	m_BlockList.clear();
+
+	//配置したい座標のリスト
+	vector<Math::Vector2> BlockPosList = {
+	{(64.0f * 6.0f) - 640,(-64.0f * 3.0f) + 360},
+	{(64.0f * 14.0f) - 640,(-64.0f * 3.0f) + 360},
+	{(64.0f * 6.0f) - 640,(-64.0f * 9.0f) + 360},
+	{(64.0f * 14.0f) - 640,(-64.0f * 9.0f) + 360},
+	};
+
+	Math::Vector2 m_pos1 = BlockPosList[0];
+
+	Object newBlock;
+	newBlock.m_pos = { m_pos1.x , m_pos1.y };
+	newBlock.m_scale = 1.0f;
+
+	newBlock.m_radiusX = 32.0f;
+	newBlock.m_radiusY = 64.0f;
+
+	newBlock.m_rect = { 128,0,64,128 };
+	newBlock.m_tex = Block.m_tex;
+
+	m_BlockList.push_back(newBlock);
+
+	Math::Vector2 m_pos2 = BlockPosList[1];
+
+	Object newBlock2;
+	newBlock2.m_pos = { m_pos2.x , m_pos2.y };
+	newBlock2.m_scale = 1.0f;
+
+	newBlock2.m_radiusX = 32.0f;
+	newBlock2.m_radiusY = 64.0f;
+
+	newBlock2.m_rect = { 128,0,64,128 };
+	newBlock2.m_tex = Block.m_tex;
+
+	m_BlockList.push_back(newBlock2);
+
+	Math::Vector2 m_pos3 = BlockPosList[2];
+
+	Object newBlock3;
+	newBlock3.m_pos = { m_pos3.x , m_pos3.y };
+	newBlock3.m_scale = 1.0f;
+
+	newBlock3.m_radiusX = 32.0f;
+	newBlock3.m_radiusY = 64.0f;
+
+	newBlock3.m_rect = { 128,0,64,128 };
+	newBlock3.m_tex = Block.m_tex;
+
+	m_BlockList.push_back(newBlock3);
+
+	Math::Vector2 m_pos4 = BlockPosList[3];
+
+	Object newBlock4;
+	newBlock4.m_pos = { m_pos4.x , m_pos4.y };
+	newBlock4.m_scale = 1.0f;
+
+	newBlock4.m_radiusX = 32.0f;
+	newBlock4.m_radiusY = 64.0f;
+
+	newBlock4.m_rect = { 128,0,64,128 };
+	newBlock4.m_tex = Block.m_tex;
+
+	m_BlockList.push_back(newBlock4);
+}
+
 void C_GameScreenBlock::Action()
 {
 	for (auto& block : m_BlockList)
@@ -285,6 +403,7 @@ void C_GameScreenBlock::HardStage2Action()
 
 			ObjectPlayerHit(&block);
 
+
 			switch (block.m_MoveState)
 			{
 			case 0: //上移動
@@ -311,6 +430,86 @@ void C_GameScreenBlock::HardStage2Action()
 				}
 				break;
 			}
+
+		}
+	}
+}
+
+void C_GameScreenBlock::HardStage3Action()
+{
+	C_GameScreen* gamescreen = SCENE.GetGameScreen();
+
+	if (gamescreen->GetGameStartFlg() == true && gamescreen->GetGameOverFlg() == false && gamescreen->GetStageClearFlg() == false)
+	{
+
+		for (int i = 0; i < m_BlockList.size(); i++)
+		{
+
+			auto& block = m_BlockList[i];
+
+			ObjectPlayerHit(&block);
+
+			if (i == 0)
+			{
+				switch (block.m_MoveState)
+				{
+				case 0: //上移動
+
+					if (block.m_pos.y < 100)
+					{
+						block.m_pos.y += block.m_move.y;
+					}
+					else
+					{
+						block.m_MoveState = 1;
+					}
+					break;
+
+				case 1:  //下移動
+
+					if (block.m_pos.y > -80)
+					{
+						block.m_pos.y -= block.m_move.y;
+					}
+					else
+					{
+						block.m_MoveState = 0;
+					}
+					break;
+				}
+			}
+
+			if (i == 1)
+			{
+				switch (block.m_MoveState)
+				{
+				case 0://下移動
+
+					if (block.m_pos.y > -70)
+					{
+						block.m_pos.y -= block.m_move.y;
+					}
+					else
+					{
+						block.m_MoveState = 1;
+					}
+					break;
+
+
+				case 1:  //上移動
+
+					if (block.m_pos.y < 100)
+					{
+						block.m_pos.y += block.m_move.y;
+					}
+					else
+					{
+						block.m_MoveState = 0;
+					}
+					break;
+				}
+			}
+
 
 		}
 	}

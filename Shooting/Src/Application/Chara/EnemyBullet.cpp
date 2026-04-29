@@ -97,7 +97,7 @@ void C_EnemyBullet::Action()
 				}
 
 				//敵2体目
-				if (enemy == 1)
+				if (enemy == 1 || enemy == 4)
 				{
 					if (Enemy[enemy].m_BulletTimer == 0)
 					{
@@ -141,7 +141,7 @@ void C_EnemyBullet::Action()
 				}
 
 				//敵4体目
-				if (enemy == 3)
+				if (enemy == 3 || enemy == 5)
 				{
 					if (Enemy[enemy].m_BulletTimer == 0)
 					{
