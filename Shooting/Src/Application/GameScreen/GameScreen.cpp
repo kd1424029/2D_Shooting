@@ -77,10 +77,18 @@ void C_GameScreen::Init()
 
 void C_GameScreen::Stage1Action()
 {
+
+	C_Sound* sound = SCENE.GetSound();
+
 	// スタート演出制御
 	if (!GameStartFlg)
 	{
 		StartTimer++;
+
+		if (StartTimer == 40)
+		{
+			sound->StartSE();
+		}
 
 		SceneTransition.alpha -= 0.02f; //ゲーム画面を明るくする用
 
@@ -109,6 +117,11 @@ void C_GameScreen::Stage1Action()
 	{
 		StageClearTimer++;
 
+		if (StageClearTimer == 30)
+		{
+			sound->StartSE();
+		}
+
 		// 1.0秒後くらいからフェード開始
 		if (StageClearTimer > 60)
 		{
@@ -131,6 +144,11 @@ void C_GameScreen::Stage1Action()
 	{
 		GameOverTimer++;
 
+		if (GameOverTimer == 30)
+		{
+			sound->StartSE();
+		}
+
 		// 1.0秒後くらいからフェード開始
 		if (GameOverTimer > 60)
 		{
@@ -152,10 +170,18 @@ void C_GameScreen::Stage1Action()
 
 void C_GameScreen::Stage2Action()
 {
+
+	C_Sound* sound = SCENE.GetSound();
+
 	// スタート演出制御
 	if (GameStartFlg == false)
 	{
 		StartTimer++;
+
+		if (StartTimer == 40)
+		{
+			sound->StartSE();
+		}
 
 		SceneTransition.alpha -= 0.02f; //ゲーム画面を明るくする用
 
@@ -182,6 +208,11 @@ void C_GameScreen::Stage2Action()
 	else if (StageClearFlg == true && GameOverFlg == false)
 	{
 		StageClearTimer++;
+
+		if (StageClearTimer == 30)
+		{
+			sound->StartSE();
+		}
 
 		// 1.0秒後くらいからフェード開始
 		if (StageClearTimer > 60)
@@ -205,6 +236,11 @@ void C_GameScreen::Stage2Action()
 	{
 		GameOverTimer++;
 
+		if (GameOverTimer == 30)
+		{
+			sound->StartSE();
+		}
+
 		// 1.0秒後くらいからフェード開始
 		if (GameOverTimer > 60)
 		{
@@ -225,10 +261,18 @@ void C_GameScreen::Stage2Action()
 
 void C_GameScreen::Stage3Action()
 {
+
+	C_Sound* sound = SCENE.GetSound();
+
 	// スタート演出制御
 	if (GameStartFlg == false)
 	{
 		StartTimer++;
+
+		if (StartTimer == 40)
+		{
+			sound->StartSE();
+		}
 
 		SceneTransition.alpha -= 0.02f; //ゲーム画面を明るくする用
 
@@ -255,6 +299,11 @@ void C_GameScreen::Stage3Action()
 	else if (StageClearFlg == true && GameOverFlg == false)
 	{
 		StageClearTimer++;
+
+		if (StageClearTimer == 30)
+		{
+			sound->StartSE();
+		}
 
 		// 1.0秒後くらいからフェード開始
 		if (StageClearTimer > 60)
@@ -278,6 +327,11 @@ void C_GameScreen::Stage3Action()
 	{
 		GameOverTimer++;
 
+		if (GameOverTimer == 30)
+		{
+			sound->StartSE();
+		}
+
 		// 1.0秒後くらいからフェード開始
 		if (GameOverTimer > 60)
 		{
@@ -298,10 +352,18 @@ void C_GameScreen::Stage3Action()
 
 void C_GameScreen::Stage4Action()
 {
+
+	C_Sound* sound = SCENE.GetSound();
+
 	// スタート演出制御
 	if (GameStartFlg == false)
 	{
 		StartTimer++;
+
+		if (StartTimer == 40)
+		{
+			sound->StartSE();
+		}
 
 		SceneTransition.alpha -= 0.02f; //ゲーム画面を明るくする用
 
@@ -328,6 +390,11 @@ void C_GameScreen::Stage4Action()
 	else if (StageClearFlg == true && GameOverFlg == false)
 	{
 		StageClearTimer++;
+
+		if (StageClearTimer == 30)
+		{
+			sound->StartSE();
+		}
 
 		// 1.0秒後くらいからフェード開始
 		if (StageClearTimer > 60)
@@ -351,6 +418,11 @@ void C_GameScreen::Stage4Action()
 	{
 		GameOverTimer++;
 
+		if (GameOverTimer == 30)
+		{
+			sound->StartSE();
+		}
+
 		// 1.0秒後くらいからフェード開始
 		if (GameOverTimer > 60)
 		{
@@ -371,10 +443,18 @@ void C_GameScreen::Stage4Action()
 
 void C_GameScreen::HardStage1Action()
 {
+
+	C_Sound* sound = SCENE.GetSound();
+
 	// スタート演出制御
 	if (GameStartFlg == false)
 	{
 		StartTimer++;
+
+		if (StartTimer == 40)
+		{
+			sound->StartSE();
+		}
 
 		SceneTransition.alpha -= 0.02f; //ゲーム画面を明るくする用
 
@@ -401,6 +481,11 @@ void C_GameScreen::HardStage1Action()
 	else if (StageClearFlg == true && GameOverFlg == false)
 	{
 		StageClearTimer++;
+
+		if (StageClearTimer == 30)
+		{
+			sound->StartSE();
+		}
 
 		// 1.0秒後くらいからフェード開始
 		if (StageClearTimer > 60)
@@ -424,6 +509,11 @@ void C_GameScreen::HardStage1Action()
 	{
 		GameOverTimer++;
 
+		if (GameOverTimer == 30)
+		{
+			sound->StartSE();
+		}
+
 		// 1.0秒後くらいからフェード開始
 		if (GameOverTimer > 60)
 		{
@@ -444,10 +534,18 @@ void C_GameScreen::HardStage1Action()
 
 void C_GameScreen::HardStage2Action()
 {
+
+	C_Sound* sound = SCENE.GetSound();
+
 	// スタート演出制御
 	if (GameStartFlg == false)
 	{
 		StartTimer++;
+
+		if (StartTimer == 40)
+		{
+			sound->StartSE();
+		}
 
 		SceneTransition.alpha -= 0.02f; //ゲーム画面を明るくする用
 
@@ -474,6 +572,11 @@ void C_GameScreen::HardStage2Action()
 	else if (StageClearFlg == true && GameOverFlg == false)
 	{
 		StageClearTimer++;
+
+		if (StageClearTimer == 30)
+		{
+			sound->StartSE();
+		}
 
 		// 1.0秒後くらいからフェード開始
 		if (StageClearTimer > 60)
@@ -497,6 +600,11 @@ void C_GameScreen::HardStage2Action()
 	{
 		GameOverTimer++;
 
+		if (GameOverTimer == 30)
+		{
+			sound->StartSE();
+		}
+
 		// 1.0秒後くらいからフェード開始
 		if (GameOverTimer > 60)
 		{
@@ -517,10 +625,18 @@ void C_GameScreen::HardStage2Action()
 
 void C_GameScreen::HardStage3Action()
 {
+
+	C_Sound* sound = SCENE.GetSound();
+
 	// スタート演出制御
 	if (GameStartFlg == false)
 	{
 		StartTimer++;
+
+		if (StartTimer == 40)
+		{
+			sound->StartSE();
+		}
 
 		SceneTransition.alpha -= 0.02f; //ゲーム画面を明るくする用
 
@@ -547,6 +663,11 @@ void C_GameScreen::HardStage3Action()
 	else if (StageClearFlg == true && GameOverFlg == false)
 	{
 		StageClearTimer++;
+
+		if (StageClearTimer == 30)
+		{
+			sound->StartSE();
+		}
 
 		// 1.0秒後くらいからフェード開始
 		if (StageClearTimer > 60)
@@ -570,6 +691,11 @@ void C_GameScreen::HardStage3Action()
 	{
 		GameOverTimer++;
 
+		if (GameOverTimer == 30)
+		{
+			sound->StartSE();
+		}
+
 		// 1.0秒後くらいからフェード開始
 		if (GameOverTimer > 60)
 		{
@@ -590,10 +716,18 @@ void C_GameScreen::HardStage3Action()
 
 void C_GameScreen::HardStage4Action()
 {
+
+	C_Sound* sound = SCENE.GetSound();
+
 	// スタート演出制御
 	if (GameStartFlg == false)
 	{
 		StartTimer++;
+
+		if (StartTimer == 40)
+		{
+			sound->StartSE();
+		}
 
 		SceneTransition.alpha -= 0.02f; //ゲーム画面を明るくする用
 
@@ -621,6 +755,11 @@ void C_GameScreen::HardStage4Action()
 	{
 		StageClearTimer++;
 
+		if (StageClearTimer == 30)
+		{
+			sound->StartSE();
+		}
+
 		// 1.0秒後くらいからフェード開始
 		if (StageClearTimer > 60)
 		{
@@ -642,6 +781,11 @@ void C_GameScreen::HardStage4Action()
 	else if (GameOverFlg == true && StageClearFlg == false)
 	{
 		GameOverTimer++;
+
+		if (GameOverTimer == 30)
+		{
+			sound->StartSE();
+		}
 
 		// 1.0秒後くらいからフェード開始
 		if (GameOverTimer > 60)

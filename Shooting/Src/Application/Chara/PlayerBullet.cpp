@@ -37,6 +37,8 @@ void C_PlayerBullet::Action()
 
 	C_GameScreenBlock* block = SCENE.GetGameScreenBlock();
 
+	C_Sound* sound = SCENE.GetSound();
+
 	for (int i = 0; i < PlayerBulletNum; i++)
 	{
 		//==================== ”­ŽËˆ— ==============================
@@ -92,6 +94,8 @@ void C_PlayerBullet::Action()
 				}
 
 				PlayerBulletCnt = 600; //1•bŠÔŠu‚Å‘Å‚Ä‚é‚æ‚¤‚É‚·‚é
+
+				sound->BulletSE();
 
 				break;
 			}

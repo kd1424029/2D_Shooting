@@ -335,9 +335,14 @@ void C_Result::GameOverInit()
 
 void C_Result::Action()
 {
-	if (GetAsyncKeyState(VK_RETURN) & 0x8000 && ResultStartFlg == true)
+
+	C_Sound* sound = SCENE.GetSound();
+
+	if (GetAsyncKeyState(VK_RETURN) & 0x8000 && ResultStartFlg == true && SceneFlg == false)
 	{
 		SceneFlg = true;
+
+		sound->ClickSE();
 	}
 
 
@@ -443,9 +448,13 @@ void C_Result::Action()
 
 void C_Result::GameClearAction()
 {
-	if (GetAsyncKeyState(VK_RETURN) & 0x8000 && ResultStartFlg == true)
+	C_Sound* sound = SCENE.GetSound();
+
+	if (GetAsyncKeyState(VK_RETURN) & 0x8000 && ResultStartFlg == true && SceneFlg == false)
 	{
 		SceneFlg = true;
+
+		sound->ClickSE();
 	}
 
 

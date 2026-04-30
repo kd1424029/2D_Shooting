@@ -121,6 +121,24 @@ void Scene::Update()
 	}
 	//====================================================
 
+	if (TitleBgmSwitch == true )
+	{
+		m_sound.TitleBGMPlay();
+	}
+	else
+	{
+		m_sound.TitleBGMStop();
+	}
+
+	if (GameBgmSwitch == true)
+	{
+		m_sound.GameBGMPlay();
+	}
+	else
+	{
+		m_sound.GameBGMStop();
+	}
+
 	//各シーンの描画処理
 	switch (AnimationScene) {
 		//タイトル画面
@@ -129,6 +147,10 @@ void Scene::Update()
 		m_title.Action();
 
 		m_title.Update();
+
+		TitleBgmSwitch = true;
+
+		GameBgmSwitch = false;
 
 		break;
 
@@ -141,6 +163,10 @@ void Scene::Update()
 		m_enemy.Stage1Action();
 		
 		m_gameScreen.Stage1Action();
+
+		GameBgmSwitch = true;
+
+		TitleBgmSwitch = false;
 	
 		break;
 
@@ -154,6 +180,10 @@ void Scene::Update()
 		m_enemy.Stage2Action();
 		
 		m_gameScreen.Stage2Action();
+
+		GameBgmSwitch = true;
+
+		TitleBgmSwitch = false;
 		
 		break;
 
@@ -171,6 +201,10 @@ void Scene::Update()
 
 		m_block.Update();
 
+		GameBgmSwitch = true;
+
+		TitleBgmSwitch = false;
+
 		break;
 
 	case SceneType::Stage4:
@@ -187,6 +221,10 @@ void Scene::Update()
 
 		m_block.Update();
 
+		GameBgmSwitch = true;
+
+		TitleBgmSwitch = false;
+
 		break;
 
 	case SceneType::HardStage1:
@@ -199,6 +237,9 @@ void Scene::Update()
 
 		m_player.Update();
 
+		GameBgmSwitch = true;
+
+		TitleBgmSwitch = false;
 		break;
 
 	case SceneType::HardStage2:
@@ -214,6 +255,10 @@ void Scene::Update()
 		m_player.Update();
 
 		m_block.Update();
+
+		GameBgmSwitch = true;
+
+		TitleBgmSwitch = false;
 
 		break;
 
@@ -231,6 +276,10 @@ void Scene::Update()
 
 		m_block.Update();
 
+		GameBgmSwitch = true;
+
+		TitleBgmSwitch = false;
+
 		break;
 
 	case SceneType::HardStage4:
@@ -247,6 +296,10 @@ void Scene::Update()
 
 		m_block.Update();
 
+		GameBgmSwitch = true;
+
+		TitleBgmSwitch = false;
+
 		break;
 
 	case SceneType::GameOverResult:
@@ -254,6 +307,10 @@ void Scene::Update()
 		m_result.Action();
 
 		m_result.Update();
+
+		GameBgmSwitch = false;
+
+		TitleBgmSwitch = false;
 
 		break;
 
@@ -264,6 +321,10 @@ void Scene::Update()
 		m_result.Update();
 
 		m_timer.Update();
+
+		GameBgmSwitch = false;
+
+		TitleBgmSwitch = false;
 
 		break;
 	}
@@ -311,6 +372,9 @@ void Scene::Init()
 	PrevScene = AnimationScene;
 
 	StageInit(AnimationScene);
+
+
+	m_sound.Init();
 
 	//===============================================================
 

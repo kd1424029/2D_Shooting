@@ -13,6 +13,9 @@ void C_EnemyBullet::Init()
 		EnemyBulletRadiusX[i] = 8;
 		EnemyBulletRadiusY[i] = 8;
 
+		EnemyBulletDirX[i] = 0;
+		EnemyBulletDirY[i] = 0;
+
 		EnemyBulletMoveX[i] = 2;
 		EnemyBulletMoveY[i] = 2;
 
@@ -36,6 +39,9 @@ void C_EnemyBullet::HardInit()
 		EnemyBulletRadiusX[i] = 8;
 		EnemyBulletRadiusY[i] = 8;
 
+		EnemyBulletDirX[i] = 0;
+		EnemyBulletDirY[i] = 0;
+
 		EnemyBulletMoveX[i] = 3;
 		EnemyBulletMoveY[i] = 3;
 
@@ -57,6 +63,8 @@ void C_EnemyBullet::Action()
 	C_GameScreen* gamescreen = SCENE.GetGameScreen();
 
 	C_Title* title = SCENE.GetTitle();
+
+	C_Sound* sound = SCENE.GetSound();
 
 	//ステージクリアフラグが立っていないときかつスタートフラグが立っているときかつ
 	//ゲームオーバーフラグが立っていないときかつプレイヤーが生存しているとき敵の弾の更新を受け付ける
@@ -94,12 +102,14 @@ void C_EnemyBullet::Action()
 							Enemy[enemy].m_BulletTimer = 120;   //2秒間隔で打つようにする
 							EnemyBulletHomingCnt[EnemyBullet] = 0;  //ホーミングカウントをリセット
 
+							sound->BulletSE();
+
 							break;
 						}
 					}
 				}
 
-				//敵2体目
+				//敵2体目と5体目
 				if (enemy == 1 || enemy == 4)
 				{
 					if (Enemy[enemy].m_BulletTimer == 0)
@@ -118,6 +128,8 @@ void C_EnemyBullet::Action()
 
 							Enemy[enemy].m_BulletTimer = 120;   //2秒間隔で打つようにする
 							EnemyBulletHomingCnt[EnemyBullet] = 0;  //ホーミングカウントをリセット
+
+							sound->BulletSE();
 
 							break;
 						}
@@ -144,12 +156,14 @@ void C_EnemyBullet::Action()
 							Enemy[enemy].m_BulletTimer = 120;   //2秒間隔で打つようにする
 							EnemyBulletHomingCnt[EnemyBullet] = 0;  //ホーミングカウントをリセット
 
+							sound->BulletSE();
+
 							break;
 						}
 					}
 				}
 
-				//敵4体目
+				//敵4体目と6体目
 				if (enemy == 3 || enemy == 5)
 				{
 					if (Enemy[enemy].m_BulletTimer == 0)
@@ -169,6 +183,8 @@ void C_EnemyBullet::Action()
 							Enemy[enemy].m_BulletTimer = 120;   //2秒間隔で打つようにする
 							EnemyBulletHomingCnt[EnemyBullet] = 0;  //ホーミングカウントをリセット
 
+							sound->BulletSE();
+
 							break;
 						}
 					}
@@ -185,12 +201,12 @@ void C_EnemyBullet::Action()
 			{
 				EnemyBulletHomingCnt[i]++;
 
-				if (EnemyBulletHomingCnt[i] < EnemyBulletStraightLimitCnt) // 直進中
+				if (EnemyBulletHomingCnt[i] < EnemyBulletStraightLimitCnt) //直進中
 				{
 					EnemyBulletX[i] += EnemyBulletDirX[i];
 					EnemyBulletY[i] += EnemyBulletDirY[i];
 				}
-				else if (EnemyBulletHomingCnt[i] < EnemyBulletHomingLimitCnt) // 追尾開始
+				else if (EnemyBulletHomingCnt[i] < EnemyBulletHomingLimitCnt) //追尾開始
 				{
 					//弾からプレイヤーへの距離と方向を計算
 					float DistanceX = player->GetPos().x - EnemyBulletX[i];
@@ -262,8 +278,6 @@ void C_EnemyBullet::Action()
 					}
 					continue;
 				}
-
-
 
 				//敵の弾とプレイヤーの当たり判定処理
 				float Bottom = player->GetPos().x - EnemyBulletX[i];     //底辺(X座標の差)

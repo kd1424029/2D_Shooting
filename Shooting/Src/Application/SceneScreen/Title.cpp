@@ -223,24 +223,57 @@ void C_Title::Init()
 	NowPick = 0;//Œ»Ý‚Ì‘I‘ðˆÊ’u
 
 	m_prevEnterKey = false;
+
+	PickMoveSeFlg = false;
+
+	ClickSeFlg = false;
 }
 
 void C_Title::Action()
 {
 
+	C_Sound* sound = SCENE.GetSound();
+
 	if (GetAsyncKeyState(VK_UP) & 0x8000)
 	{
 		NowPick = 0;
-	}
 
-	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+		if (!PickMoveSeFlg)
+		{
+			PickMoveSeFlg = true;
+			sound->PickMoveSE();
+		}
+	}
+	
+	else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
 	{
 		NowPick = 1;
-	}
 
-	if (GetAsyncKeyState(VK_RETURN) & 0x8000 && TitleStartFlg == true && NowPick == 0)
+		if (!PickMoveSeFlg)
+		{
+			PickMoveSeFlg = true;
+			sound->PickMoveSE();
+		}
+	}
+	else
+	{
+		PickMoveSeFlg = false;
+	}
+	
+
+	if (GetAsyncKeyState(VK_RETURN) & 0x8000 && TitleStartFlg == true && NowPick == 0 && SceneFlg == false)
 	{
 		SceneFlg = true;
+
+		if (!ClickSeFlg)
+		{
+			ClickSeFlg = true;
+			sound->ClickSE();
+		}
+	}
+	else
+	{
+		ClickSeFlg = false;
 	}
 
 
@@ -315,12 +348,16 @@ void C_Title::Action()
 					title.m_pos = { (64.0f * 11.9f) - 640, (-64.0f * 9.0f) + 360 };
 					title.m_rect = { 768, 0, 128, 64 };
 					TitleModeFlg = true;
+
+					sound->ClickSE();
 				}
 				else
 				{
 					title.m_pos = { (64.0f * 12.5f) - 640, (-64.0f * 9.0f) + 360 };
 					title.m_rect = { 704, 64, 192, 64 };
 					TitleModeFlg = false;
+
+					sound->ClickSE();
 				}
 			}
 		}

@@ -12,6 +12,8 @@
 #include "SceneScreen/Title.h"
 #include "SceneScreen/Result.h"
 
+#include "Sound/Sound.h"
+
 enum SceneType
 {
 	Title,				//タイトル
@@ -82,6 +84,9 @@ private:
 	//========= リザルト ===============
 	C_Result m_result;
 
+	//========= 音 ===============
+	C_Sound m_sound;
+
 	
 public:
 
@@ -145,6 +150,8 @@ public:
 
 	C_EffectManager* GetEffectManager() { return &m_effectManager; }
 
+	C_Sound* GetSound() { return &m_sound; }
+
 	//=============== セッター ================
 	void SetAnimationScene(SceneType a_scene) { AnimationScene = a_scene; }
 	
@@ -154,6 +161,10 @@ private:
 	Scene() {}
 
 	int waitFrame = 0;
+
+	//BGM用
+	bool TitleBgmSwitch = false;
+	bool GameBgmSwitch = false;
 
 public:
 	static Scene& GetInstance()
