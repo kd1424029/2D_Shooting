@@ -56,4 +56,6 @@ private:
 	float angle;  //移動する角度
 	float angle2;  //移動する角度
 	float angle3;  //移動する角度
+
+	bool m_ClearSeFlg;  //クリアSE用
 };

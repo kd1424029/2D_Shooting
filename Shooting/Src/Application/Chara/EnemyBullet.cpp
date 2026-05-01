@@ -3,7 +3,7 @@
 
 void C_EnemyBullet::Init()
 {
-	for (int i = 0; i < EnemyBulletNum; i++)
+	for (int i = 0; i < EnemyBulletNum; ++i)
 	{
 		EnemyBulletX[i] = 0;
 		EnemyBulletY[i] = 0;
@@ -29,7 +29,7 @@ void C_EnemyBullet::Init()
 
 void C_EnemyBullet::HardInit()
 {
-	for (int i = 0; i < EnemyBulletNum; i++)
+	for (int i = 0; i < EnemyBulletNum; ++i)
 	{
 		EnemyBulletX[i] = 0;
 		EnemyBulletY[i] = 0;
@@ -72,7 +72,7 @@ void C_EnemyBullet::Action()
 	{
 		auto& Enemy = enemy->GetEnemyList();
 
-		for (int enemy = 0; enemy <Enemy.size(); enemy++)
+		for (int enemy = 0; enemy <Enemy.size(); ++enemy)
 		{
 			//カウント処理
 			Enemy[enemy].m_BulletTimer--;
@@ -95,7 +95,7 @@ void C_EnemyBullet::Action()
 							EnemyBulletAlive[EnemyBullet] = true;
 		
 							EnemyBulletDirX[EnemyBullet] = 0.0f;  //Xは動かない
-							EnemyBulletDirY[EnemyBullet] = 2.0f;  //下へ直進
+							EnemyBulletDirY[EnemyBullet] = 2.0f;  //上へ直進
 
 							EnemyBulletRect[EnemyBullet] = { 16,0,16,16 };
 
@@ -193,6 +193,7 @@ void C_EnemyBullet::Action()
 		}
 
 
+		//弾の追尾処理と当たり判定処理
 		for (int i = 0; i < EnemyBulletNum; i++)
 		{
 
@@ -248,7 +249,7 @@ void C_EnemyBullet::Action()
 				{
 					EnemyBulletAlive[i] = false;
 
-					for (int count = 0; count < BulletEffectNUM; count++)
+					for (int count = 0; count < BulletEffectNUM; ++count)
 					{
 						SCENE.GetEffectManager()->Add(
 							{ EnemyBulletX[i],EnemyBulletY[i] },
@@ -290,12 +291,14 @@ void C_EnemyBullet::Action()
 
 					EnemyBulletAlive[i] = false;  //敵の弾も消す
 
-					for (int count = 0; count < BulletEffectNUM; count++)
+					sound->BurstSE();
+
+					for (int count = 0; count < BulletEffectNUM; ++count)
 					{
 						//エフェクトの発生
 						SCENE.GetEffectManager()->Add(
-							{ EnemyBulletX[i],EnemyBulletY[i] }, // 発生場所
-							{ Rnd() * 3 - 1,Rnd() * 3 - 1 },       // 飛び散る方向
+							{ EnemyBulletX[i],EnemyBulletY[i] },    // 発生場所
+							{ Rnd() * 3 - 1,Rnd() * 3 - 1 },        // 飛び散る方向
 							2.0f,                                   // サイズ
 							{ 1, 1, 1, 1 },                         // 色
 							60                                      // 寿命
@@ -318,7 +321,7 @@ void C_EnemyBullet::Update()
 	if (gameScreen->GetStageClearFlg() == false)
 	{
 
-		for (int i = 0; i < EnemyBulletNum; i++)
+		for (int i = 0; i < EnemyBulletNum; ++i)
 		{
 			if (EnemyBulletAlive[i] == true)
 			{
@@ -334,7 +337,7 @@ void C_EnemyBullet::Draw()
 {
 	C_Enemy* enemy = SCENE.GetEnemy();
 
-	for (int i = 0; i < EnemyBulletNum; i++)
+	for (int i = 0; i < EnemyBulletNum; ++i)
 	{
 		if (EnemyBulletAlive[i] == true)
 		{

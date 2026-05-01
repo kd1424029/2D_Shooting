@@ -15,7 +15,6 @@ void Scene::Draw2D()
 	//各シーンの描画処理
 	switch (AnimationScene) {
 
-		//タイトル画面
 	case SceneType::Title:
 
 		m_title.Draw();
@@ -121,6 +120,9 @@ void Scene::Update()
 	}
 	//====================================================
 
+
+	//============== BGM SE 関係 =============================
+
 	if (TitleBgmSwitch == true )
 	{
 		m_sound.TitleBGMPlay();
@@ -139,9 +141,20 @@ void Scene::Update()
 		m_sound.GameBGMStop();
 	}
 
+	if (GameOverBgmSwitch == true)
+	{
+		m_sound.GameOverBGMPlay();
+	}
+	else
+	{
+		m_sound.GameOverBGMStop();
+	}
+
+	//====================================================
+
 	//各シーンの描画処理
 	switch (AnimationScene) {
-		//タイトル画面
+		
 	case SceneType::Title:
 
 		m_title.Action();
@@ -151,6 +164,8 @@ void Scene::Update()
 		TitleBgmSwitch = true;
 
 		GameBgmSwitch = false;
+
+		GameOverBgmSwitch = false;
 
 		break;
 
@@ -167,7 +182,9 @@ void Scene::Update()
 		GameBgmSwitch = true;
 
 		TitleBgmSwitch = false;
-	
+
+		GameOverBgmSwitch = false;
+
 		break;
 
 	case SceneType::Stage2:
@@ -184,7 +201,9 @@ void Scene::Update()
 		GameBgmSwitch = true;
 
 		TitleBgmSwitch = false;
-		
+
+		GameOverBgmSwitch = false;
+
 		break;
 
 	case SceneType::Stage3:
@@ -204,6 +223,8 @@ void Scene::Update()
 		GameBgmSwitch = true;
 
 		TitleBgmSwitch = false;
+
+		GameOverBgmSwitch = false;
 
 		break;
 
@@ -225,6 +246,8 @@ void Scene::Update()
 
 		TitleBgmSwitch = false;
 
+		GameOverBgmSwitch = false;
+
 		break;
 
 	case SceneType::HardStage1:
@@ -240,6 +263,9 @@ void Scene::Update()
 		GameBgmSwitch = true;
 
 		TitleBgmSwitch = false;
+
+		GameOverBgmSwitch = false;
+
 		break;
 
 	case SceneType::HardStage2:
@@ -259,6 +285,8 @@ void Scene::Update()
 		GameBgmSwitch = true;
 
 		TitleBgmSwitch = false;
+
+		GameOverBgmSwitch = false;
 
 		break;
 
@@ -280,6 +308,8 @@ void Scene::Update()
 
 		TitleBgmSwitch = false;
 
+		GameOverBgmSwitch = false;
+
 		break;
 
 	case SceneType::HardStage4:
@@ -300,6 +330,8 @@ void Scene::Update()
 
 		TitleBgmSwitch = false;
 
+		GameOverBgmSwitch = false;
+
 		break;
 
 	case SceneType::GameOverResult:
@@ -307,6 +339,8 @@ void Scene::Update()
 		m_result.Action();
 
 		m_result.Update();
+
+		GameOverBgmSwitch = true;
 
 		GameBgmSwitch = false;
 
@@ -326,6 +360,8 @@ void Scene::Update()
 
 		TitleBgmSwitch = false;
 
+		GameOverBgmSwitch = false;
+
 		break;
 	}
 
@@ -340,6 +376,7 @@ void Scene::Update()
 
 }
 
+//共通更新
 void Scene::CommonUpdate()
 {
 	m_player.Action();
@@ -435,7 +472,7 @@ void Scene::StageInit(SceneType NowStage)
 
 	//各シーンの描画処理
 	switch (NowStage) {
-		//タイトル画面
+		
 	case SceneType::Title:
 
 		LoadTitleTexture();

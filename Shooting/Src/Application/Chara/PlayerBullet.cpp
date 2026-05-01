@@ -22,7 +22,7 @@ void C_PlayerBullet::Init()
 	}
 
 
-	StageClearTimer = 600;
+	StageClearTimer = 600;  //コードが重いため600（1秒)
 }
 
 void C_PlayerBullet::Action()
@@ -39,7 +39,7 @@ void C_PlayerBullet::Action()
 
 	C_Sound* sound = SCENE.GetSound();
 
-	for (int i = 0; i < PlayerBulletNum; i++)
+	for (int i = 0; i < PlayerBulletNum; ++i)
 	{
 		//==================== 発射処理 ==============================
 		if (GetAsyncKeyState(VK_SPACE) & 0x8000 && gamescreen->GetGameStartFlg() == true && gamescreen->GetStageClearFlg() == false &&	PlayerBulletCnt == 0)
@@ -47,7 +47,7 @@ void C_PlayerBullet::Action()
 
 			if (PlayerBulletAlive[i] == false)
 			{
-				PlayerBulletAlive[i] = true;  //発射フラグ
+				PlayerBulletAlive[i] = true;  //生存フラグ
 
 				//弾を上方向から出るようにする
 				if (player->GetRectUpFlg() == true)
@@ -138,7 +138,7 @@ void C_PlayerBullet::Action()
 			{
 				PlayerBulletAlive[i] = false;
 
-				for (int count = 0; count < BulletEffectNUM; count++)
+				for (int count = 0; count < BulletEffectNUM; ++count)
 				{
 					SCENE.GetEffectManager()->Add(
 						{ PlayerBulletX[i], PlayerBulletY[i] },
@@ -154,7 +154,7 @@ void C_PlayerBullet::Action()
 			{
 				PlayerBulletAlive[i] = false;
 
-				for (int count = 0; count < BulletEffectNUM; count++)
+				for (int count = 0; count < BulletEffectNUM; ++count)
 				{
 					//エフェクトの発生
 					SCENE.GetEffectManager()->Add(
@@ -187,6 +187,7 @@ void C_PlayerBullet::Action()
 
 					PlayerBulletAlive[i] = false;  //プレイヤーの弾も消す
 
+					sound->BurstSE();
 
 					for (int count = 0; count < BulletEffectNUM; count++)
 					{
@@ -219,7 +220,7 @@ void C_PlayerBullet::Update()
 	if (gameScreen->GetStageClearFlg() == false)
 	{
 
-		for (int i = 0; i < PlayerBulletNum; i++)
+		for (int i = 0; i < PlayerBulletNum; ++i)
 		{
 			if (PlayerBulletAlive[i] == true)
 			{
@@ -232,7 +233,7 @@ void C_PlayerBullet::Update()
 
 void C_PlayerBullet::Draw()
 {
-	for (int i = 0; i < PlayerBulletNum; i++)
+	for (int i = 0; i < PlayerBulletNum; ++i)
 	{
 		if (PlayerBulletAlive[i] == true)
 		{

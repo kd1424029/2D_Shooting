@@ -172,6 +172,8 @@ void C_Result::GameClearInit()
 		m_ObjectList.push_back(object3);
 	}
 	//======================================
+
+	m_ClearSeFlg = false;
 }
 
 void C_Result::GameOverInit()
@@ -346,7 +348,7 @@ void C_Result::Action()
 	}
 
 
-	for (int i = 0; i < m_ResultList.size(); i++)
+	for (int i = 0; i < m_ResultList.size(); ++i)
 	{
 		auto& result = m_ResultList[i];
 
@@ -395,7 +397,7 @@ void C_Result::Action()
 
 
 	//============ ObjectŠÖ˜A =====================
-	for (int i = 0; i < m_ObjectList.size(); i++)
+	for (int i = 0; i < m_ObjectList.size(); ++i)
 	{
 		auto& object = m_ObjectList[i];
 
@@ -450,6 +452,12 @@ void C_Result::GameClearAction()
 {
 	C_Sound* sound = SCENE.GetSound();
 
+	if (!m_ClearSeFlg)
+	{
+		sound->ClearSE();
+		m_ClearSeFlg = true;
+	}
+
 	if (GetAsyncKeyState(VK_RETURN) & 0x8000 && ResultStartFlg == true && SceneFlg == false)
 	{
 		SceneFlg = true;
@@ -458,7 +466,7 @@ void C_Result::GameClearAction()
 	}
 
 
-	for (int i = 0; i < m_ResultList.size(); i++)
+	for (int i = 0; i < m_ResultList.size(); ++i)
 	{
 		auto& result = m_ResultList[i];
 
@@ -507,7 +515,7 @@ void C_Result::GameClearAction()
 
 
 	//============ ObjectŠÖ˜A =====================
-	for (int i = 0; i < m_ObjectList.size(); i++)
+	for (int i = 0; i < m_ObjectList.size(); ++i)
 	{
 		auto& object = m_ObjectList[i];
 
@@ -581,11 +589,11 @@ void C_Result::Update()
 
 void C_Result::Draw()
 {
-	for (int i = 0; i < m_ResultList.size(); i++)
+	for (int i = 0; i < m_ResultList.size(); ++i)
 	{
 		auto& result = m_ResultList[i];
 
-		// i == 3 ‚ÍƒV[ƒ“‘JˆÚ—p‚È‚Ì‚Å‚±‚±‚Å‚Í•`‰æ‚µ‚È‚¢
+		//i == 3 ‚ÍƒV[ƒ“‘JˆÚ—p‚È‚Ì‚Å‚±‚±‚Å‚Í•`‰æ‚µ‚È‚¢
 		if (i == 3) continue;
 
 		SHADER.m_spriteShader.SetMatrix(result.m_mat);
@@ -609,7 +617,7 @@ void C_Result::GameClearDraw()
 {
 	C_Timer* timer = SCENE.GetTimer();
 
-	for (int i = 0; i < m_ResultList.size(); i++)
+	for (int i = 0; i < m_ResultList.size(); ++i)
 	{
 		auto& result = m_ResultList[i];
 

@@ -12,9 +12,11 @@ void C_Player::Init()
 	Player.m_radius.x = 32;
 	Player.m_radius.y = 32;
 
-	Player.m_rect = { 0,0,64,64 };
+	Player.m_rect = { 0, 0,64,64 };
 
 	Player.m_alive = true;
+
+	Player.m_anime = 0;
 
 	// Å™ÉLÅ[óp
 	m_NowKeyUp = false;

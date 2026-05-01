@@ -14,6 +14,8 @@ void C_Sound::Init()
 	Click    = std::make_shared<KdSoundEffect>();
 	Bullet   = std::make_shared<KdSoundEffect>();
 	Start    = std::make_shared<KdSoundEffect>();
+	Burst    = std::make_shared<KdSoundEffect>();
+	Clear    = std::make_shared<KdSoundEffect>();
 	
 
 	//②音データ読み込み
@@ -21,12 +23,16 @@ void C_Sound::Init()
 	Click   ->Load("Sound/SE/Click.wav");
 	Bullet  ->Load("Sound/SE/Bullet.wav");
 	Start   ->Load("Sound/SE/Start.wav");
+	Burst   ->Load("Sound/SE/Burst.wav");
+	Clear   ->Load("Sound/SE/GameClear.wav");
 	
 	//③実体化 (インスタンス化)
 	PickMoveInst = PickMove->CreateInstance(false);	//インスタンス化(専用スピーカーの作成)
 	ClickInst    = Click   ->CreateInstance(false);
 	BulletInst   = Bullet  ->CreateInstance(false);
 	StartInst    = Start   ->CreateInstance(false);
+	BurstInst    = Burst   ->CreateInstance(false);
+	ClearInst    = Clear   ->CreateInstance(false);
 	
 	
 	// ④音量設定(0から1の範囲で)
@@ -34,23 +40,29 @@ void C_Sound::Init()
 	if (ClickInst)    ClickInst   ->SetVolume(SEvol);
 	if (BulletInst)   BulletInst  ->SetVolume(SEvol);
 	if (StartInst)    StartInst    ->SetVolume(SEvol);
+	if (BurstInst)    BurstInst    ->SetVolume(SEvol);
+	if (ClearInst)    ClearInst    ->SetVolume(SEvol);
 	
 	// --- BGM 周り (自動再生をしない) ---
 	//①領域確保
-	Titlebgm = std::make_shared<KdSoundEffect>();
-	Gamebgm  = std::make_shared<KdSoundEffect>();
+	Titlebgm     = std::make_shared<KdSoundEffect>();
+	Gamebgm      = std::make_shared<KdSoundEffect>();
+	GameOverbgm  = std::make_shared<KdSoundEffect>();
 
 	//②音データ読み込み
-	Titlebgm->Load("Sound/BGM/TitleBGM.wav");
-	Gamebgm ->Load("Sound/BGM/GameBGM.wav");
+	Titlebgm    ->Load("Sound/BGM/TitleBGM.wav");
+	Gamebgm     ->Load("Sound/BGM/GameBGM.wav");
+	GameOverbgm ->Load("Sound/BGM/GameOverBGM.wav");
 
 	//③実体化 (インスタンス化)(専用スピーカーの作成)
-	TitlebgmInst = Titlebgm->CreateInstance(false);	//インスタンス化(専用スピーカーの作成)
-	GamebgmInst  = Gamebgm->CreateInstance(false);
+	TitlebgmInst     = Titlebgm->CreateInstance(false);	//インスタンス化(専用スピーカーの作成)
+	GamebgmInst      = Gamebgm->CreateInstance(false);
+	GameOverbgmInst  = GameOverbgm->CreateInstance(false);
 
 	//④音量設定(0から1の範囲で)
-	if (TitlebgmInst) TitlebgmInst->SetVolume(vol);				//ボリューム調整(セッターで音を渡す)
-	if (GamebgmInst)  GamebgmInst->SetVolume(vol);
+	if (TitlebgmInst)     TitlebgmInst->SetVolume(vol);				//ボリューム調整(セッターで音を渡す)
+	if (GamebgmInst)      GamebgmInst->SetVolume(vol);
+	if (GameOverbgmInst)  GameOverbgmInst->SetVolume(vol);
 
 }
 void C_Sound::Release()
@@ -91,6 +103,19 @@ void C_Sound::StartSE()
 	StartInst->Play();
 }
 
+void C_Sound::BurstSE()
+{
+	BurstInst->Stop();
+
+	BurstInst->Play();
+}
+
+void C_Sound::ClearSE()
+{
+	ClearInst->Stop();
+
+	ClearInst->Play();
+}
 
 void C_Sound::TitleBGMPlay()
 {
@@ -121,6 +146,22 @@ void C_Sound::GameBGMStop()
 	if (GamebgmInst->IsPlay() == true)
 	{
 		GamebgmInst->Stop();
+	}
+}
+
+void C_Sound::GameOverBGMPlay()
+{
+	if (GameOverbgmInst->IsPlay() == false)
+	{
+		GameOverbgmInst->Play();
+	}
+}
+
+void C_Sound::GameOverBGMStop()
+{
+	if (GameOverbgmInst->IsPlay() == true)
+	{
+		GameOverbgmInst->Stop();
 	}
 }
 

@@ -48,6 +48,7 @@ protected:
 	ObjectParam TitleMode;
 	ObjectParam TitleModeUI;
 	ObjectParam TitlePickUI;
+	ObjectParam TitleCreditUI;
 
 	ObjectParam ObjectStar;
 	ObjectParam ObjectDiamond;

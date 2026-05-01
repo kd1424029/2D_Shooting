@@ -80,7 +80,7 @@ void C_GameScreen::Stage1Action()
 
 	C_Sound* sound = SCENE.GetSound();
 
-	// スタート演出制御
+	//スタート演出制御
 	if (!GameStartFlg)
 	{
 		StartTimer++;
@@ -97,13 +97,13 @@ void C_GameScreen::Stage1Action()
 			SceneTransition.alpha = 0.0f;
 		}
 
-		// 0.7秒後くらいからフェード開始
+		//0.7秒後くらいからフェード開始
 		if (StartTimer > 50)
 		{
 			GameStart.alpha -= 0.02f;
 		}
 
-		// 完全に消えたらゲーム開始
+		//完全に消えたらゲーム開始
 		if (GameStart.alpha <= 0.0f)
 		{
 			GameStartFlg = true;
@@ -122,7 +122,7 @@ void C_GameScreen::Stage1Action()
 			sound->StartSE();
 		}
 
-		// 1.0秒後くらいからフェード開始
+		//1.0秒後くらいからフェード開始
 		if (StageClearTimer > 60)
 		{
 			StageClear.alpha -= 0.02f;
@@ -130,7 +130,7 @@ void C_GameScreen::Stage1Action()
 			SceneTransition.alpha += 0.02f; //ゲーム画面を暗くする用
 		}
 
-		// 完全に消えたらシーン切り替え
+		//完全に消えたらシーン切り替え
 		if (StageClear.alpha <  -0.5f)
 		{
 			StageClearFlg = false;
@@ -190,13 +190,13 @@ void C_GameScreen::Stage2Action()
 			SceneTransition.alpha = 0.0f;
 		}
 
-		// 0.7秒後くらいからフェード開始
+		//0.7秒後くらいからフェード開始
 		if (StartTimer > 50)
 		{
 			GameStart.alpha -= 0.02f;
 		}
 
-		// 完全に消えたらゲーム開始
+		//完全に消えたらゲーム開始
 		if (GameStart.alpha <= 0.0f)
 		{
 			GameStartFlg = true;
@@ -214,7 +214,7 @@ void C_GameScreen::Stage2Action()
 			sound->StartSE();
 		}
 
-		// 1.0秒後くらいからフェード開始
+		//1.0秒後くらいからフェード開始
 		if (StageClearTimer > 60)
 		{
 			StageClear.alpha -= 0.02f;
@@ -222,7 +222,7 @@ void C_GameScreen::Stage2Action()
 			SceneTransition.alpha += 0.02f; //ゲーム画面を暗くする用
 		}
 
-		// 完全に消えたらシーン切り替え
+		//完全に消えたらシーン切り替え
 		if (StageClear.alpha < -0.5f)
 		{
 			StageClearFlg = false;
@@ -241,7 +241,7 @@ void C_GameScreen::Stage2Action()
 			sound->StartSE();
 		}
 
-		// 1.0秒後くらいからフェード開始
+		//1.0秒後くらいからフェード開始
 		if (GameOverTimer > 60)
 		{
 			GameOver.alpha -= 0.02f;
@@ -249,7 +249,7 @@ void C_GameScreen::Stage2Action()
 			SceneTransition.alpha += 0.02f; //ゲーム画面を暗くする用
 		}
 
-		// 完全に消えたらシーン切り替え
+		//完全に消えたらシーン切り替え
 		if (GameOver.alpha < -0.5f)
 		{
 			GameOverFlg = false;
@@ -281,13 +281,13 @@ void C_GameScreen::Stage3Action()
 			SceneTransition.alpha = 0.0f;
 		}
 
-		// 0.7秒後くらいからフェード開始
+		//0.7秒後くらいからフェード開始
 		if (StartTimer > 50)
 		{
 			GameStart.alpha -= 0.02f;
 		}
 
-		// 完全に消えたらゲーム開始
+		//完全に消えたらゲーム開始
 		if (GameStart.alpha <= 0.0f)
 		{
 			GameStartFlg = true;
@@ -305,7 +305,7 @@ void C_GameScreen::Stage3Action()
 			sound->StartSE();
 		}
 
-		// 1.0秒後くらいからフェード開始
+		//1.0秒後くらいからフェード開始
 		if (StageClearTimer > 60)
 		{
 			StageClear.alpha -= 0.02f;

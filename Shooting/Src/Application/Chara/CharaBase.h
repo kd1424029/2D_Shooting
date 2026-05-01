@@ -18,6 +18,8 @@ struct Param
 	float m_alpha;                //“§–¾“x
 	bool m_alive;               //¶‘¶ƒtƒ‰ƒO
 
+	float m_anime;
+
 	float		    m_size;
 	Math::Color		m_color;
 	float			m_lifespan;

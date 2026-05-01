@@ -15,6 +15,7 @@ void C_Title::Init()
 	{(64.0f * 8.4f) - 640,(-64.0f * 9.0f) + 360},
 	{(64.0f * 9.9f) - 640,(-64.0f * 8.83f) + 360},
 	{(64.0f * 10.0f) - 640,(-64.0f * 7.0f) + 360},
+	{(64.0f * 15.0f) - 640,(-64.0f * 10.0f) + 360},
 	};
 
 
@@ -128,6 +129,19 @@ void C_Title::Init()
 	newBlock8.m_tex = TitlePickUI.m_tex;
 
 	m_TitleList.push_back(newBlock8);
+	//=======================================
+
+	//============= クレジット ==================
+	Math::Vector2 m_pos9 = TitlePosList[8];
+
+	ObjectParam newBlock9;
+	newBlock9.m_pos = { m_pos9.x , m_pos9.y };
+	newBlock9.m_scale = 1.85f;
+	newBlock9.m_alpha = 1.0f;
+	newBlock9.m_rect = { 832,128,256,64 };
+	newBlock9.m_tex = TitleCreditUI.m_tex;
+
+	m_TitleList.push_back(newBlock9);
 	//=======================================
 
 	//============= オブジェクト系 =============
@@ -277,7 +291,7 @@ void C_Title::Action()
 	}
 
 
-	for (int i = 0; i < m_TitleList.size(); i++)
+	for (int i = 0; i < m_TitleList.size(); ++i)
 	{
 		auto& title = m_TitleList[i];
 
@@ -398,7 +412,7 @@ void C_Title::Action()
 	}
 
 	//============ Object関連 =====================
-	for (int i = 0; i < m_ObjectList.size(); i++)
+	for (int i = 0; i < m_ObjectList.size(); ++i)
 	{
 		auto& object = m_ObjectList[i];
 
@@ -472,7 +486,7 @@ void C_Title::Update()
 void C_Title::Draw()
 {
 
-	for (int i = 0; i < m_TitleList.size(); i++)
+	for (int i = 0; i < m_TitleList.size(); ++i)
 	{
 		auto& title = m_TitleList[i];
 

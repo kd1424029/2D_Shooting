@@ -710,11 +710,13 @@ void C_Enemy::Stage1Action()
 
 	C_Player* player = SCENE.GetPlayer();
 
-	if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
+
+	for (auto& enemy : m_EnemyList)
 	{
 
-		for (auto& enemy : m_EnemyList)
+		if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
 		{
+
 
 			switch (enemy.m_MoveState)
 			{
@@ -753,12 +755,14 @@ void C_Enemy::Stage2Action()
 
 	C_Player* player = SCENE.GetPlayer();
 
-	if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
+	for (int i = 0; i < m_EnemyList.size(); i++)
 	{
+		auto& enemy = m_EnemyList[i];
 
-		for (int i = 0;i < m_EnemyList.size(); i++)
+		if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
 		{
-			auto& enemy = m_EnemyList[i];
+
+
 
 			if (i == 0)
 			{
@@ -831,12 +835,14 @@ void C_Enemy::Stage3Action()
 
 	C_Player* player = SCENE.GetPlayer();
 
-	if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
-	{
 
-		for (int i = 0; i < m_EnemyList.size(); i++)
+
+	for (int i = 0; i < m_EnemyList.size(); i++)
+	{
+		auto& enemy = m_EnemyList[i];
+
+		if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
 		{
-			auto& enemy = m_EnemyList[i];
 
 			if (i == 0)
 			{
@@ -940,12 +946,13 @@ void C_Enemy::Stage4Action()
 
 	C_Player* player = SCENE.GetPlayer();
 
-	if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
+	for (int i = 0; i < m_EnemyList.size(); ++i)
 	{
+		auto& enemy = m_EnemyList[i];
 
-		for (int i = 0; i < m_EnemyList.size(); i++)
+		if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
 		{
-			auto& enemy = m_EnemyList[i];
+
 
 			if (i == 0)
 			{
@@ -1081,12 +1088,13 @@ void C_Enemy::HardStage1Action()
 
 	C_Player* player = SCENE.GetPlayer();
 
-	if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
-	{
 
-		for (int i = 0; i < m_EnemyList.size(); i++)
+	for (int i = 0; i < m_EnemyList.size(); ++i)
+	{
+		auto& enemy = m_EnemyList[i];
+
+		if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
 		{
-			auto& enemy = m_EnemyList[i];
 
 			if (i == 0)
 			{
@@ -1159,13 +1167,12 @@ void C_Enemy::HardStage2Action()
 
 	C_Player* player = SCENE.GetPlayer();
 
-	if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
+	for (int i = 0; i < m_EnemyList.size(); ++i)
 	{
+		auto& enemy = m_EnemyList[i];
 
-		for (int i = 0; i < m_EnemyList.size(); i++)
+		if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
 		{
-			auto& enemy = m_EnemyList[i];
-
 			if (i == 0)
 			{
 				switch (enemy.m_MoveState)
@@ -1268,13 +1275,12 @@ void C_Enemy::HardStage3Action()
 
 	C_Player* player = SCENE.GetPlayer();
 
-	if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
+	for (int i = 0; i < m_EnemyList.size(); ++i)
 	{
+		auto& enemy = m_EnemyList[i];
 
-		for (int i = 0; i < m_EnemyList.size(); i++)
+		if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
 		{
-			auto& enemy = m_EnemyList[i];
-
 			if (i == 0)
 			{
 				switch (enemy.m_MoveState)
@@ -1409,13 +1415,12 @@ void C_Enemy::HardStage4Action()
 
 	C_Player* player = SCENE.GetPlayer();
 
-	if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
+	for (int i = 0; i < m_EnemyList.size(); ++i)
 	{
+		auto& enemy = m_EnemyList[i];
 
-		for (int i = 0; i < m_EnemyList.size(); i++)
+		if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
 		{
-			auto& enemy = m_EnemyList[i];
-
 			if (i == 0)
 			{
 				switch (enemy.m_MoveState)

@@ -165,6 +165,7 @@ private:
 	//BGM—p
 	bool TitleBgmSwitch = false;
 	bool GameBgmSwitch = false;
+	bool GameOverBgmSwitch = false;
 
 public:
 	static Scene& GetInstance()

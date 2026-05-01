@@ -18,12 +18,21 @@ private:
 	std::shared_ptr<KdSoundEffect>		Start;
 	std::shared_ptr<KdSoundInstance>	StartInst;
 
+	std::shared_ptr<KdSoundEffect>		Burst;
+	std::shared_ptr<KdSoundInstance>	BurstInst;
+
+	std::shared_ptr<KdSoundEffect>		Clear;
+	std::shared_ptr<KdSoundInstance>	ClearInst;
+
 	//BGM用
 	std::shared_ptr<KdSoundEffect>		Titlebgm;		// 音データ
 	std::shared_ptr<KdSoundInstance>TitlebgmInst;	// 音を鳴らす為の変数(イメージ的にはスピーカー)
 
 	std::shared_ptr<KdSoundEffect>		Gamebgm;	
 	std::shared_ptr<KdSoundInstance>GamebgmInst;
+
+	std::shared_ptr<KdSoundEffect>  GameOverbgm;
+	std::shared_ptr<KdSoundInstance>GameOverbgmInst;
 	
 
 	// 音量調節用
@@ -52,7 +61,11 @@ public:
 	void BulletSE();
 
 	void StartSE();
-	
+
+	void BurstSE();
+
+	void ClearSE();
+
 	void TitleBGMPlay();
 	
 	void TitleBGMStop();
@@ -60,6 +73,10 @@ public:
 	void GameBGMPlay();
 	
 	void GameBGMStop();
+
+	void GameOverBGMPlay();
+
+	void GameOverBGMStop();
 
 	// GUI処理
 	void ImGuiUpdate();
