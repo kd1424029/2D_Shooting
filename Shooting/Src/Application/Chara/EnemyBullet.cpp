@@ -175,12 +175,12 @@ void C_EnemyBullet::Action()
 							EnemyBulletY[EnemyBullet] = Enemy[enemy].m_pos.y;
 							EnemyBulletAlive[EnemyBullet] = true;
 
-							EnemyBulletDirX[EnemyBullet] = -2.0f;  //左へ直進
+							EnemyBulletDirX[EnemyBullet] = -2.0f; //左へ直進
 							EnemyBulletDirY[EnemyBullet] = 0.0f;  //Yは動かない
 
 							EnemyBulletRect[EnemyBullet] = { 64,0,16,16 };
 
-							Enemy[enemy].m_BulletTimer = 120;   //2秒間隔で打つようにする
+							Enemy[enemy].m_BulletTimer = 120;       //2秒間隔で打つようにする
 							EnemyBulletHomingCnt[EnemyBullet] = 0;  //ホーミングカウントをリセット
 
 							sound->BulletSE();
@@ -202,7 +202,8 @@ void C_EnemyBullet::Action()
 			{
 				EnemyBulletHomingCnt[i]++;
 
-				if (EnemyBulletHomingCnt[i] < EnemyBulletStraightLimitCnt) //直進中
+				//直進中
+				if (EnemyBulletHomingCnt[i] < EnemyBulletStraightLimitCnt) 
 				{
 					EnemyBulletX[i] += EnemyBulletDirX[i];
 					EnemyBulletY[i] += EnemyBulletDirY[i];
@@ -249,11 +250,13 @@ void C_EnemyBullet::Action()
 				{
 					EnemyBulletAlive[i] = false;
 
+					sound->WallHitBurstSE();
+
 					for (int count = 0; count < BulletEffectNUM; ++count)
 					{
 						SCENE.GetEffectManager()->Add(
 							{ EnemyBulletX[i],EnemyBulletY[i] },
-							{ Rnd() * 3 - 1, Rnd() * 3 - 1 },
+							{ Rnd() * 4 - 1,Rnd() * 5 - 1 },
 							2.0f, { 1, 1, 1, 1 }, 60
 						);
 					}
@@ -265,12 +268,14 @@ void C_EnemyBullet::Action()
 				{
 					EnemyBulletAlive[i] = false;
 
+					sound->WallHitBurstSE();
+
 					for (int count = 0; count < BulletEffectNUM; count++)
 					{
 						//エフェクトの発生
 						SCENE.GetEffectManager()->Add(
 							{ EnemyBulletX[i],EnemyBulletY[i] }, // 発生場所
-							{ Rnd() * 3 - 1,Rnd() * 3 - 1 },       // 飛び散る方向
+							{ Rnd() * 4 - 1,Rnd() * 5 - 1 },       // 飛び散る方向
 							2.0f,                                   // サイズ
 							{ 1, 1, 1, 1 },                         // 色
 							60                                      // 寿命
@@ -298,7 +303,7 @@ void C_EnemyBullet::Action()
 						//エフェクトの発生
 						SCENE.GetEffectManager()->Add(
 							{ EnemyBulletX[i],EnemyBulletY[i] },    // 発生場所
-							{ Rnd() * 3 - 1,Rnd() * 3 - 1 },        // 飛び散る方向
+							{ Rnd() * 4 - 1,Rnd() * 5 - 1 },        // 飛び散る方向
 							2.0f,                                   // サイズ
 							{ 1, 1, 1, 1 },                         // 色
 							60                                      // 寿命
@@ -317,9 +322,9 @@ void C_EnemyBullet::Update()
 
 	C_Enemy* enemy = SCENE.GetEnemy();
 
-	//ステージクリアフラグが立っていないときのみプレイヤー弾の更新を受け付ける
-	if (gameScreen->GetStageClearFlg() == false)
-	{
+	////ステージクリアフラグが立っていないときのみプレイヤー弾の更新を受け付ける
+	//if (gameScreen->GetStageClearFlg() == false)
+	//{
 
 		for (int i = 0; i < EnemyBulletNum; ++i)
 		{
@@ -330,7 +335,7 @@ void C_EnemyBullet::Update()
 			}
 		}
 
-	}
+	//}
 }
 
 void C_EnemyBullet::Draw()

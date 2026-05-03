@@ -24,6 +24,9 @@ private:
 	std::shared_ptr<KdSoundEffect>		Clear;
 	std::shared_ptr<KdSoundInstance>	ClearInst;
 
+	std::shared_ptr<KdSoundEffect>		WallHitBurst;
+	std::shared_ptr<KdSoundInstance>	WallHitBurstInst;
+
 	//BGM用
 	std::shared_ptr<KdSoundEffect>		Titlebgm;		// 音データ
 	std::shared_ptr<KdSoundInstance>TitlebgmInst;	// 音を鳴らす為の変数(イメージ的にはスピーカー)
@@ -38,6 +41,7 @@ private:
 	// 音量調節用
 	float vol;
 	float SEvol; // SE用音量
+	float WallHitSEvol; // 弾が壁に当たった時のSE用音量
 	
 	bool chenge;
 public:
@@ -63,6 +67,8 @@ public:
 	void StartSE();
 
 	void BurstSE();
+
+	void WallHitBurstSE();
 
 	void ClearSE();
 

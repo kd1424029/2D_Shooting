@@ -362,9 +362,9 @@ void C_Result::Action()
 				result.m_addAlpha *= -1;
 			}
 
-			else if (result.m_alpha <= 0.0f)
+			else if (result.m_alpha <= 0.3f)
 			{
-				result.m_alpha = 0.0f;
+				result.m_alpha = 0.3f;
 				result.m_addAlpha *= -1;
 			}
 		}
@@ -480,9 +480,9 @@ void C_Result::GameClearAction()
 				result.m_addAlpha *= -1;
 			}
 
-			else if (result.m_alpha <= 0.0f)
+			else if (result.m_alpha <= 0.3f)
 			{
-				result.m_alpha = 0.0f;
+				result.m_alpha = 0.3f;
 				result.m_addAlpha *= -1;
 			}
 		}

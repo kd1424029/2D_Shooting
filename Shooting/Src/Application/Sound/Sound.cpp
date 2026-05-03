@@ -6,6 +6,7 @@ void C_Sound::Init()
 	// 初期ボリュームを先に設定
 	vol = 0.2f; // MAXは 1.0f
 	SEvol = 0.5f;
+	WallHitSEvol = 0.1f;
 
 	
 	// SEの読み込み
@@ -16,6 +17,7 @@ void C_Sound::Init()
 	Start    = std::make_shared<KdSoundEffect>();
 	Burst    = std::make_shared<KdSoundEffect>();
 	Clear    = std::make_shared<KdSoundEffect>();
+	WallHitBurst = std::make_shared<KdSoundEffect>();
 	
 
 	//②音データ読み込み
@@ -25,6 +27,7 @@ void C_Sound::Init()
 	Start   ->Load("Sound/SE/Start.wav");
 	Burst   ->Load("Sound/SE/Burst.wav");
 	Clear   ->Load("Sound/SE/GameClear.wav");
+	WallHitBurst->Load("Sound/SE/Burst.wav");
 	
 	//③実体化 (インスタンス化)
 	PickMoveInst = PickMove->CreateInstance(false);	//インスタンス化(専用スピーカーの作成)
@@ -33,6 +36,7 @@ void C_Sound::Init()
 	StartInst    = Start   ->CreateInstance(false);
 	BurstInst    = Burst   ->CreateInstance(false);
 	ClearInst    = Clear   ->CreateInstance(false);
+	WallHitBurstInst = WallHitBurst->CreateInstance(false);
 	
 	
 	// ④音量設定(0から1の範囲で)
@@ -42,7 +46,8 @@ void C_Sound::Init()
 	if (StartInst)    StartInst    ->SetVolume(SEvol);
 	if (BurstInst)    BurstInst    ->SetVolume(SEvol);
 	if (ClearInst)    ClearInst    ->SetVolume(SEvol);
-	
+	if (WallHitBurstInst)    WallHitBurstInst->SetVolume(WallHitSEvol);
+
 	// --- BGM 周り (自動再生をしない) ---
 	//①領域確保
 	Titlebgm     = std::make_shared<KdSoundEffect>();
@@ -108,6 +113,13 @@ void C_Sound::BurstSE()
 	BurstInst->Stop();
 
 	BurstInst->Play();
+}
+
+void C_Sound::WallHitBurstSE()
+{
+	WallHitBurstInst->Stop();
+
+	WallHitBurstInst->Play();
 }
 
 void C_Sound::ClearSE()

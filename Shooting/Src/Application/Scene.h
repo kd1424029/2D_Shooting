@@ -101,13 +101,11 @@ public:
 
 	void StageTexture();
 
-	void StageBlockTexture();
-
 	void LoadTitleTexture(); 
 
 	void LoadResultTexture(); 
 
-	void ReleaseTexture(SceneType NowStage);
+	void ReleaseTexture();
 
 	// ‰ð•ú
 	void Release();

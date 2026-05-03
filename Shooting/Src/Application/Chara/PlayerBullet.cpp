@@ -138,11 +138,13 @@ void C_PlayerBullet::Action()
 			{
 				PlayerBulletAlive[i] = false;
 
+				sound->WallHitBurstSE();
+
 				for (int count = 0; count < BulletEffectNUM; ++count)
 				{
 					SCENE.GetEffectManager()->Add(
 						{ PlayerBulletX[i], PlayerBulletY[i] },
-						{ Rnd() * 3 - 1, Rnd() * 3 - 1 },
+						{ Rnd() * 4 - 1,Rnd() * 5 - 1 },
 						2.0f, { 1, 1, 1, 1 }, 60
 					);
 				}
@@ -150,16 +152,18 @@ void C_PlayerBullet::Action()
 			}
 
 			//弾が画面外に出たら消滅状態にする
-			if (PlayerBulletY[i] > ScreenTop || PlayerBulletY[i] < ScreenBottom || PlayerBulletX[i] > ScreenRight || PlayerBulletX[i] < ScreenLeft && EnemyAlive == true)
+			if (PlayerBulletY[i] > ScreenTop || PlayerBulletY[i] < ScreenBottom || PlayerBulletX[i] > ScreenRight || PlayerBulletX[i] < ScreenLeft)
 			{
 				PlayerBulletAlive[i] = false;
+
+				sound->WallHitBurstSE();
 
 				for (int count = 0; count < BulletEffectNUM; ++count)
 				{
 					//エフェクトの発生
 					SCENE.GetEffectManager()->Add(
 						{ PlayerBulletX[i], PlayerBulletY[i] }, // 発生場所
-						{ Rnd() * 3 - 1,Rnd() * 3 - 1 },       // 飛び散る方向
+						{ Rnd() * 4 - 1,Rnd() * 5 - 1 },       // 飛び散る方向
 						2.0f,                                   // サイズ
 						{ 1, 1, 1, 1 },                         // 色
 						60                                      // 寿命
@@ -194,7 +198,7 @@ void C_PlayerBullet::Action()
 						//エフェクトの発生
 						SCENE.GetEffectManager()->Add(
 							{ PlayerBulletX[i], PlayerBulletY[i] }, // 発生場所
-							{ Rnd() * 3 - 1,Rnd() * 3 - 1 },       // 飛び散る方向
+							{ Rnd() * 4 - 1,Rnd() * 5 - 1 },       // 飛び散る方向
 							2.0f,                                   // サイズ
 							{ 1, 1, 1, 1 },                         // 色
 							60                                      // 寿命

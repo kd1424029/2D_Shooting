@@ -15,7 +15,7 @@ void C_Title::Init()
 	{(64.0f * 8.4f) - 640,(-64.0f * 9.0f) + 360},
 	{(64.0f * 9.9f) - 640,(-64.0f * 8.83f) + 360},
 	{(64.0f * 10.0f) - 640,(-64.0f * 7.0f) + 360},
-	{(64.0f * 15.0f) - 640,(-64.0f * 10.0f) + 360},
+	{(64.0f * 16.5f) - 640,(-64.0f * 10.5f) + 360},
 	};
 
 
@@ -111,7 +111,6 @@ void C_Title::Init()
 	newBlock7.m_pos = { m_pos7.x , m_pos7.y };
 	newBlock7.m_scale = 2.5f;
 	newBlock7.m_alpha = 1.0f;
-	newBlock7.m_addAlpha = 0.02f;
 	newBlock7.m_rect = { 768,128,64,64 };
 	newBlock7.m_tex = TitleModeUI.m_tex;
 
@@ -138,7 +137,7 @@ void C_Title::Init()
 	newBlock9.m_pos = { m_pos9.x , m_pos9.y };
 	newBlock9.m_scale = 1.85f;
 	newBlock9.m_alpha = 1.0f;
-	newBlock9.m_rect = { 832,128,256,64 };
+	newBlock9.m_rect = { 896, 0, 256, 64 };
 	newBlock9.m_tex = TitleCreditUI.m_tex;
 
 	m_TitleList.push_back(newBlock9);

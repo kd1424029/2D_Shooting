@@ -239,7 +239,6 @@ void C_Player::Action()
 
 void C_Player::Update()
 {
-
 	if (Player.m_alive == true)
 	{
 		Player.m_transMat = Math::Matrix::CreateTranslation(Player.m_pos.x, Player.m_pos.y, 0);

@@ -410,7 +410,6 @@ void Scene::Init()
 
 	StageInit(AnimationScene);
 
-
 	m_sound.Init();
 
 	//===============================================================
@@ -467,9 +466,6 @@ void Scene::DrawBlockStage()
 //======================== 各ステージ初期化 ==========================
 void Scene::StageInit(SceneType NowStage)
 {
-
-	ReleaseTexture(NowStage);
-
 	//各シーンの描画処理
 	switch (NowStage) {
 		
@@ -477,13 +473,13 @@ void Scene::StageInit(SceneType NowStage)
 
 		LoadTitleTexture();
 
+		StageTexture();
+
 		m_title.Init();
 
 		break;
 
 	case SceneType::Stage1:
-
-		StageTexture();
 
 		CommonInit();
 
@@ -497,8 +493,6 @@ void Scene::StageInit(SceneType NowStage)
 
 	case SceneType::Stage2:
 
-		StageTexture();
-
 		CommonInit();
 
 		m_enemy.Stage2Init();
@@ -508,8 +502,6 @@ void Scene::StageInit(SceneType NowStage)
 		break;
 
 	case SceneType::Stage3:
-
-		StageBlockTexture();
 
 		CommonInit();
 
@@ -523,7 +515,6 @@ void Scene::StageInit(SceneType NowStage)
 
 	case SceneType::Stage4:
 
-		StageBlockTexture();
 
 		CommonInit();
 
@@ -536,8 +527,6 @@ void Scene::StageInit(SceneType NowStage)
 		break;
 
 	case SceneType::HardStage1:
-
-		StageTexture();
 
 		CommonHardInit();
 
@@ -553,8 +542,6 @@ void Scene::StageInit(SceneType NowStage)
 
 	case SceneType::HardStage2:
 
-		StageBlockTexture();
-
 		CommonHardInit();
 
 		m_player.HardSrage2Init();
@@ -569,8 +556,6 @@ void Scene::StageInit(SceneType NowStage)
 
 	case SceneType::HardStage3:
 		
-		StageBlockTexture();
-
 		CommonHardInit();
 
 		m_player.Init();
@@ -584,8 +569,6 @@ void Scene::StageInit(SceneType NowStage)
 		break;
 
 	case SceneType::HardStage4:
-
-		StageBlockTexture();
 
 		CommonHardInit();
 
@@ -641,7 +624,6 @@ void Scene::CommonInit()
 
 void Scene::CommonHardInit()
 {
-
 	m_playerBullet.Init();
 
 	m_enemyBullet.HardInit();
@@ -662,49 +644,10 @@ void Scene::CommonHardInit()
 //================== ステージ共通読み込み =====================
 void Scene::StageTexture()
 {
-	playerTex.Load("Texture/Player/player.png");
+	//=====================================================================
+	//============= StageInit関数のタイトルで関数を呼び出す ===============
+	//=====================================================================
 
-	bulletTex.Load("Texture/Bullet/Bullet.png");
-
-	enemyTex.Load("Texture/Enemy/Enemy.png");
-
-	gameScreenTex.Load("Texture/Screen/GameScreen.png");
-
-	gameUiTex.Load("Texture/Screen/UI.png");
-
-	timerTex.Load("Texture/Screen/Timer.png");
-
-	countTex.Load("Texture/Screen/Count.png");
-
-	sceneTransitionTex.Load("Texture/Screen/SceneTransition.png");
-
-	bulletEffectTex.Load("Texture/Effect/Effect.png");
-
-	m_player.SetTex(&playerTex);
-
-	m_playerBullet.SetTex(&bulletTex);
-
-	m_enemy.SetTex(&enemyTex);
-
-	m_gameScreen.SetGameScreenTex(&gameScreenTex);
-
-	m_gameScreen.SetGameStartTex(&gameUiTex);
-
-	m_gameScreen.SetStageClearTex(&gameUiTex);
-
-	m_gameScreen.SetGameOverTex(&gameUiTex);
-
-	m_gameScreen.SetSceneTransitionTex(&sceneTransitionTex);
-
-	m_timer.SetTex(&timerTex);
-
-	m_enemyBullet.SetTex(&bulletTex);
-
-	m_count.SetTex(&countTex);
-}
-
-void Scene::StageBlockTexture()
-{
 	playerTex.Load("Texture/Player/player.png");
 
 	bulletTex.Load("Texture/Bullet/Bullet.png");
@@ -749,6 +692,7 @@ void Scene::StageBlockTexture()
 
 	m_count.SetTex(&countTex);
 }
+
 //================================================================
 
 //==================== タイトル読み込み ========================
@@ -779,7 +723,13 @@ void Scene::LoadTitleTexture()
 	m_title.SetObjectCircleTex(&bulletEffectTex);
 
 	m_title.SetTitlePickUITex(&gameUiTex);
+
+	m_title.SetTitleCreditUITex(&gameUiTex);
 }
+
+//===============================================================
+
+//================= リザルト読み込み ============================
 
 void Scene::LoadResultTexture()
 {
@@ -808,224 +758,39 @@ void Scene::LoadResultTexture()
 //=============================================================
 
 //================ 各ステージ解放 =============================
-void Scene::ReleaseTexture(SceneType NowStage)
+void Scene::ReleaseTexture()
 {
-	//各シーンの描画処理
-	switch (NowStage) {
-		//タイトル画面
-	case SceneType::Title:
 
-		bulletEffectTex.Release();
+	bulletEffectTex.Release();
 
-		gameScreenTex.Release();
+	gameScreenTex.Release();
 
-		gameUiTex.Release();
+	gameUiTex.Release();
 
-		sceneTransitionTex.Release();
+	sceneTransitionTex.Release();
 
-		break;
+	playerTex.Release();
 
-	case SceneType::Stage1:
+	enemyTex.Release();
 
-		playerTex.Release();
+	bulletTex.Release();
 
-		enemyTex.Release();
+	bulletEffectTex.Release();
 
-		bulletTex.Release();
+	gameUiTex.Release();
 
-		bulletEffectTex.Release();
+	timerTex.Release();
 
-		gameScreenTex.Release();
+	countTex.Release();
 
-		gameUiTex.Release();
+	blockTex.Release();
 
-		timerTex.Release();
-
-		countTex.Release();
-
-		sceneTransitionTex.Release();
-
-		break;
-
-	case SceneType::Stage2:
-
-		playerTex.Release();
-
-		enemyTex.Release();
-
-		bulletTex.Release();
-
-		bulletEffectTex.Release();
-
-		gameScreenTex.Release();
-
-		gameUiTex.Release();
-
-		timerTex.Release();
-
-		countTex.Release();
-
-		sceneTransitionTex.Release();
-
-		break;
-
-	case SceneType::Stage3:
-
-		playerTex.Release();
-
-		enemyTex.Release();
-
-		bulletTex.Release();
-
-		gameScreenTex.Release();
-
-		gameUiTex.Release();
-
-		timerTex.Release();
-
-		countTex.Release();
-
-		blockTex.Release();
-
-		sceneTransitionTex.Release();
-
-		break;
-
-	case SceneType::Stage4:
-
-		playerTex.Release();
-
-		enemyTex.Release();
-
-		bulletTex.Release();
-
-		gameScreenTex.Release();
-
-		gameUiTex.Release();
-
-		timerTex.Release();
-
-		countTex.Release();
-
-		blockTex.Release();
-
-		sceneTransitionTex.Release();
-
-		break;
-
-	case SceneType::HardStage1:
-
-		playerTex.Release();
-
-		enemyTex.Release();
-
-		bulletTex.Release();
-
-		gameScreenTex.Release();
-
-		gameUiTex.Release();
-
-		timerTex.Release();
-
-		countTex.Release();
-
-		sceneTransitionTex.Release();
-
-		break;
-
-	case SceneType::HardStage2:
-
-		playerTex.Release();
-
-		enemyTex.Release();
-
-		bulletTex.Release();
-
-		gameScreenTex.Release();
-
-		gameUiTex.Release();
-
-		timerTex.Release();
-
-		countTex.Release();
-
-		blockTex.Release();
-
-		sceneTransitionTex.Release();
-
-		break;
-
-	case SceneType::HardStage3:
-		
-		playerTex.Release();
-
-		enemyTex.Release();
-
-		bulletTex.Release();
-
-		gameScreenTex.Release();
-
-		gameUiTex.Release();
-
-		timerTex.Release();
-
-		countTex.Release();
-
-		blockTex.Release();
-
-		sceneTransitionTex.Release();
-
-		break;
-
-	case SceneType::HardStage4:
-
-		playerTex.Release();
-
-		enemyTex.Release();
-
-		bulletTex.Release();
-
-		gameScreenTex.Release();
-
-		gameUiTex.Release();
-
-		timerTex.Release();
-
-		countTex.Release();
-
-		blockTex.Release();
-
-		sceneTransitionTex.Release();
-
-		break;
-
-	case SceneType::GameOverResult:
-
-		bulletEffectTex.Release();
-
-		gameScreenTex.Release();
-
-		gameUiTex.Release();
-
-		break;
-
-	case SceneType::ClearResult:
-
-		bulletEffectTex.Release();
-
-		gameScreenTex.Release();
-
-		gameUiTex.Release();
-
-		break;
-
-	}
 }
 //=========================================================
 
 void Scene::Release()
 {
-	ReleaseTexture(AnimationScene);
+	ReleaseTexture();
 }
 
 void Scene::ImGuiUpdate()
