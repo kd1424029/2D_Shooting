@@ -247,7 +247,7 @@ void C_Title::Action()
 
 	C_Sound* sound = SCENE.GetSound();
 
-	if (GetAsyncKeyState(VK_UP) & 0x8000)
+	if (GetAsyncKeyState(VK_UP) & 0x8000 && TitleStartFlg == true && SceneFlg == false)
 	{
 		NowPick = 0;
 
@@ -258,7 +258,7 @@ void C_Title::Action()
 		}
 	}
 	
-	else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+	else if (GetAsyncKeyState(VK_DOWN) & 0x8000 && TitleStartFlg == true && SceneFlg == false)
 	{
 		NowPick = 1;
 

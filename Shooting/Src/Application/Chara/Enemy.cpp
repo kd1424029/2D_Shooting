@@ -710,14 +710,62 @@ void C_Enemy::Stage1Action()
 
 	C_Player* player = SCENE.GetPlayer();
 
+	if (gameScreen->GetGameStartFlg() == false || gameScreen->GetGameOverFlg() == true)
+	{
+		return;
+	}
 
 	for (auto& enemy : m_EnemyList)
 	{
 
-		if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
+		switch (enemy.m_MoveState)
 		{
 
+		case 0: //右移動
 
+			if (enemy.m_pos.x < 50)
+			{
+				enemy.m_pos.x += enemy.m_move.x;
+			}
+			else
+			{
+				enemy.m_MoveState = 1;
+			}
+			break;
+
+		case 1:  //左移動
+
+			if (enemy.m_pos.x > -50)
+			{
+				enemy.m_pos.x -= enemy.m_move.x;
+			}
+			else
+			{
+				enemy.m_MoveState = 0;
+			}
+			break;
+		}
+	}
+
+}
+
+void C_Enemy::Stage2Action()
+{
+	C_GameScreen* gameScreen = SCENE.GetGameScreen();
+
+	C_Player* player = SCENE.GetPlayer();
+
+	if (gameScreen->GetGameStartFlg() == false || gameScreen->GetGameOverFlg() == true)
+	{
+		return;
+	}
+
+	for (int i = 0; i < m_EnemyList.size(); i++)
+	{
+		auto& enemy = m_EnemyList[i];
+
+		if (i == 0)
+		{
 			switch (enemy.m_MoveState)
 			{
 
@@ -746,86 +794,38 @@ void C_Enemy::Stage1Action()
 				break;
 			}
 		}
-	}
-}
 
-void C_Enemy::Stage2Action()
-{
-	C_GameScreen* gameScreen = SCENE.GetGameScreen();
-
-	C_Player* player = SCENE.GetPlayer();
-
-	for (int i = 0; i < m_EnemyList.size(); i++)
-	{
-		auto& enemy = m_EnemyList[i];
-
-		if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
+		if (i == 1)
 		{
-
-
-
-			if (i == 0)
+			switch (enemy.m_MoveState)
 			{
-				switch (enemy.m_MoveState)
+
+			case 0: //上移動
+
+				if (enemy.m_pos.y < 50)
 				{
-
-				case 0: //右移動
-
-					if (enemy.m_pos.x < 50)
-					{
-						enemy.m_pos.x += enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //左移動
-
-					if (enemy.m_pos.x > -50)
-					{
-						enemy.m_pos.x -= enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_pos.y += enemy.m_move.y;
 				}
-			}
-
-			if (i == 1)
-			{
-				switch (enemy.m_MoveState)
+				else
 				{
-
-				case 0: //上移動
-
-					if (enemy.m_pos.y < 50)
-					{
-						enemy.m_pos.y += enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //下移動
-
-					if (enemy.m_pos.y > -50)
-					{
-						enemy.m_pos.y -= enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_MoveState = 1;
 				}
+				break;
+
+			case 1:  //下移動
+
+				if (enemy.m_pos.y > -50)
+				{
+					enemy.m_pos.y -= enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
 			}
 		}
+
 	}
 }
 
@@ -835,108 +835,108 @@ void C_Enemy::Stage3Action()
 
 	C_Player* player = SCENE.GetPlayer();
 
-
+	if (gameScreen->GetGameStartFlg() == false || gameScreen->GetGameOverFlg() == true)
+	{
+		return;
+	}
 
 	for (int i = 0; i < m_EnemyList.size(); i++)
 	{
 		auto& enemy = m_EnemyList[i];
 
-		if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
+		if (i == 0)
 		{
-
-			if (i == 0)
+			switch (enemy.m_MoveState)
 			{
-				switch (enemy.m_MoveState)
+
+			case 0: //右移動
+
+				if (enemy.m_pos.x < 50)
 				{
-
-				case 0: //右移動
-
-					if (enemy.m_pos.x < 50)
-					{
-						enemy.m_pos.x += enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //左移動
-
-					if (enemy.m_pos.x > -50)
-					{
-						enemy.m_pos.x -= enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_pos.x += enemy.m_move.x;
 				}
-			}
-
-			if (i == 1)
-			{
-				switch (enemy.m_MoveState)
+				else
 				{
-
-				case 0: //上移動
-
-					if (enemy.m_pos.y < 70)
-					{
-						enemy.m_pos.y += enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //下移動
-
-					if (enemy.m_pos.y > -70)
-					{
-						enemy.m_pos.y -= enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_MoveState = 1;
 				}
-			}
+				break;
 
-			if (i == 2)
-			{
-				switch (enemy.m_MoveState)
+			case 1:  //左移動
+
+				if (enemy.m_pos.x > -50)
 				{
-
-				case 0: //左移動
-
-					if (enemy.m_pos.x > -60)
-					{
-						enemy.m_pos.x -= enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1: //右移動
-
-					if (enemy.m_pos.x < 60)
-					{
-						enemy.m_pos.x += enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_pos.x -= enemy.m_move.x;
 				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
 			}
 		}
+
+		if (i == 1)
+		{
+			switch (enemy.m_MoveState)
+			{
+
+			case 0: //上移動
+
+				if (enemy.m_pos.y < 70)
+				{
+					enemy.m_pos.y += enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
+
+			case 1:  //下移動
+
+				if (enemy.m_pos.y > -70)
+				{
+					enemy.m_pos.y -= enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
+			}
+		}
+
+		if (i == 2)
+		{
+			switch (enemy.m_MoveState)
+			{
+
+			case 0: //左移動
+
+				if (enemy.m_pos.x > -60)
+				{
+					enemy.m_pos.x -= enemy.m_move.x;
+				}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
+
+			case 1: //右移動
+
+				if (enemy.m_pos.x < 60)
+				{
+					enemy.m_pos.x += enemy.m_move.x;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
+			}
+		}
+
 	}
 }
 
@@ -946,139 +946,141 @@ void C_Enemy::Stage4Action()
 
 	C_Player* player = SCENE.GetPlayer();
 
+	if (gameScreen->GetGameStartFlg() == false || gameScreen->GetGameOverFlg() == true)
+	{
+		return;
+	}
+
 	for (int i = 0; i < m_EnemyList.size(); ++i)
 	{
 		auto& enemy = m_EnemyList[i];
 
-		if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
+
+		if (i == 0)
 		{
-
-
-			if (i == 0)
+			switch (enemy.m_MoveState)
 			{
-				switch (enemy.m_MoveState)
+
+			case 0: //右移動
+
+				if (enemy.m_pos.x < 70)
 				{
-
-				case 0: //右移動
-
-					if (enemy.m_pos.x < 70)
-					{
-						enemy.m_pos.x += enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //左移動
-
-					if (enemy.m_pos.x > -70)
-					{
-						enemy.m_pos.x -= enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_pos.x += enemy.m_move.x;
 				}
-			}
-
-			if (i == 1)
-			{
-				switch (enemy.m_MoveState)
+				else
 				{
-
-				case 0: //上移動
-
-					if (enemy.m_pos.y < 100)
-					{
-						enemy.m_pos.y += enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //下移動
-
-					if (enemy.m_pos.y > -80)
-					{
-						enemy.m_pos.y -= enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_MoveState = 1;
 				}
-			}
+				break;
 
-			if (i == 2)
-			{
-				switch (enemy.m_MoveState)
+			case 1:  //左移動
+
+				if (enemy.m_pos.x > -70)
 				{
-
-				case 0: //左移動
-
-					if (enemy.m_pos.x > -60)
-					{
-						enemy.m_pos.x -= enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1: //右移動
-
-					if (enemy.m_pos.x < 60)
-					{
-						enemy.m_pos.x += enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_pos.x -= enemy.m_move.x;
 				}
-			}
-
-			if (i == 3)
-			{
-				switch (enemy.m_MoveState)
+				else
 				{
-
-				case 0: //下移動
-
-					if (enemy.m_pos.y > -80)
-					{
-						enemy.m_pos.y -= enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //上移動
-
-					if (enemy.m_pos.y < 100)
-					{
-						enemy.m_pos.y += enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
-
+					enemy.m_MoveState = 0;
 				}
+				break;
 			}
 		}
+
+		if (i == 1)
+		{
+			switch (enemy.m_MoveState)
+			{
+
+			case 0: //上移動
+
+				if (enemy.m_pos.y < 100)
+				{
+					enemy.m_pos.y += enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
+
+			case 1:  //下移動
+
+				if (enemy.m_pos.y > -80)
+				{
+					enemy.m_pos.y -= enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
+			}
+		}
+
+		if (i == 2)
+		{
+			switch (enemy.m_MoveState)
+			{
+
+			case 0: //左移動
+
+				if (enemy.m_pos.x > -60)
+				{
+					enemy.m_pos.x -= enemy.m_move.x;
+				}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
+
+			case 1: //右移動
+
+				if (enemy.m_pos.x < 60)
+				{
+					enemy.m_pos.x += enemy.m_move.x;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
+			}
+		}
+
+		if (i == 3)
+		{
+			switch (enemy.m_MoveState)
+			{
+
+			case 0: //下移動
+
+				if (enemy.m_pos.y > -80)
+				{
+					enemy.m_pos.y -= enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
+
+			case 1:  //上移動
+
+				if (enemy.m_pos.y < 100)
+				{
+					enemy.m_pos.y += enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
+
+			}
+		}
+
 	}
 }
 
@@ -1088,76 +1090,77 @@ void C_Enemy::HardStage1Action()
 
 	C_Player* player = SCENE.GetPlayer();
 
+	if (gameScreen->GetGameStartFlg() == false || gameScreen->GetGameOverFlg() == true)
+	{
+		return;
+	}
 
 	for (int i = 0; i < m_EnemyList.size(); ++i)
 	{
 		auto& enemy = m_EnemyList[i];
 
-		if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
+		if (i == 0)
 		{
-
-			if (i == 0)
+			switch (enemy.m_MoveState)
 			{
-				switch (enemy.m_MoveState)
+
+			case 0: //右移動
+
+				if (enemy.m_pos.x < 100)
 				{
-
-				case 0: //右移動
-
-					if (enemy.m_pos.x < 100)
-					{
-						enemy.m_pos.x += enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //左移動
-
-					if (enemy.m_pos.x > -100)
-					{
-						enemy.m_pos.x -= enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_pos.x += enemy.m_move.x;
 				}
-			}
-
-			if (i == 1)
-			{
-				switch (enemy.m_MoveState)
+				else
 				{
-
-				case 0: //上移動
-
-					if (enemy.m_pos.y < 100)
-					{
-						enemy.m_pos.y += enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //下移動
-
-					if (enemy.m_pos.y > -100)
-					{
-						enemy.m_pos.y -= enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_MoveState = 1;
 				}
+				break;
+
+			case 1:  //左移動
+
+				if (enemy.m_pos.x > -100)
+				{
+					enemy.m_pos.x -= enemy.m_move.x;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
 			}
 		}
+
+		if (i == 1)
+		{
+			switch (enemy.m_MoveState)
+			{
+
+			case 0: //上移動
+
+				if (enemy.m_pos.y < 100)
+				{
+					enemy.m_pos.y += enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
+
+			case 1:  //下移動
+
+				if (enemy.m_pos.y > -100)
+				{
+					enemy.m_pos.y -= enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
+			}
+		}
+
 	}
 }
 
@@ -1167,105 +1170,108 @@ void C_Enemy::HardStage2Action()
 
 	C_Player* player = SCENE.GetPlayer();
 
+	if (gameScreen->GetGameStartFlg() == false || gameScreen->GetGameOverFlg() == true)
+	{
+		return;
+	}
+
 	for (int i = 0; i < m_EnemyList.size(); ++i)
 	{
 		auto& enemy = m_EnemyList[i];
 
-		if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
+		if (i == 0)
 		{
-			if (i == 0)
+			switch (enemy.m_MoveState)
 			{
-				switch (enemy.m_MoveState)
+
+			case 0: //右移動
+
+				if (enemy.m_pos.x < 70)
 				{
-
-				case 0: //右移動
-
-					if (enemy.m_pos.x < 70)
-					{
-						enemy.m_pos.x += enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //左移動
-
-					if (enemy.m_pos.x > -70)
-					{
-						enemy.m_pos.x -= enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_pos.x += enemy.m_move.x;
 				}
-			}
-
-			if (i == 1)
-			{
-				switch (enemy.m_MoveState)
+				else
 				{
-
-				case 0: //上移動
-
-					if (enemy.m_pos.y < 100)
-					{
-						enemy.m_pos.y += enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //下移動
-
-					if (enemy.m_pos.y > -100)
-					{
-						enemy.m_pos.y -= enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_MoveState = 1;
 				}
-			}
+				break;
 
-			if (i == 2)
-			{
-				switch (enemy.m_MoveState)
+			case 1:  //左移動
+
+				if (enemy.m_pos.x > -70)
 				{
-
-				case 0: //左移動
-
-					if (enemy.m_pos.x > -90)
-					{
-						enemy.m_pos.x -= enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1: //右移動
-
-					if (enemy.m_pos.x < 90)
-					{
-						enemy.m_pos.x += enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_pos.x -= enemy.m_move.x;
 				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
 			}
 		}
+
+		if (i == 1)
+		{
+			switch (enemy.m_MoveState)
+			{
+
+			case 0: //上移動
+
+				if (enemy.m_pos.y < 100)
+				{
+					enemy.m_pos.y += enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
+
+			case 1:  //下移動
+
+				if (enemy.m_pos.y > -100)
+				{
+					enemy.m_pos.y -= enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
+			}
+		}
+
+		if (i == 2)
+		{
+			switch (enemy.m_MoveState)
+			{
+
+			case 0: //左移動
+
+				if (enemy.m_pos.x > -90)
+				{
+					enemy.m_pos.x -= enemy.m_move.x;
+				}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
+
+			case 1: //右移動
+
+				if (enemy.m_pos.x < 90)
+				{
+					enemy.m_pos.x += enemy.m_move.x;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
+			}
+		}
+
 	}
 }
 
@@ -1275,137 +1281,140 @@ void C_Enemy::HardStage3Action()
 
 	C_Player* player = SCENE.GetPlayer();
 
+	if (gameScreen->GetGameStartFlg() == false || gameScreen->GetGameOverFlg() == true)
+	{
+		return;
+	}
+
 	for (int i = 0; i < m_EnemyList.size(); ++i)
 	{
 		auto& enemy = m_EnemyList[i];
 
-		if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
+		if (i == 0)
 		{
-			if (i == 0)
+			switch (enemy.m_MoveState)
 			{
-				switch (enemy.m_MoveState)
+
+			case 0: //右移動
+
+				if (enemy.m_pos.x < 110)
 				{
-
-				case 0: //右移動
-
-					if (enemy.m_pos.x < 110)
-					{
-						enemy.m_pos.x += enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //左移動
-
-					if (enemy.m_pos.x > -110)
-					{
-						enemy.m_pos.x -= enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_pos.x += enemy.m_move.x;
 				}
-			}
-
-			if (i == 1)
-			{
-				switch (enemy.m_MoveState)
+				else
 				{
-
-				case 0: //上移動
-
-					if (enemy.m_pos.y < 110)
-					{
-						enemy.m_pos.y += enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //下移動
-
-					if (enemy.m_pos.y > -110)
-					{
-						enemy.m_pos.y -= enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_MoveState = 1;
 				}
-			}
+				break;
 
-			if (i == 2)
-			{
-				switch (enemy.m_MoveState)
+			case 1:  //左移動
+
+				if (enemy.m_pos.x > -110)
 				{
-
-				case 0: //左移動
-
-					if (enemy.m_pos.x > -90)
-					{
-						enemy.m_pos.x -= enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1: //右移動
-
-					if (enemy.m_pos.x < 90)
-					{
-						enemy.m_pos.x += enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_pos.x -= enemy.m_move.x;
 				}
-			}
-
-			if (i == 3)
-			{
-				switch (enemy.m_MoveState)
+				else
 				{
-
-				case 0: //下移動
-
-					if (enemy.m_pos.y > -100)
-					{
-						enemy.m_pos.y -= enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //上移動
-
-					if (enemy.m_pos.y < 100)
-					{
-						enemy.m_pos.y += enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
-
+					enemy.m_MoveState = 0;
 				}
+				break;
 			}
 		}
+
+		if (i == 1)
+		{
+			switch (enemy.m_MoveState)
+			{
+
+			case 0: //上移動
+
+				if (enemy.m_pos.y < 110)
+				{
+					enemy.m_pos.y += enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
+
+			case 1:  //下移動
+
+				if (enemy.m_pos.y > -110)
+				{
+					enemy.m_pos.y -= enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
+			}
+		}
+
+		if (i == 2)
+		{
+			switch (enemy.m_MoveState)
+			{
+
+			case 0: //左移動
+
+				if (enemy.m_pos.x > -90)
+				{
+					enemy.m_pos.x -= enemy.m_move.x;
+				}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
+
+			case 1: //右移動
+
+				if (enemy.m_pos.x < 90)
+				{
+					enemy.m_pos.x += enemy.m_move.x;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
+			}
+		}
+
+		if (i == 3)
+		{
+			switch (enemy.m_MoveState)
+			{
+
+			case 0: //下移動
+
+				if (enemy.m_pos.y > -100)
+				{
+					enemy.m_pos.y -= enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
+
+			case 1:  //上移動
+
+				if (enemy.m_pos.y < 100)
+				{
+					enemy.m_pos.y += enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
+
+			}
+		}
+
 	}
 }
 
@@ -1414,6 +1423,11 @@ void C_Enemy::HardStage4Action()
 	C_GameScreen* gameScreen = SCENE.GetGameScreen();
 
 	C_Player* player = SCENE.GetPlayer();
+
+	if (gameScreen->GetGameStartFlg() == false || gameScreen->GetGameOverFlg() == true)
+	{
+		return;
+	}
 
 	for (int i = 0; i < m_EnemyList.size(); ++i)
 	{

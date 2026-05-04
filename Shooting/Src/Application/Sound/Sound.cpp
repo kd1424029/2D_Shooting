@@ -129,6 +129,11 @@ void C_Sound::ClearSE()
 	ClearInst->Play();
 }
 
+void C_Sound::ClearSEStop()
+{
+	ClearInst->Stop();
+}
+
 void C_Sound::TitleBGMPlay()
 {
 	if (TitlebgmInst->IsPlay() == false)

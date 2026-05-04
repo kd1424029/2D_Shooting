@@ -45,6 +45,8 @@ private:
 
 	const float PlayerBulletRadius = 8.0f;    //半径
 
+	const float PlayerBulletMoveSpeed = 3;    //移動速度
+
 	float PlayerBulletX[PlayerBulletNum];
 	float PlayerBulletY[PlayerBulletNum];
 	float PlayerBulletRadiusX[PlayerBulletNum];
@@ -53,7 +55,6 @@ private:
 	float PlayerBulletDirectionY[PlayerBulletNum];    //Bullet発射後の方向固定用
 	float PlayerBulletMoveX[PlayerBulletNum];
 	float PlayerBulletMoveY[PlayerBulletNum];
-	float PlayerBulletMoveSpeed[PlayerBulletNum];
 	float PlayerBulletAlive[PlayerBulletNum]; //生存状態
 
 	KdTexture* m_tex;			//画像のポインタ

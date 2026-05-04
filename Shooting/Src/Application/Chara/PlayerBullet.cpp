@@ -16,8 +16,6 @@ void C_PlayerBullet::Init()
 
 		PlayerBulletAlive[i] = false;
 
-		PlayerBulletMoveSpeed[i] = 3;
-
 		PlayerBulletCnt = 0;
 	}
 
@@ -39,10 +37,15 @@ void C_PlayerBullet::Action()
 
 	C_Sound* sound = SCENE.GetSound();
 
+	if (gamescreen->GetStageClearFlg() == true || gamescreen->GetGameStartFlg() == false || gamescreen->GetGameOverFlg() == true)
+	{
+		return;
+	}
+
 	for (int i = 0; i < PlayerBulletNum; ++i)
 	{
 		//==================== 発射処理 ==============================
-		if (GetAsyncKeyState(VK_SPACE) & 0x8000 && gamescreen->GetGameStartFlg() == true && gamescreen->GetStageClearFlg() == false &&	PlayerBulletCnt == 0)
+		if (GetAsyncKeyState(VK_SPACE) & 0x8000 && PlayerBulletCnt == 0)
 		{
 
 			if (PlayerBulletAlive[i] == false)
@@ -126,39 +129,81 @@ void C_PlayerBullet::Action()
 	//==================== 弾の当たり判定系 ==============================
 	for (int i = 0; i < PlayerBulletNum; i++)
 	{
-		//弾移動(プレイヤーの弾が生存状態でかつプレイヤーが生存状態のときかつステージクリアフラグが立っていないとき)
-		if (PlayerBulletAlive[i] == true  && gamescreen->GetStageClearFlg() == false && gamescreen->GetGameOverFlg() == false)
+		//弾が生きていなかったらこの弾の処理は飛ばす
+		if (PlayerBulletAlive[i] == false)
 		{
-			PlayerBulletX[i] += PlayerBulletDirectionX[i] * PlayerBulletMoveSpeed[i];
-			PlayerBulletY[i] += PlayerBulletDirectionY[i] * PlayerBulletMoveSpeed[i];
+			continue;
+		}
 
-			//ブロックとの当たり判定
-			C_GameScreenBlock* block = SCENE.GetGameScreenBlock();
-			if (block->ObjectBulletHit(PlayerBulletX[i], PlayerBulletY[i]))
+		PlayerBulletX[i] += PlayerBulletDirectionX[i] * PlayerBulletMoveSpeed;
+		PlayerBulletY[i] += PlayerBulletDirectionY[i] * PlayerBulletMoveSpeed;
+
+		//ブロックとの当たり判定
+		C_GameScreenBlock* block = SCENE.GetGameScreenBlock();
+		if (block->ObjectBulletHit(PlayerBulletX[i], PlayerBulletY[i]))
+		{
+			PlayerBulletAlive[i] = false;
+
+			sound->WallHitBurstSE();
+
+			for (int count = 0; count < BulletEffectNUM; ++count)
 			{
-				PlayerBulletAlive[i] = false;
+				SCENE.GetEffectManager()->Add(
+					{ PlayerBulletX[i], PlayerBulletY[i] },
+					{ Rnd() * 4 - 1,Rnd() * 5 - 1 },
+					2.0f, { 1, 1, 1, 1 }, 60
+				);
+			}
+			continue; //ブロックは消えないのでcontinue
+		}
 
-				sound->WallHitBurstSE();
+		//弾が画面外に出たら消滅状態にする
+		if (PlayerBulletY[i] > ScreenTop || PlayerBulletY[i] < ScreenBottom || PlayerBulletX[i] > ScreenRight || PlayerBulletX[i] < ScreenLeft)
+		{
+			PlayerBulletAlive[i] = false;
 
-				for (int count = 0; count < BulletEffectNUM; ++count)
-				{
-					SCENE.GetEffectManager()->Add(
-						{ PlayerBulletX[i], PlayerBulletY[i] },
-						{ Rnd() * 4 - 1,Rnd() * 5 - 1 },
-						2.0f, { 1, 1, 1, 1 }, 60
-					);
-				}
-				continue; // 弾が消えたので以降の判定はスキップ
+			sound->WallHitBurstSE();
+
+			for (int count = 0; count < BulletEffectNUM; ++count)
+			{
+				//エフェクトの発生
+				SCENE.GetEffectManager()->Add(
+					{ PlayerBulletX[i], PlayerBulletY[i] }, // 発生場所
+					{ Rnd() * 4 - 1,Rnd() * 5 - 1 },       // 飛び散る方向
+					2.0f,                                   // サイズ
+					{ 1, 1, 1, 1 },                         // 色
+					60                                      // 寿命
+				);
+
 			}
 
-			//弾が画面外に出たら消滅状態にする
-			if (PlayerBulletY[i] > ScreenTop || PlayerBulletY[i] < ScreenBottom || PlayerBulletX[i] > ScreenRight || PlayerBulletX[i] < ScreenLeft)
+			continue; //画面外は固定なのでcontinue
+		}
+
+
+
+		for (auto& Enemy : enemy->GetEnemyList())
+		{
+
+			if (Enemy.m_alive == false)
 			{
-				PlayerBulletAlive[i] = false;
+				continue;
+			}
 
-				sound->WallHitBurstSE();
+			//自機の弾と敵の当たり判定処理
+			float Bottom = Enemy.m_pos.x - PlayerBulletX[i];
+			float Height = Enemy.m_pos.y - PlayerBulletY[i];
+			float Hypotenuse = sqrt(Bottom * Bottom + Height * Height);
 
-				for (int count = 0; count < BulletEffectNUM; ++count)
+			if (Hypotenuse < PlayerBulletRadius + charabase->GetRadius())
+			{
+				Enemy.m_alive = false; // 敵を倒す
+
+				PlayerBulletAlive[i] = false;  //プレイヤーの弾も消す
+
+				sound->BurstSE();
+
+				for (int count = 0; count < BulletEffectNUM; count++)
 				{
 					//エフェクトの発生
 					SCENE.GetEffectManager()->Add(
@@ -168,52 +213,15 @@ void C_PlayerBullet::Action()
 						{ 1, 1, 1, 1 },                         // 色
 						60                                      // 寿命
 					);
-
 				}
+
+				break; //弾が消えたのでこの弾の判定は終了
 
 			}
 		}
 
-		for (auto& Enemy : enemy->GetEnemyList())
-		{
-		
-			//弾移動(プレイヤーの弾が生存状態でかつプレイヤーが生存状態のときかつステージクリアフラグが立っていないときかつ敵が生きている時)
-			if (PlayerBulletAlive[i] == true  && gamescreen->GetStageClearFlg() == false && Enemy.m_alive == true && gamescreen->GetGameOverFlg() == false)
-			{
-				//自機の弾と敵の当たり判定処理
-				float Bottom = Enemy.m_pos.x - PlayerBulletX[i];     //底辺(X座標の差)
-				float Height = Enemy.m_pos.y - PlayerBulletY[i];     //高さ(Y座標の差)
-				float Hypotenuse = sqrt(Bottom * Bottom + Height * Height);  //斜辺(距離)
-
-				if (Hypotenuse < PlayerBulletRadius + charabase->GetRadius()) //衝突していたら(プレイヤーの弾半径＋敵の半径(プレイヤーと同じ半径だから共通ゲッター使用))
-				{
-					Enemy.m_alive = false; // 敵を倒す
-
-					PlayerBulletAlive[i] = false;  //プレイヤーの弾も消す
-
-					sound->BurstSE();
-
-					for (int count = 0; count < BulletEffectNUM; count++)
-					{
-						//エフェクトの発生
-						SCENE.GetEffectManager()->Add(
-							{ PlayerBulletX[i], PlayerBulletY[i] }, // 発生場所
-							{ Rnd() * 4 - 1,Rnd() * 5 - 1 },       // 飛び散る方向
-							2.0f,                                   // サイズ
-							{ 1, 1, 1, 1 },                         // 色
-							60                                      // 寿命
-						);
-					}
-
-					break; // 弾が消えたのでこの弾の判定は終了
-
-				}
-			}
-		}
 	}
-
 	//============================================================
-
 }
 
 void C_PlayerBullet::Update()

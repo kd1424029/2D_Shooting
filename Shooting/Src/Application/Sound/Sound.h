@@ -72,6 +72,8 @@ public:
 
 	void ClearSE();
 
+	void ClearSEStop();
+
 	void TitleBGMPlay();
 	
 	void TitleBGMStop();

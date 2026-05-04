@@ -496,6 +496,8 @@ void C_Result::GameClearAction()
 				SceneFlg = false;
 
 				SCENE.SetAnimationScene(SceneType::Title); //ƒ^ƒCƒgƒ‹‚Ö‘JˆÚ
+
+				sound->ClearSEStop();
 			}
 
 		}
