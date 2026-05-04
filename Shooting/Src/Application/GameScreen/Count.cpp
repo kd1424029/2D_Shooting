@@ -343,32 +343,34 @@ void C_Count::Action()
 
 	C_GameScreen* gamescreen = SCENE.GetGameScreen();
 
-	int aliveCount = enemy->GetAliveCount(); // 生存数を取得
+	int aliveCount = enemy->GetAliveCount(); //生存数を取得
 
 	// 生存数に応じて表示を切り替え
 	switch (aliveCount) {
 
 	case 5:
-		m_CntList[0].m_rect = { 320, 0, 64, 64 }; // 5の画像
+		m_CntList[0].m_rect = { 320, 0, 64, 64 }; //5の画像
 		break;
 	case 4:
-		m_CntList[0].m_rect = { 256, 0, 64, 64 }; // 4の画像
+		m_CntList[0].m_rect = { 256, 0, 64, 64 }; //4の画像
 		break;
 	case 3:
-		m_CntList[0].m_rect = { 192, 0, 64, 64 }; // 3の画像
+		m_CntList[0].m_rect = { 192, 0, 64, 64 }; //3の画像
 		break;
 	case 2:
-		m_CntList[0].m_rect = { 128, 0, 64, 64 }; // 2の画像
+		m_CntList[0].m_rect = { 128, 0, 64, 64 }; //2の画像
 		break;
 	case 1:
-		m_CntList[0].m_rect = { 64, 0, 64, 64 }; // 1の画像
+		m_CntList[0].m_rect = { 64, 0, 64, 64 }; //1の画像
 		break;
 	case 0:
 		m_CntList[0].m_rect = { 0, 0, 64, 64 }; //case 0はクリア表示
-		if (SCENE.GetEnemy()->GetAliveCount() == 0) {
-			// ここでステージクリアの演出タイマーを動かす
+		if (SCENE.GetEnemy()->GetAliveCount() == 0) 
+		{
+			//ここでステージクリアの演出タイマーを動かす
 			StageClearTimer--;
-			if (StageClearTimer < 0 && gamescreen->GetGameOverFlg() == false) {
+			if (StageClearTimer < 0 && gamescreen->GetGameOverFlg() == false) 
+			{
 				gamescreen->SetStageClearFlg(true);
 			}
 		}

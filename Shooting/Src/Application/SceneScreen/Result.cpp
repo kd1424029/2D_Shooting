@@ -528,7 +528,7 @@ void C_Result::GameClearAction()
 		//回転
 		object.m_rot += object.m_addRot;
 
-		// 画面外に出たらランダム再配置
+		//画面外に出たらランダム再配置
 		if (object.m_pos.x > ScreenRight || object.m_pos.x < ScreenLeft || object.m_pos.y > ScreenTop || object.m_pos.y < ScreenBottom)
 		{
 			//位置をランダムに選ぶ

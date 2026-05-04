@@ -276,11 +276,11 @@ void C_EnemyBullet::Action()
 				{
 					//エフェクトの発生
 					SCENE.GetEffectManager()->Add(
-						{ EnemyBulletX[i],EnemyBulletY[i] }, // 発生場所
-						{ Rnd() * 4 - 1,Rnd() * 5 - 1 },       // 飛び散る方向
-						2.0f,                                   // サイズ
-						{ 1, 1, 1, 1 },                         // 色
-						60                                      // 寿命
+						{ EnemyBulletX[i],EnemyBulletY[i] },	//発生場所
+						{ Rnd() * 4 - 1,Rnd() * 5 - 1 },        //飛び散る方向
+						2.0f,                                   //サイズ
+						{ 1, 1, 1, 1 },                         //色
+						60                                      //寿命
 
 					);
 				}
@@ -304,11 +304,11 @@ void C_EnemyBullet::Action()
 				{
 					//エフェクトの発生
 					SCENE.GetEffectManager()->Add(
-						{ EnemyBulletX[i],EnemyBulletY[i] },    // 発生場所
-						{ Rnd() * 4 - 1,Rnd() * 5 - 1 },        // 飛び散る方向
-						2.0f,                                   // サイズ
-						{ 1, 1, 1, 1 },                         // 色
-						60                                      // 寿命
+						{ EnemyBulletX[i],EnemyBulletY[i] },    //発生場所
+						{ Rnd() * 4 - 1,Rnd() * 5 - 1 },        //飛び散る方向
+						2.0f,                                   //サイズ
+						{ 1, 1, 1, 1 },                         //色
+						60                                      //寿命
 					);
 				}
 				continue;

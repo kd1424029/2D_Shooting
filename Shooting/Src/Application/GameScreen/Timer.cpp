@@ -186,7 +186,7 @@ void C_Timer::Action()
 	
 	C_GameScreen* gameScreen = SCENE.GetGameScreen();
 
-	//ステージクリアフラグが立っていないかつスタートフラグが立っているときのみタイマーの更新を受け付ける
+	//ステージクリアフラグが立っていないかつスタートフラグが立っているときかつゲームオーバーフラグが立っていないのみタイマーの更新を受け付ける
 	if (gameScreen->GetStageClearFlg() == false && gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
 	{
 
@@ -199,23 +199,23 @@ void C_Timer::Action()
 		//分数から表示すべき数字を算出
 		int Minutes = (int)ElapsedTime / 60;
 
-		int DigitSeconds1 = Seconds % 10; // 1秒単位の桁
+		int DigitSeconds1 = Seconds % 10; //1秒単位の桁
 
-		int DigitSeconds2 = Seconds / 10; // 10秒単位の桁
+		int DigitSeconds2 = Seconds / 10; //10秒単位の桁
 
-		int DigitMinutes1 = (Minutes / 10) % 10; // 10分単位の桁
+		int DigitMinutes1 = (Minutes / 10) % 10; //10分単位の桁
 
-		int DigitMinutes2 = Minutes % 10; // 1分単位の桁
+		int DigitMinutes2 = Minutes % 10; //1分単位の桁
 
-		// m_TimerListの各ブロックに新しいRectを設定
+		//m_TimerListの各ブロックに新しいRectを設定
 
-		// m_TimerList[0] が10分単位
+		//m_TimerList[0] が10分単位
 
-		// m_TimerList[1] が1分単位
+		//m_TimerList[1] が1分単位
 
-		// m_TimerList[2] が10秒単位
+		//m_TimerList[2] が10秒単位
 
-		// m_TimerList[3] が1秒単位
+		//m_TimerList[3] が1秒単位
 		m_TimerList[0].m_rect = { ((long)DigitMinutes1 * 64), 0, 64, 64 };
 
 		m_TimerList[1].m_rect = { ((long)DigitMinutes2 * 64), 0, 64, 64 };

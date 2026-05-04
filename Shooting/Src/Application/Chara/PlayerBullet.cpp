@@ -20,7 +20,7 @@ void C_PlayerBullet::Init()
 	}
 
 
-	StageClearTimer = 600;  //コードが重いため600（1秒)
+	StageClearTimer = 75;  //（1.25秒)
 }
 
 void C_PlayerBullet::Action()
@@ -96,7 +96,7 @@ void C_PlayerBullet::Action()
 					PlayerBulletDirectionY[i] = 0;
 				}
 
-				PlayerBulletCnt = 600; //1秒間隔で打てるようにする
+				PlayerBulletCnt = 75; //1.25秒間隔で打てるようにする
 
 				sound->BulletSE();
 
@@ -104,12 +104,14 @@ void C_PlayerBullet::Action()
 			}
 
 		}
-		//カウント処理
-		PlayerBulletCnt--;
-		if (PlayerBulletCnt < 0)
-		{
-			PlayerBulletCnt = 0;
-		}
+		
+	}
+
+	//カウント処理
+	PlayerBulletCnt--;
+	if (PlayerBulletCnt < 0)
+	{
+		PlayerBulletCnt = 0;
 	}
 
 	//============================================================
@@ -122,7 +124,7 @@ void C_PlayerBullet::Action()
 		if (Enemy.m_alive == true)
 		{
 			EnemyAlive = true;
-			break; // 1体でも見つかればOK
+			break; //1体でも見つかればOK
 		}
 	}
 
@@ -168,11 +170,11 @@ void C_PlayerBullet::Action()
 			{
 				//エフェクトの発生
 				SCENE.GetEffectManager()->Add(
-					{ PlayerBulletX[i], PlayerBulletY[i] }, // 発生場所
-					{ Rnd() * 4 - 1,Rnd() * 5 - 1 },       // 飛び散る方向
-					2.0f,                                   // サイズ
-					{ 1, 1, 1, 1 },                         // 色
-					60                                      // 寿命
+					{ PlayerBulletX[i], PlayerBulletY[i] }, //発生場所
+					{ Rnd() * 4 - 1,Rnd() * 5 - 1 },        //飛び散る方向
+					2.0f,                                   //サイズ
+					{ 1, 1, 1, 1 },                         //色
+					60                                      //寿命
 				);
 
 			}
@@ -197,7 +199,7 @@ void C_PlayerBullet::Action()
 
 			if (Hypotenuse < PlayerBulletRadius + charabase->GetRadius())
 			{
-				Enemy.m_alive = false; // 敵を倒す
+				Enemy.m_alive = false; //敵を倒す
 
 				PlayerBulletAlive[i] = false;  //プレイヤーの弾も消す
 
@@ -207,11 +209,11 @@ void C_PlayerBullet::Action()
 				{
 					//エフェクトの発生
 					SCENE.GetEffectManager()->Add(
-						{ PlayerBulletX[i], PlayerBulletY[i] }, // 発生場所
-						{ Rnd() * 4 - 1,Rnd() * 5 - 1 },       // 飛び散る方向
-						2.0f,                                   // サイズ
-						{ 1, 1, 1, 1 },                         // 色
-						60                                      // 寿命
+						{ PlayerBulletX[i], PlayerBulletY[i] }, //発生場所
+						{ Rnd() * 4 - 1,Rnd() * 5 - 1 },        //飛び散る方向
+						2.0f,                                   //サイズ
+						{ 1, 1, 1, 1 },                         //色
+						60                                      //寿命
 					);
 				}
 

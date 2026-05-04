@@ -550,7 +550,10 @@ void C_GameScreenBlock::ObjectPlayerHit(Object* a_base)
 	float BlockBottom = a_base->m_pos.y - a_base->m_radiusY;
 
 	//そもそも重なっているかチェック（AABB判定）
-	if (PlayerLeft >= BlockRight || PlayerRight <= BlockLeft || PlayerBottom >= BlockTop || PlayerTop <= BlockBottom) return;
+	if (PlayerLeft >= BlockRight || PlayerRight <= BlockLeft || PlayerBottom >= BlockTop || PlayerTop <= BlockBottom)
+	{
+		return;//そもそも処理をしない
+	}
 
 	//各方向のめり込み量（侵入深さ）を計算
 	float NextLeft = PlayerRight - BlockLeft; //プレイヤーの右側がブロックの左側にどれだけ入ったか
