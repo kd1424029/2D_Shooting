@@ -408,6 +408,12 @@ void Scene::Init()
 	AnimationScene = SceneType::Title; //最初はタイトル画面から
 	PrevScene = AnimationScene;
 
+	LoadTitleTexture();
+
+	StageTexture();
+
+	LoadResultTexture();
+
 	StageInit(AnimationScene);
 
 	m_sound.Init();
@@ -470,10 +476,6 @@ void Scene::StageInit(SceneType NowStage)
 	switch (NowStage) {
 		
 	case SceneType::Title:
-
-		LoadTitleTexture();
-
-		StageTexture();
 
 		m_title.Init();
 
@@ -584,15 +586,11 @@ void Scene::StageInit(SceneType NowStage)
 
 	case SceneType::GameOverResult:
 
-		LoadResultTexture();
-
 		m_result.GameOverInit();
 
 		break;
 
 	case SceneType::ClearResult:
-
-		LoadResultTexture();
 
 		m_result.GameClearInit();
 
@@ -617,7 +615,7 @@ void Scene::CommonInit()
 
 	m_timer.Init();
 
-	m_effectManager.Init(&bulletEffectTex);
+	m_effectManager.Init();
 
 	m_block.Clear();
 }
@@ -632,7 +630,7 @@ void Scene::CommonHardInit()
 
 	m_timer.Init();
 
-	m_effectManager.Init(&bulletEffectTex);
+	m_effectManager.Init();
 
 	m_block.Clear();
 }
@@ -691,6 +689,8 @@ void Scene::StageTexture()
 	m_enemyBullet.SetTex(&bulletTex);
 
 	m_count.SetTex(&countTex);
+
+	m_effectManager.SetTex(&bulletEffectTex);
 }
 
 //================================================================
@@ -698,11 +698,6 @@ void Scene::StageTexture()
 //==================== タイトル読み込み ========================
 void Scene::LoadTitleTexture()
 {
-	sceneTransitionTex.Load("Texture/Screen/SceneTransition.png");
-
-	gameUiTex.Load("Texture/Screen/UI.png");
-
-	bulletEffectTex.Load("Texture/Effect/Effect.png");
 
 	m_title.SetTitleBackTex(&sceneTransitionTex);
 
@@ -733,11 +728,6 @@ void Scene::LoadTitleTexture()
 
 void Scene::LoadResultTexture()
 {
-	sceneTransitionTex.Load("Texture/Screen/SceneTransition.png");
-
-	gameUiTex.Load("Texture/Screen/UI.png");
-
-	bulletEffectTex.Load("Texture/Effect/Effect.png");
 
 	m_result.SetResultBackTex(&sceneTransitionTex);
 

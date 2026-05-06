@@ -195,9 +195,10 @@ void C_PlayerBullet::Action()
 			//Ž©‹@‚Ì’e‚Æ“G‚Ì“–‚½‚è”»’èˆ—
 			float Bottom = Enemy.m_pos.x - PlayerBulletX[i];
 			float Height = Enemy.m_pos.y - PlayerBulletY[i];
-			float Hypotenuse = sqrt(Bottom * Bottom + Height * Height);
+			float Sqrt = Bottom * Bottom + Height * Height;
+			float Radius = PlayerBulletRadius + charabase->GetRadius();
 
-			if (Hypotenuse < PlayerBulletRadius + charabase->GetRadius())
+			if (Sqrt < Radius * Radius)
 			{
 				Enemy.m_alive = false; //“G‚ð“|‚·
 

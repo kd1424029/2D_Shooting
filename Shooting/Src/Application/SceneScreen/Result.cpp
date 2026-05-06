@@ -340,7 +340,7 @@ void C_Result::Action()
 
 	C_Sound* sound = SCENE.GetSound();
 
-	if (GetAsyncKeyState(VK_RETURN) & 0x8000 && ResultStartFlg == true && SceneFlg == false)
+	if (GetAsyncKeyState(VK_SPACE) & 0x8000 && ResultStartFlg == true && SceneFlg == false)
 	{
 		SceneFlg = true;
 
@@ -458,7 +458,7 @@ void C_Result::GameClearAction()
 		m_ClearSeFlg = true;
 	}
 
-	if (GetAsyncKeyState(VK_RETURN) & 0x8000 && ResultStartFlg == true && SceneFlg == false)
+	if (GetAsyncKeyState(VK_SPACE) & 0x8000 && ResultStartFlg == true && SceneFlg == false)
 	{
 		SceneFlg = true;
 

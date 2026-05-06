@@ -82,13 +82,15 @@ void C_EnemyBullet::Action()
 			Enemy[enemy].m_BulletTimer = 0;
 		}
 
-		for (int EnemyBullet = 0; EnemyBullet < EnemyBulletNum; EnemyBullet++)
+		if (Enemy[enemy].m_BulletTimer == 0)
 		{
-			//敵1体目
-			if (enemy == 0)
+
+			for (int EnemyBullet = 0; EnemyBullet < EnemyBulletNum; EnemyBullet++)
 			{
-				if (Enemy[enemy].m_BulletTimer == 0)
+				//敵1体目
+				if (enemy == 0)
 				{
+
 					if (EnemyBulletAlive[EnemyBullet] == false && Enemy[enemy].m_alive == true)
 					{
 						//弾を銃器の前から出るようにする
@@ -108,14 +110,13 @@ void C_EnemyBullet::Action()
 
 						break;
 					}
-				}
-			}
 
-			//敵2体目と5体目
-			if (enemy == 1 || enemy == 4)
-			{
-				if (Enemy[enemy].m_BulletTimer == 0)
+				}
+
+				//敵2体目と5体目
+				if (enemy == 1 || enemy == 4)
 				{
+
 					if (EnemyBulletAlive[EnemyBullet] == false && Enemy[enemy].m_alive == true)
 					{
 						//弾を銃器の前から出るようにする
@@ -135,14 +136,13 @@ void C_EnemyBullet::Action()
 
 						break;
 					}
-				}
-			}
 
-			//敵3体目
-			if (enemy == 2)
-			{
-				if (Enemy[enemy].m_BulletTimer == 0)
+				}
+
+				//敵3体目
+				if (enemy == 2)
 				{
+
 					if (EnemyBulletAlive[EnemyBullet] == false && Enemy[enemy].m_alive == true)
 					{
 						//弾を銃器の前から出るようにする
@@ -162,14 +162,13 @@ void C_EnemyBullet::Action()
 
 						break;
 					}
-				}
-			}
 
-			//敵4体目と6体目
-			if (enemy == 3 || enemy == 5)
-			{
-				if (Enemy[enemy].m_BulletTimer == 0)
+				}
+
+				//敵4体目と6体目
+				if (enemy == 3 || enemy == 5)
 				{
+
 					if (EnemyBulletAlive[EnemyBullet] == false && Enemy[enemy].m_alive == true)
 					{
 						//弾を銃器の前から出るようにする
@@ -189,6 +188,7 @@ void C_EnemyBullet::Action()
 
 						break;
 					}
+
 				}
 			}
 		}
@@ -290,9 +290,10 @@ void C_EnemyBullet::Action()
 			//敵の弾とプレイヤーの当たり判定処理
 			float Bottom = player->GetPos().x - EnemyBulletX[i];     //底辺(X座標の差)
 			float Height = player->GetPos().y - EnemyBulletY[i];     //高さ(Y座標の差)
-			float Hypotenuse = sqrt(Bottom * Bottom + Height * Height);  //斜辺(距離)
+			float Sqrt = Bottom * Bottom + Height * Height;
+			float Radius = EnemyBulletRadius + charabase->GetRadius();
 
-			if (Hypotenuse < EnemyBulletRadius + charabase->GetRadius() && player->GetAlive() == true) //衝突していたら(敵の弾半径＋共通の半径(プレイヤーと同じ半径だから共通ゲッター使用))
+			if (Sqrt < Radius * Radius && player->GetAlive() == true) //衝突していたら(敵の弾半径＋共通の半径(プレイヤーと同じ半径だから共通ゲッター使用))
 			{
 				player->SetAlive(false);  //プレイヤーを倒す
 

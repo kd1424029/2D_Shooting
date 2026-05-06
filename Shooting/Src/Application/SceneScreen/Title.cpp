@@ -9,7 +9,7 @@ void C_Title::Init()
 	vector<Math::Vector2> TitlePosList = {
 	{0.0f, 0.0f},
 	{(64.0f * 10.0f) - 640,(-64.0f * 2.5f) + 360},
-	{(64.0f * 10.0f) - 640,(-64.0f * 7.0f) + 360},
+	{(64.0f * 10.3f) - 640,(-64.0f * 7.0f) + 360},
 	{0.0f, 0.0f},
 	{ (64.0f * 12.5f) - 640, (-64.0f * 9.0f) + 360 },
 	{(64.0f * 8.4f) - 640,(-64.0f * 9.0f) + 360},
@@ -274,7 +274,7 @@ void C_Title::Action()
 	}
 	
 
-	if (GetAsyncKeyState(VK_RETURN) & 0x8000 && TitleStartFlg == true && NowPick == 0 && SceneFlg == false)
+	if (GetAsyncKeyState(VK_SPACE) & 0x8000 && TitleStartFlg == true && NowPick == 0 && SceneFlg == false)
 	{
 		SceneFlg = true;
 
@@ -349,7 +349,7 @@ void C_Title::Action()
 		if (i == 4 && NowPick == 1)
 		{
 			//キーエッジ検出（毎フレーム1回だけ行う)
-			bool enterDown = (GetAsyncKeyState(VK_RETURN) & 0x8000) != 0;
+			bool enterDown = (GetAsyncKeyState(VK_SPACE) & 0x8000) != 0;
 			bool enterTriggered = enterDown && !m_prevEnterKey;  //押した瞬間だけ true
 			m_prevEnterKey = enterDown;                          //今フレームの状態を保存
 
@@ -405,8 +405,8 @@ void C_Title::Action()
 		else if (i == 7 && NowPick == 0)
 		{
 			title.m_rect = { 832,128,256,64 };
-			title.m_pos = { (64.0f * 10.0f) - 640,(-64.0f * 7.0f) + 360 };
-			title.m_scale = 1.85f;
+			title.m_pos = { (64.0f * 10.3f) - 640,(-64.0f * 7.0f) + 360 };
+			title.m_scale = 2.0f;
 		}
 	}
 

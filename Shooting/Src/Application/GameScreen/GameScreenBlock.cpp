@@ -315,95 +315,21 @@ void C_GameScreenBlock::Stage4Action()
 
 	C_GameScreen* gamescreen = SCENE.GetGameScreen();
 
-	if (gamescreen->GetGameStartFlg() == true && gamescreen->GetGameOverFlg() == false && gamescreen->GetStageClearFlg() == false)
+	if (gamescreen->GetStageClearFlg() == true || gamescreen->GetGameStartFlg() == false || gamescreen->GetGameOverFlg() == true)
 	{
-
-		for (int i = 0; i < m_BlockList.size(); i++)
-		{
-
-			auto& block = m_BlockList[i];
-
-			ObjectPlayerHit(&block);
-
-
-			if (i == 0)
-			{
-				switch (block.m_MoveState)
-				{
-				case 0: //è„à⁄ìÆ
-
-					if (block.m_pos.y < 90)
-					{
-						block.m_pos.y += block.m_move.y;
-					}
-					else
-					{
-						block.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //â∫à⁄ìÆ
-
-					if (block.m_pos.y > -60)
-					{
-						block.m_pos.y -= block.m_move.y;
-					}
-					else
-					{
-						block.m_MoveState = 0;
-					}
-					break;
-				}
-			}
-
-			if (i == 1)
-			{
-				switch (block.m_MoveState)
-				{
-				case 0: //â∫à⁄ìÆ
-
-					if (block.m_pos.y > -60)
-					{
-						block.m_pos.y -= block.m_move.y;
-					}
-					else
-					{
-						block.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //è„à⁄ìÆ
-
-					if (block.m_pos.y < 90)
-					{
-						block.m_pos.y += block.m_move.y;
-					}
-					else
-					{
-						block.m_MoveState = 0;
-					}
-					break;
-				}
-			}
-		}
+		return;
 	}
-}
 
-void C_GameScreenBlock::HardStage2Action()
-{
-	C_GameScreen* gamescreen = SCENE.GetGameScreen();
-
-	if (gamescreen->GetGameStartFlg() == true && gamescreen->GetGameOverFlg() == false && gamescreen->GetStageClearFlg() == false)
+	for (int i = 0; i < m_BlockList.size(); i++)
 	{
 
-		for (int i = 0; i < m_BlockList.size(); i++)
+		auto& block = m_BlockList[i];
+
+		ObjectPlayerHit(&block);
+
+
+		if (i == 0)
 		{
-
-			auto& block = m_BlockList[i];
-
-			ObjectPlayerHit(&block);
-
-
 			switch (block.m_MoveState)
 			{
 			case 0: //è„à⁄ìÆ
@@ -430,88 +356,167 @@ void C_GameScreenBlock::HardStage2Action()
 				}
 				break;
 			}
+		}
 
+		if (i == 1)
+		{
+			switch (block.m_MoveState)
+			{
+			case 0: //â∫à⁄ìÆ
+
+				if (block.m_pos.y > -60)
+				{
+					block.m_pos.y -= block.m_move.y;
+				}
+				else
+				{
+					block.m_MoveState = 1;
+				}
+				break;
+
+			case 1:  //è„à⁄ìÆ
+
+				if (block.m_pos.y < 90)
+				{
+					block.m_pos.y += block.m_move.y;
+				}
+				else
+				{
+					block.m_MoveState = 0;
+				}
+				break;
+			}
 		}
 	}
+
+}
+
+void C_GameScreenBlock::HardStage2Action()
+{
+	C_GameScreen* gamescreen = SCENE.GetGameScreen();
+
+	if (gamescreen->GetStageClearFlg() == true || gamescreen->GetGameStartFlg() == false || gamescreen->GetGameOverFlg() == true)
+	{
+		return;
+	}
+
+	for (int i = 0; i < m_BlockList.size(); i++)
+	{
+
+		auto& block = m_BlockList[i];
+
+		ObjectPlayerHit(&block);
+
+
+		switch (block.m_MoveState)
+		{
+		case 0: //è„à⁄ìÆ
+
+			if (block.m_pos.y < 90)
+			{
+				block.m_pos.y += block.m_move.y;
+			}
+			else
+			{
+				block.m_MoveState = 1;
+			}
+			break;
+
+		case 1:  //â∫à⁄ìÆ
+
+			if (block.m_pos.y > -60)
+			{
+				block.m_pos.y -= block.m_move.y;
+			}
+			else
+			{
+				block.m_MoveState = 0;
+			}
+			break;
+		}
+
+	}
+
 }
 
 void C_GameScreenBlock::HardStage3Action()
 {
 	C_GameScreen* gamescreen = SCENE.GetGameScreen();
 
-	if (gamescreen->GetGameStartFlg() == true && gamescreen->GetGameOverFlg() == false && gamescreen->GetStageClearFlg() == false)
+	if (gamescreen->GetStageClearFlg() == true || gamescreen->GetGameStartFlg() == false || gamescreen->GetGameOverFlg() == true)
+	{
+		return;
+	}
+
+	for (int i = 0; i < m_BlockList.size(); i++)
 	{
 
-		for (int i = 0; i < m_BlockList.size(); i++)
+		auto& block = m_BlockList[i];
+
+		ObjectPlayerHit(&block);
+
+		if (i == 0)
 		{
-
-			auto& block = m_BlockList[i];
-
-			ObjectPlayerHit(&block);
-
-			if (i == 0)
+			switch (block.m_MoveState)
 			{
-				switch (block.m_MoveState)
+			case 0: //è„à⁄ìÆ
+
+				if (block.m_pos.y < 100)
 				{
-				case 0: //è„à⁄ìÆ
-
-					if (block.m_pos.y < 100)
-					{
-						block.m_pos.y += block.m_move.y;
-					}
-					else
-					{
-						block.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //â∫à⁄ìÆ
-
-					if (block.m_pos.y > -80)
-					{
-						block.m_pos.y -= block.m_move.y;
-					}
-					else
-					{
-						block.m_MoveState = 0;
-					}
-					break;
+					block.m_pos.y += block.m_move.y;
 				}
-			}
-
-			if (i == 1)
-			{
-				switch (block.m_MoveState)
+				else
 				{
-				case 0://â∫à⁄ìÆ
-
-					if (block.m_pos.y > -70)
-					{
-						block.m_pos.y -= block.m_move.y;
-					}
-					else
-					{
-						block.m_MoveState = 1;
-					}
-					break;
-
-
-				case 1:  //è„à⁄ìÆ
-
-					if (block.m_pos.y < 100)
-					{
-						block.m_pos.y += block.m_move.y;
-					}
-					else
-					{
-						block.m_MoveState = 0;
-					}
-					break;
+					block.m_MoveState = 1;
 				}
+				break;
+
+			case 1:  //â∫à⁄ìÆ
+
+				if (block.m_pos.y > -80)
+				{
+					block.m_pos.y -= block.m_move.y;
+				}
+				else
+				{
+					block.m_MoveState = 0;
+				}
+				break;
 			}
-
-
 		}
+
+		if (i == 1)
+		{
+			switch (block.m_MoveState)
+			{
+			case 0://â∫à⁄ìÆ
+
+				if (block.m_pos.y > -70)
+				{
+					block.m_pos.y -= block.m_move.y;
+				}
+				else
+				{
+					block.m_MoveState = 1;
+				}
+				break;
+
+
+			case 1:  //è„à⁄ìÆ
+
+				if (block.m_pos.y < 100)
+				{
+					block.m_pos.y += block.m_move.y;
+				}
+				else
+				{
+					block.m_MoveState = 0;
+				}
+				break;
+			}
+		}
+
+
 	}
 }
 
