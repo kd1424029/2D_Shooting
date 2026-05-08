@@ -798,10 +798,10 @@ void C_Enemy::Stage1Action()
 
 
 		//プレイヤーと重なったら敵のAlpha値を少し下げる
-		float Bottom = enemy.m_pos.x - player->GetPos().x;     //底辺(X座標の差)
-		float Height = enemy.m_pos.y - player->GetPos().y;	   //高さ(Y座標の差)
-		float Sqrt = Bottom * Bottom + Height * Height;		   //sqrtは重いため未実装
-		float Radius = player->GetRadius().x + enemy.m_radius.x;
+		float Bottom = enemy.m_pos.x - player->GetPos().x;        //底辺(X座標の差)
+		float Height = enemy.m_pos.y - player->GetPos().y;	      //高さ(Y座標の差)
+		float Sqrt = Bottom * Bottom + Height * Height;		      //sqrtは重いため未実装
+		float Radius = player->GetRadius().x + enemy.m_radius.x;  //XでもYでも可
 
 		if (Sqrt < Radius * Radius && player->GetAlive() == true)
 		{
@@ -892,10 +892,10 @@ void C_Enemy::Stage2Action()
 		}
 
 		//プレイヤーと重なったら敵のAlpha値を少し下げる
-		float Bottom = enemy.m_pos.x - player->GetPos().x;      //底辺(X座標の差)
-		float Height = enemy.m_pos.y - player->GetPos().y;	  //高さ(Y座標の差)
-		float Sqrt = Bottom * Bottom + Height * Height;		  //sqrtは重いため未実装
-		float Radius = player->GetRadius().x + enemy.m_radius.x;
+		float Bottom = enemy.m_pos.x - player->GetPos().x;        //底辺(X座標の差)
+		float Height = enemy.m_pos.y - player->GetPos().y;	      //高さ(Y座標の差)
+		float Sqrt = Bottom * Bottom + Height * Height;		      //sqrtは重いため未実装
+		float Radius = player->GetRadius().x + enemy.m_radius.x;  //XでもYでも可
 
 		if (Sqrt < Radius * Radius && player->GetAlive() == true)
 		{
@@ -1018,10 +1018,10 @@ void C_Enemy::Stage3Action()
 		}
 
 		//プレイヤーと重なったら敵のAlpha値を少し下げる
-		float Bottom = enemy.m_pos.x - player->GetPos().x;      //底辺(X座標の差)
-		float Height = enemy.m_pos.y - player->GetPos().y;	  //高さ(Y座標の差)
-		float Sqrt = Bottom * Bottom + Height * Height;		  //sqrtは重いため未実装
-		float Radius = player->GetRadius().x + enemy.m_radius.x;
+		float Bottom = enemy.m_pos.x - player->GetPos().x;       //底辺(X座標の差)
+		float Height = enemy.m_pos.y - player->GetPos().y;	  	 //高さ(Y座標の差)
+		float Sqrt = Bottom * Bottom + Height * Height;		  	 //sqrtは重いため未実装
+		float Radius = player->GetRadius().x + enemy.m_radius.x; //XでもYでも可
 
 		if (Sqrt < Radius * Radius && player->GetAlive() == true)
 		{
@@ -1177,10 +1177,10 @@ void C_Enemy::Stage4Action()
 		}
 
 		//プレイヤーと重なったら敵のAlpha値を少し下げる
-		float Bottom = enemy.m_pos.x - player->GetPos().x;      //底辺(X座標の差)
-		float Height = enemy.m_pos.y - player->GetPos().y;	  //高さ(Y座標の差)
-		float Sqrt = Bottom * Bottom + Height * Height;		  //sqrtは重いため未実装
-		float Radius = player->GetRadius().x + enemy.m_radius.x;
+		float Bottom = enemy.m_pos.x - player->GetPos().x;       //底辺(X座標の差)
+		float Height = enemy.m_pos.y - player->GetPos().y;	 	 //高さ(Y座標の差)
+		float Sqrt = Bottom * Bottom + Height * Height;		 	 //sqrtは重いため未実装
+		float Radius = player->GetRadius().x + enemy.m_radius.x; //XでもYでも可
 
 		if (Sqrt < Radius * Radius && player->GetAlive() == true)
 		{
@@ -1272,10 +1272,10 @@ void C_Enemy::HardStage1Action()
 		}
 
 		//プレイヤーと重なったら敵のAlpha値を少し下げる
-		float Bottom = enemy.m_pos.x - player->GetPos().x;      //底辺(X座標の差)
-		float Height = enemy.m_pos.y - player->GetPos().y;	  //高さ(Y座標の差)
-		float Sqrt = Bottom * Bottom + Height * Height;		  //sqrtは重いため未実装
-		float Radius = player->GetRadius().x + enemy.m_radius.x;
+		float Bottom = enemy.m_pos.x - player->GetPos().x;       //底辺(X座標の差)
+		float Height = enemy.m_pos.y - player->GetPos().y;	  	 //高さ(Y座標の差)
+		float Sqrt = Bottom * Bottom + Height * Height;		  	 //sqrtは重いため未実装
+		float Radius = player->GetRadius().x + enemy.m_radius.x; //XでもYでも可
 
 		if (Sqrt < Radius * Radius && player->GetAlive() == true)
 		{
@@ -1398,10 +1398,10 @@ void C_Enemy::HardStage2Action()
 		}
 
 		//プレイヤーと重なったら敵のAlpha値を少し下げる
-		float Bottom = enemy.m_pos.x - player->GetPos().x;      //底辺(X座標の差)
-		float Height = enemy.m_pos.y - player->GetPos().y;	  //高さ(Y座標の差)
-		float Sqrt = Bottom * Bottom + Height * Height;		  //sqrtは重いため未実装
-		float Radius = player->GetRadius().x + enemy.m_radius.x;
+		float Bottom = enemy.m_pos.x - player->GetPos().x;        //底辺(X座標の差)
+		float Height = enemy.m_pos.y - player->GetPos().y;	  	  //高さ(Y座標の差)
+		float Sqrt = Bottom * Bottom + Height * Height;		  	  //sqrtは重いため未実装
+		float Radius = player->GetRadius().x + enemy.m_radius.x;  //XでもYでも可
 
 		if (Sqrt < Radius * Radius && player->GetAlive() == true)
 		{
@@ -1556,10 +1556,10 @@ void C_Enemy::HardStage3Action()
 		}
 
 		//プレイヤーと重なったら敵のAlpha値を少し下げる
-		float Bottom = enemy.m_pos.x - player->GetPos().x;      //底辺(X座標の差)
-		float Height = enemy.m_pos.y - player->GetPos().y;	  //高さ(Y座標の差)
-		float Sqrt = Bottom * Bottom + Height * Height;		  //sqrtは重いため未実装
-		float Radius = player->GetRadius().x + enemy.m_radius.x;
+		float Bottom = enemy.m_pos.x - player->GetPos().x;       //底辺(X座標の差)
+		float Height = enemy.m_pos.y - player->GetPos().y;	  	 //高さ(Y座標の差)
+		float Sqrt = Bottom * Bottom + Height * Height;		  	 //sqrtは重いため未実装
+		float Radius = player->GetRadius().x + enemy.m_radius.x; //XでもYでも可
 
 		if (Sqrt < Radius * Radius && player->GetAlive() == true)
 		{
@@ -1774,10 +1774,10 @@ void C_Enemy::HardStage4Action()
 		}
 
 		//プレイヤーと重なったら敵のAlpha値を少し下げる
-		float Bottom = enemy.m_pos.x - player->GetPos().x;      //底辺(X座標の差)
-		float Height = enemy.m_pos.y - player->GetPos().y;	  //高さ(Y座標の差)
-		float Sqrt = Bottom * Bottom + Height * Height;		  //sqrtは重いため未実装
-		float Radius = player->GetRadius().x + enemy.m_radius.x;
+		float Bottom = enemy.m_pos.x - player->GetPos().x;        //底辺(X座標の差)
+		float Height = enemy.m_pos.y - player->GetPos().y;	 	  //高さ(Y座標の差)
+		float Sqrt = Bottom * Bottom + Height * Height;		 	  //sqrtは重いため未実装
+		float Radius = player->GetRadius().x + enemy.m_radius.x;  //XでもYでも可
 
 		if (Sqrt < Radius * Radius && player->GetAlive() == true)
 		{

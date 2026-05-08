@@ -92,21 +92,17 @@ void Scene::Update()
 	}
 	if (GetAsyncKeyState('1') & 0x0001)
 	{
-		AnimationScene = Stage1;
+		AnimationScene = HardStage1;
 	}
 	if (GetAsyncKeyState('2') & 0x0001)
 	{
-		AnimationScene = Stage2;
+		AnimationScene = HardStage2;
 	}
 	if (GetAsyncKeyState('3') & 0x0001)
 	{
-		AnimationScene = Stage3;
+		AnimationScene = HardStage3;
 	}
 	if (GetAsyncKeyState('4') & 0x0001)
-	{
-		AnimationScene = Stage4;
-	}
-	if (GetAsyncKeyState('7') & 0x0001)
 	{
 		AnimationScene = HardStage4;
 	}
