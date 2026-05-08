@@ -180,8 +180,8 @@ void C_Title::Init()
 	{
 		ObjectParam object2;
 
-		object2.m_pos = { (float)(rand() % 1280 - 640), (float)(rand() % 720 - 360) }; // ランダム位置
-		object2.m_moveSpeed = (float)(rand() % 100 + 50) * 0.01f; // スピードにバラつきを持たせる
+		object2.m_pos = { (float)(rand() % 1280 - 640), (float)(rand() % 720 - 360) }; //ランダム位置
+		object2.m_moveSpeed = (float)(rand() % 100 + 50) * 0.01f; //スピードにバラつきを持たせる
 		object2.m_scale = 1.5f;
 		object2.m_rect = { 32,0,16,16 };
 
@@ -209,8 +209,8 @@ void C_Title::Init()
 	{
 		ObjectParam object3;
 
-		object3.m_pos = { (float)(rand() % 1280 - 640), (float)(rand() % 720 - 360) }; // ランダム位置
-		object3.m_moveSpeed = (float)(rand() % 100 + 50) * 0.01f; // スピードにバラつきを持たせる
+		object3.m_pos = { (float)(rand() % 1280 - 640), (float)(rand() % 720 - 360) }; //ランダム位置
+		object3.m_moveSpeed = (float)(rand() % 100 + 50) * 0.01f; //スピードにバラつきを持たせる
 		object3.m_scale = 1.5f;
 		object3.m_rect = { 0,0,16,16 };
 
@@ -244,7 +244,6 @@ void C_Title::Init()
 
 void C_Title::Action()
 {
-
 	C_Sound* sound = SCENE.GetSound();
 
 	if (GetAsyncKeyState(VK_UP) & 0x8000 && TitleStartFlg == true && SceneFlg == false)

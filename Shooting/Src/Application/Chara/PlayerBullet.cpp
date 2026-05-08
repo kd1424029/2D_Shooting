@@ -19,8 +19,7 @@ void C_PlayerBullet::Init()
 		PlayerBulletCnt = 0;
 	}
 
-
-	StageClearTimer = 75;  //i1.25•b)
+	StageClearTimer = 75;  //(1.25•b)
 }
 
 void C_PlayerBullet::Action()
@@ -193,9 +192,9 @@ void C_PlayerBullet::Action()
 			}
 
 			//Ž©‹@‚Ì’e‚Æ“G‚Ì“–‚½‚è”»’èˆ—
-			float Bottom = Enemy.m_pos.x - PlayerBulletX[i];
-			float Height = Enemy.m_pos.y - PlayerBulletY[i];
-			float Sqrt = Bottom * Bottom + Height * Height;
+			float Bottom = Enemy.m_pos.x - PlayerBulletX[i];      //’ê•Ó(XÀ•W‚Ì·)
+			float Height = Enemy.m_pos.y - PlayerBulletY[i];	  //‚‚³(YÀ•W‚Ì·)
+			float Sqrt = Bottom * Bottom + Height * Height;		  //sqrt‚Íd‚¢‚½‚ß–¢ŽÀ‘•
 			float Radius = PlayerBulletRadius + charabase->GetRadius();
 
 			if (Sqrt < Radius * Radius)
@@ -217,9 +216,7 @@ void C_PlayerBullet::Action()
 						60                                      //Žõ–½
 					);
 				}
-
 				break; //’e‚ªÁ‚¦‚½‚Ì‚Å‚±‚Ì’e‚Ì”»’è‚ÍI—¹
-
 			}
 		}
 

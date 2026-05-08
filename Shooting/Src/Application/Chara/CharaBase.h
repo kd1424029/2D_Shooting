@@ -1,6 +1,4 @@
 #pragma once
-#define RADIUSX 32		//プレイヤー画像の半径（X軸方向）
-#define RADIUSY 32		//プレイヤー画像の半径（Y軸方向）
 
 //構造体（各ギミック制御用）
 struct Param

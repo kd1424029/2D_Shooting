@@ -62,7 +62,7 @@ public:
             if (m_effects[idx].GetLifespan() <= 0)
             {
                 m_effects[idx].Emit(pos, move, size, color, life, false);
-                m_nextFree = (idx + 1) % EffectMax; // Ÿ‚Ì‹ó‚«Œó•â‚ğ‹L˜^
+                m_nextFree = (idx + 1) % EffectMax; //Ÿ‚Ì‹ó‚«Œó•â‚ğ‹L˜^
                 break;
             }
         }

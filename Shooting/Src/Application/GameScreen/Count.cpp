@@ -361,7 +361,7 @@ void C_Count::Action()
 		m_CntList[0].m_rect = { 128, 0, 64, 64 }; //2の画像
 		break;
 	case 1:
-		m_CntList[0].m_rect = { 64, 0, 64, 64 }; //1の画像
+		m_CntList[0].m_rect = { 64, 0, 64, 64 };  //1の画像
 		break;
 	case 0:
 		m_CntList[0].m_rect = { 0, 0, 64, 64 }; //case 0はクリア表示
@@ -369,6 +369,7 @@ void C_Count::Action()
 		{
 			//ここでステージクリアの演出タイマーを動かす
 			StageClearTimer--;
+
 			if (StageClearTimer < 0 && gamescreen->GetGameOverFlg() == false) 
 			{
 				gamescreen->SetStageClearFlg(true);
@@ -380,7 +381,6 @@ void C_Count::Action()
 
 void C_Count::Update()
 {
-	
 	for (auto& cnt : m_CntList)
 	{
 		cnt.m_transMat = Math::Matrix::CreateTranslation(cnt.m_pos.x, cnt.m_pos.y, 0);
@@ -391,7 +391,6 @@ void C_Count::Update()
 
 void C_Count::Draw()
 {
-
 	for (auto& cnt : m_CntList)
 	{
 		SHADER.m_spriteShader.SetMatrix(cnt.m_mat);

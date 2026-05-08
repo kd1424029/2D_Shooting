@@ -191,7 +191,7 @@ void C_GameScreenBlock::HardStage3Init()
 	//配置したい座標のリスト
 	vector<Math::Vector2> BlockPosList = {
 	{(64.0f * 8.0f) - 640,(-64.0f * 6.0f) + 360},
-	{(64.0f * 13.0f) - 640,(-64.0f * 6.0f) + 360},
+	{(64.0f * 12.0f) - 640,(-64.0f * 6.0f) + 360},
 	};
 
 	Math::Vector2 m_pos1 = BlockPosList[0];
@@ -561,9 +561,9 @@ void C_GameScreenBlock::ObjectPlayerHit(Object* a_base)
 	}
 
 	//各方向のめり込み量（侵入深さ）を計算
-	float NextLeft = PlayerRight - BlockLeft; //プレイヤーの右側がブロックの左側にどれだけ入ったか
-	float NextRight = BlockRight - PlayerLeft; //プレイヤーの左側がブロックの右側にどれだけ入ったか
-	float NextTop = BlockTop - PlayerBottom; //プレイヤーの下側がブロックの上側にどれだけ入ったか
+	float NextLeft = PlayerRight - BlockLeft;   //プレイヤーの右側がブロックの左側にどれだけ入ったか
+	float NextRight = BlockRight - PlayerLeft;  //プレイヤーの左側がブロックの右側にどれだけ入ったか
+	float NextTop = BlockTop - PlayerBottom;    //プレイヤーの下側がブロックの上側にどれだけ入ったか
 	float NextBottom = PlayerTop - BlockBottom; //プレイヤーの上側がブロックの下側にどれだけ入ったか
 
 	//一番浅い（値が小さい）侵入方向を探す

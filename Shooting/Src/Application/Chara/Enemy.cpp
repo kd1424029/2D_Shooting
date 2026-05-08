@@ -25,6 +25,8 @@ void C_Enemy::Stage1Init()
 	newBlock.m_radius.x = 32;
 	newBlock.m_radius.y = 32;
 
+	newBlock.m_alpha = 1.0f;
+
 	newBlock.m_MoveState = 0;
 
 	newBlock.m_BulletTimer = 0;
@@ -56,6 +58,8 @@ void C_Enemy::Stage2Init()
 	newBlock.m_radius.x = 32;
 	newBlock.m_radius.y = 32;
 
+	newBlock.m_alpha = 1.0f;
+
 	newBlock.m_move.x = 1;   //移動スピード
 	newBlock.m_move.y = 1;   //移動スピード
 
@@ -79,6 +83,8 @@ void C_Enemy::Stage2Init()
 
 	newBlock2.m_radius.x = 32;
 	newBlock2.m_radius.y = 32;
+
+	newBlock2.m_alpha = 1.0f;
 
 	newBlock2.m_move.x = 2;   //移動スピード
 	newBlock2.m_move.y = 2;   //移動スピード
@@ -117,6 +123,8 @@ void C_Enemy::Stage3Init()
 	newBlock.m_radius.x = 32;
 	newBlock.m_radius.y = 32;
 
+	newBlock.m_alpha = 1.0f;
+
 	newBlock.m_move.x = 1;   //移動スピード
 	newBlock.m_move.y = 1;   //移動スピード
 
@@ -141,6 +149,8 @@ void C_Enemy::Stage3Init()
 	newBlock2.m_radius.x = 32;
 	newBlock2.m_radius.y = 32;
 
+	newBlock2.m_alpha = 1.0f;
+
 	newBlock2.m_move.x = 2;   //移動スピード
 	newBlock2.m_move.y = 2;   //移動スピード
 
@@ -164,6 +174,8 @@ void C_Enemy::Stage3Init()
 
 	newBlock3.m_radius.x = 32;
 	newBlock3.m_radius.y = 32;
+
+	newBlock3.m_alpha = 1.0f;
 
 	newBlock3.m_move.x = 1;   //移動スピード
 	newBlock3.m_move.y = 1;   //移動スピード
@@ -202,6 +214,8 @@ void C_Enemy::Stage4Init()
 	newBlock.m_radius.x = 32;
 	newBlock.m_radius.y = 32;
 
+	newBlock.m_alpha = 1.0f;
+
 	newBlock.m_move.x = 1;   //移動スピード
 	newBlock.m_move.y = 1;   //移動スピード
 
@@ -225,6 +239,8 @@ void C_Enemy::Stage4Init()
 
 	newBlock2.m_radius.x = 32;
 	newBlock2.m_radius.y = 32;
+
+	newBlock2.m_alpha = 1.0f;
 
 	newBlock2.m_move.x = 2;   //移動スピード
 	newBlock2.m_move.y = 2;   //移動スピード
@@ -250,6 +266,8 @@ void C_Enemy::Stage4Init()
 	newBlock3.m_radius.x = 32;
 	newBlock3.m_radius.y = 32;
 
+	newBlock3.m_alpha = 1.0f;
+
 	newBlock3.m_move.x = 3;   //移動スピード
 	newBlock3.m_move.y = 3;   //移動スピード
 
@@ -273,6 +291,8 @@ void C_Enemy::Stage4Init()
 
 	newBlock4.m_radius.x = 32;
 	newBlock4.m_radius.y = 32;
+
+	newBlock4.m_alpha = 1.0f;
 
 	newBlock4.m_move.x = 2;   //移動スピード
 	newBlock4.m_move.y = 2;   //移動スピード
@@ -309,6 +329,8 @@ void C_Enemy::HardStage1Init()
 	newBlock.m_radius.x = 32;
 	newBlock.m_radius.y = 32;
 
+	newBlock.m_alpha = 1.0f;
+
 	newBlock.m_move.x = 2;   //移動スピード
 	newBlock.m_move.y = 2;   //移動スピード
 
@@ -332,6 +354,8 @@ void C_Enemy::HardStage1Init()
 
 	newBlock2.m_radius.x = 32;
 	newBlock2.m_radius.y = 32;
+
+	newBlock2.m_alpha = 1.0f;
 
 	newBlock2.m_move.x = 3;   //移動スピード
 	newBlock2.m_move.y = 3;   //移動スピード
@@ -369,6 +393,8 @@ void C_Enemy::HardStage2Init()
 	newBlock.m_radius.x = 32;
 	newBlock.m_radius.y = 32;
 
+	newBlock.m_alpha = 1.0f;
+
 	newBlock.m_move.x = 3;   //移動スピード
 	newBlock.m_move.y = 3;   //移動スピード
 
@@ -393,6 +419,8 @@ void C_Enemy::HardStage2Init()
 	newBlock2.m_radius.x = 32;
 	newBlock2.m_radius.y = 32;
 
+	newBlock2.m_alpha = 1.0f;
+
 	newBlock2.m_move.x = 2;   //移動スピード
 	newBlock2.m_move.y = 2;   //移動スピード
 
@@ -416,6 +444,8 @@ void C_Enemy::HardStage2Init()
 
 	newBlock3.m_radius.x = 32;
 	newBlock3.m_radius.y = 32;
+
+	newBlock3.m_alpha = 1.0f;
 
 	newBlock3.m_move.x = 3;   //移動スピード
 	newBlock3.m_move.y = 3;   //移動スピード
@@ -454,6 +484,8 @@ void C_Enemy::HardStage3Init()
 	newBlock.m_radius.x = 32;
 	newBlock.m_radius.y = 32;
 
+	newBlock.m_alpha = 1.0f;
+
 	newBlock.m_move.x = 3;   //移動スピード
 	newBlock.m_move.y = 3;   //移動スピード
 
@@ -477,6 +509,8 @@ void C_Enemy::HardStage3Init()
 
 	newBlock2.m_radius.x = 32;
 	newBlock2.m_radius.y = 32;
+
+	newBlock2.m_alpha = 1.0f;
 
 	newBlock2.m_move.x = 2;   //移動スピード
 	newBlock2.m_move.y = 2;   //移動スピード
@@ -502,6 +536,8 @@ void C_Enemy::HardStage3Init()
 	newBlock3.m_radius.x = 32;
 	newBlock3.m_radius.y = 32;
 
+	newBlock3.m_alpha = 1.0f;
+
 	newBlock3.m_move.x = 3;   //移動スピード
 	newBlock3.m_move.y = 3;   //移動スピード
 
@@ -525,6 +561,8 @@ void C_Enemy::HardStage3Init()
 
 	newBlock4.m_radius.x = 32;
 	newBlock4.m_radius.y = 32;
+
+	newBlock4.m_alpha = 1.0f;
 
 	newBlock4.m_move.x = 2;   //移動スピード
 	newBlock4.m_move.y = 2;   //移動スピード
@@ -565,6 +603,8 @@ void C_Enemy::HardStage4Init()
 	newBlock.m_radius.x = 32;
 	newBlock.m_radius.y = 32;
 
+	newBlock.m_alpha = 1.0f;
+
 	newBlock.m_move.x = 2;   //移動スピード
 	newBlock.m_move.y = 2;   //移動スピード
 
@@ -589,6 +629,8 @@ void C_Enemy::HardStage4Init()
 	newBlock2.m_radius.x = 32;
 	newBlock2.m_radius.y = 32;
 
+	newBlock2.m_alpha = 1.0f;
+
 	newBlock2.m_move.x = 2;   //移動スピード
 	newBlock2.m_move.y = 2;   //移動スピード
 
@@ -612,6 +654,8 @@ void C_Enemy::HardStage4Init()
 
 	newBlock3.m_radius.x = 32;
 	newBlock3.m_radius.y = 32;
+
+	newBlock3.m_alpha = 1.0f;
 
 	newBlock3.m_move.x = 3;   //移動スピード
 	newBlock3.m_move.y = 3;   //移動スピード
@@ -638,6 +682,8 @@ void C_Enemy::HardStage4Init()
 	newBlock4.m_radius.x = 32;
 	newBlock4.m_radius.y = 32;
 
+	newBlock4.m_alpha = 1.0f;
+
 	newBlock4.m_move.x = 2;   //移動スピード
 	newBlock4.m_move.y = 2;   //移動スピード
 
@@ -662,6 +708,8 @@ void C_Enemy::HardStage4Init()
 
 	newBlock5.m_radius.x = 32;
 	newBlock5.m_radius.y = 32;
+
+	newBlock5.m_alpha = 1.0f;
 
 	newBlock5.m_move.x = 2;   //移動スピード
 	newBlock5.m_move.y = 2;   //移動スピード
@@ -688,6 +736,8 @@ void C_Enemy::HardStage4Init()
 
 	newBlock6.m_radius.x = 32;
 	newBlock6.m_radius.y = 32;
+
+	newBlock6.m_alpha = 1.0f;
 
 	newBlock6.m_move.x = 2;   //移動スピード
 	newBlock6.m_move.y = 2;   //移動スピード
@@ -745,8 +795,23 @@ void C_Enemy::Stage1Action()
 			}
 			break;
 		}
-	}
 
+
+		//プレイヤーと重なったら敵のAlpha値を少し下げる
+		float Bottom = enemy.m_pos.x - player->GetPos().x;     //底辺(X座標の差)
+		float Height = enemy.m_pos.y - player->GetPos().y;	   //高さ(Y座標の差)
+		float Sqrt = Bottom * Bottom + Height * Height;		   //sqrtは重いため未実装
+		float Radius = player->GetRadius().x + enemy.m_radius.x;
+
+		if (Sqrt < Radius * Radius && player->GetAlive() == true)
+		{
+			enemy.m_alpha = 0.5f;
+		}
+		else
+		{
+			enemy.m_alpha = 1.0f;
+		}
+	}
 }
 
 void C_Enemy::Stage2Action()
@@ -824,6 +889,21 @@ void C_Enemy::Stage2Action()
 				}
 				break;
 			}
+		}
+
+		//プレイヤーと重なったら敵のAlpha値を少し下げる
+		float Bottom = enemy.m_pos.x - player->GetPos().x;      //底辺(X座標の差)
+		float Height = enemy.m_pos.y - player->GetPos().y;	  //高さ(Y座標の差)
+		float Sqrt = Bottom * Bottom + Height * Height;		  //sqrtは重いため未実装
+		float Radius = player->GetRadius().x + enemy.m_radius.x;
+
+		if (Sqrt < Radius * Radius && player->GetAlive() == true)
+		{
+			enemy.m_alpha = 0.5f;
+		}
+		else
+		{
+			enemy.m_alpha = 1.0f;
 		}
 
 	}
@@ -935,6 +1015,21 @@ void C_Enemy::Stage3Action()
 				}
 				break;
 			}
+		}
+
+		//プレイヤーと重なったら敵のAlpha値を少し下げる
+		float Bottom = enemy.m_pos.x - player->GetPos().x;      //底辺(X座標の差)
+		float Height = enemy.m_pos.y - player->GetPos().y;	  //高さ(Y座標の差)
+		float Sqrt = Bottom * Bottom + Height * Height;		  //sqrtは重いため未実装
+		float Radius = player->GetRadius().x + enemy.m_radius.x;
+
+		if (Sqrt < Radius * Radius && player->GetAlive() == true)
+		{
+			enemy.m_alpha = 0.5f;
+		}
+		else
+		{
+			enemy.m_alpha = 1.0f;
 		}
 
 	}
@@ -1081,6 +1176,21 @@ void C_Enemy::Stage4Action()
 			}
 		}
 
+		//プレイヤーと重なったら敵のAlpha値を少し下げる
+		float Bottom = enemy.m_pos.x - player->GetPos().x;      //底辺(X座標の差)
+		float Height = enemy.m_pos.y - player->GetPos().y;	  //高さ(Y座標の差)
+		float Sqrt = Bottom * Bottom + Height * Height;		  //sqrtは重いため未実装
+		float Radius = player->GetRadius().x + enemy.m_radius.x;
+
+		if (Sqrt < Radius * Radius && player->GetAlive() == true)
+		{
+			enemy.m_alpha = 0.5f;
+		}
+		else
+		{
+			enemy.m_alpha = 1.0f;
+		}
+
 	}
 }
 
@@ -1159,6 +1269,21 @@ void C_Enemy::HardStage1Action()
 				}
 				break;
 			}
+		}
+
+		//プレイヤーと重なったら敵のAlpha値を少し下げる
+		float Bottom = enemy.m_pos.x - player->GetPos().x;      //底辺(X座標の差)
+		float Height = enemy.m_pos.y - player->GetPos().y;	  //高さ(Y座標の差)
+		float Sqrt = Bottom * Bottom + Height * Height;		  //sqrtは重いため未実装
+		float Radius = player->GetRadius().x + enemy.m_radius.x;
+
+		if (Sqrt < Radius * Radius && player->GetAlive() == true)
+		{
+			enemy.m_alpha = 0.5f;
+		}
+		else
+		{
+			enemy.m_alpha = 1.0f;
 		}
 
 	}
@@ -1270,6 +1395,21 @@ void C_Enemy::HardStage2Action()
 				}
 				break;
 			}
+		}
+
+		//プレイヤーと重なったら敵のAlpha値を少し下げる
+		float Bottom = enemy.m_pos.x - player->GetPos().x;      //底辺(X座標の差)
+		float Height = enemy.m_pos.y - player->GetPos().y;	  //高さ(Y座標の差)
+		float Sqrt = Bottom * Bottom + Height * Height;		  //sqrtは重いため未実装
+		float Radius = player->GetRadius().x + enemy.m_radius.x;
+
+		if (Sqrt < Radius * Radius && player->GetAlive() == true)
+		{
+			enemy.m_alpha = 0.5f;
+		}
+		else
+		{
+			enemy.m_alpha = 1.0f;
 		}
 
 	}
@@ -1415,6 +1555,20 @@ void C_Enemy::HardStage3Action()
 			}
 		}
 
+		//プレイヤーと重なったら敵のAlpha値を少し下げる
+		float Bottom = enemy.m_pos.x - player->GetPos().x;      //底辺(X座標の差)
+		float Height = enemy.m_pos.y - player->GetPos().y;	  //高さ(Y座標の差)
+		float Sqrt = Bottom * Bottom + Height * Height;		  //sqrtは重いため未実装
+		float Radius = player->GetRadius().x + enemy.m_radius.x;
+
+		if (Sqrt < Radius * Radius && player->GetAlive() == true)
+		{
+			enemy.m_alpha = 0.5f;
+		}
+		else
+		{
+			enemy.m_alpha = 1.0f;
+		}
 	}
 }
 
@@ -1433,193 +1587,205 @@ void C_Enemy::HardStage4Action()
 	{
 		auto& enemy = m_EnemyList[i];
 
-		if (gameScreen->GetGameStartFlg() == true && gameScreen->GetGameOverFlg() == false)
+		if (i == 0)
 		{
-			if (i == 0)
+			switch (enemy.m_MoveState)
 			{
-				switch (enemy.m_MoveState)
+
+			case 0: //右移動
+
+				if (enemy.m_pos.x < 70)
 				{
-
-				case 0: //右移動
-
-					if (enemy.m_pos.x < 70)
-					{
-						enemy.m_pos.x += enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //左移動
-
-					if (enemy.m_pos.x > -70)
-					{
-						enemy.m_pos.x -= enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_pos.x += enemy.m_move.x;
 				}
-			}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
 
-			if (i == 1)
+			case 1:  //左移動
+
+				if (enemy.m_pos.x > -70)
+				{
+					enemy.m_pos.x -= enemy.m_move.x;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
+			}
+		}
+
+		if (i == 1)
+		{
+			switch (enemy.m_MoveState)
 			{
-				switch (enemy.m_MoveState)
+
+			case 0: //上移動
+
+				if (enemy.m_pos.y < 120)
 				{
-
-				case 0: //上移動
-
-					if (enemy.m_pos.y < 120)
-					{
-						enemy.m_pos.y += enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //下移動
-
-					if (enemy.m_pos.y > 0)
-					{
-						enemy.m_pos.y -= enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_pos.y += enemy.m_move.y;
 				}
-			}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
 
-			if (i == 2)
+			case 1:  //下移動
+
+				if (enemy.m_pos.y > 0)
+				{
+					enemy.m_pos.y -= enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
+			}
+		}
+
+		if (i == 2)
+		{
+			switch (enemy.m_MoveState)
 			{
-				switch (enemy.m_MoveState)
+
+			case 0: //左移動
+
+				if (enemy.m_pos.x > -60)
 				{
-
-				case 0: //左移動
-
-					if (enemy.m_pos.x > -60)
-					{
-						enemy.m_pos.x -= enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1: //右移動
-
-					if (enemy.m_pos.x < 60)
-					{
-						enemy.m_pos.x += enemy.m_move.x;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_pos.x -= enemy.m_move.x;
 				}
-			}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
 
-			if (i == 3)
+			case 1: //右移動
+
+				if (enemy.m_pos.x < 60)
+				{
+					enemy.m_pos.x += enemy.m_move.x;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
+			}
+		}
+
+		if (i == 3)
+		{
+			switch (enemy.m_MoveState)
 			{
-				switch (enemy.m_MoveState)
+
+			case 0: //上移動
+
+				if (enemy.m_pos.y < 120)
 				{
-
-				case 0: //上移動
-
-					if (enemy.m_pos.y < 120)
-					{
-						enemy.m_pos.y += enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //下移動
-
-					if (enemy.m_pos.y > 0)
-					{
-						enemy.m_pos.y -= enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_pos.y += enemy.m_move.y;
 				}
-			}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
 
-			if (i == 4)
+			case 1:  //下移動
+
+				if (enemy.m_pos.y > 0)
+				{
+					enemy.m_pos.y -= enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
+			}
+		}
+
+		if (i == 4)
+		{
+			switch (enemy.m_MoveState)
 			{
-				switch (enemy.m_MoveState)
+
+			case 0: //上移動
+
+				if (enemy.m_pos.y < -80)
 				{
-
-				case 0: //上移動
-
-					if (enemy.m_pos.y < -80)
-					{
-						enemy.m_pos.y += enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //下移動
-
-					if (enemy.m_pos.y > -200)
-					{
-						enemy.m_pos.y -= enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_pos.y += enemy.m_move.y;
 				}
-			}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
 
-			if (i == 5)
+			case 1:  //下移動
+
+				if (enemy.m_pos.y > -200)
+				{
+					enemy.m_pos.y -= enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
+			}
+		}
+
+		if (i == 5)
+		{
+			switch (enemy.m_MoveState)
 			{
-				switch (enemy.m_MoveState)
+
+			case 0: //上移動
+
+				if (enemy.m_pos.y < -80)
 				{
-
-				case 0: //上移動
-
-					if (enemy.m_pos.y < -80)
-					{
-						enemy.m_pos.y += enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 1;
-					}
-					break;
-
-				case 1:  //下移動
-
-					if (enemy.m_pos.y > -200)
-					{
-						enemy.m_pos.y -= enemy.m_move.y;
-					}
-					else
-					{
-						enemy.m_MoveState = 0;
-					}
-					break;
+					enemy.m_pos.y += enemy.m_move.y;
 				}
+				else
+				{
+					enemy.m_MoveState = 1;
+				}
+				break;
+
+			case 1:  //下移動
+
+				if (enemy.m_pos.y > -200)
+				{
+					enemy.m_pos.y -= enemy.m_move.y;
+				}
+				else
+				{
+					enemy.m_MoveState = 0;
+				}
+				break;
 			}
+		}
+
+		//プレイヤーと重なったら敵のAlpha値を少し下げる
+		float Bottom = enemy.m_pos.x - player->GetPos().x;      //底辺(X座標の差)
+		float Height = enemy.m_pos.y - player->GetPos().y;	  //高さ(Y座標の差)
+		float Sqrt = Bottom * Bottom + Height * Height;		  //sqrtは重いため未実装
+		float Radius = player->GetRadius().x + enemy.m_radius.x;
+
+		if (Sqrt < Radius * Radius && player->GetAlive() == true)
+		{
+			enemy.m_alpha = 0.5f;
+		}
+		else
+		{
+			enemy.m_alpha = 1.0f;
 		}
 	}
 }
@@ -1643,7 +1809,7 @@ void C_Enemy::Draw()
 		if (enemy.m_alive == true)
 		{
 			SHADER.m_spriteShader.SetMatrix(enemy.m_mat);
-			SHADER.m_spriteShader.DrawTex(enemy.m_tex, enemy.m_rect, 1.0f);
+			SHADER.m_spriteShader.DrawTex(enemy.m_tex, enemy.m_rect, enemy.m_alpha);
 		}
 	}
 }

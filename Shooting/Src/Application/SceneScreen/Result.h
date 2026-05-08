@@ -48,7 +48,7 @@ private:
 	const float ScreenLeft = -650;
 	const float ScreenRight = 650;
 
-	bool SceneFlg;
+	bool SceneFlg; //シーン遷移用
 
 	bool ResultStartFlg;
 
@@ -57,5 +57,5 @@ private:
 	float angle2;  //移動する角度
 	float angle3;  //移動する角度
 
-	bool m_ClearSeFlg;  //クリアSE用
+	bool ClearSeFlg;  //クリアSE用
 };

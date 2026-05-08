@@ -173,7 +173,7 @@ void C_Result::GameClearInit()
 	}
 	//======================================
 
-	m_ClearSeFlg = false;
+	ClearSeFlg = false;
 }
 
 void C_Result::GameOverInit()
@@ -452,10 +452,10 @@ void C_Result::GameClearAction()
 {
 	C_Sound* sound = SCENE.GetSound();
 
-	if (!m_ClearSeFlg)
+	if (!ClearSeFlg)
 	{
 		sound->ClearSE();
-		m_ClearSeFlg = true;
+		ClearSeFlg = true;
 	}
 
 	if (GetAsyncKeyState(VK_SPACE) & 0x8000 && ResultStartFlg == true && SceneFlg == false)
@@ -514,9 +514,7 @@ void C_Result::GameClearAction()
 		}
 	}
 
-
-
-	//============ ObjectŠÖ˜A =====================
+	//================= ObjectŠÖ˜A =====================
 	for (int i = 0; i < m_ObjectList.size(); ++i)
 	{
 		auto& object = m_ObjectList[i];

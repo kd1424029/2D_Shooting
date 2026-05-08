@@ -39,10 +39,26 @@ void C_BulletEffect::Update(Math::Vector2 a_pos, bool a_move)
 	//位置更新
 	BulletEffect.m_move *= 1.005f;
 	BulletEffect.m_pos += BulletEffect.m_move;
-	if (BulletEffect.m_pos.y >= 360)BulletEffect.m_move.y *= -1;
-	if (BulletEffect.m_pos.y <= -360)BulletEffect.m_move.y *= -1;
-	if (BulletEffect.m_pos.x >= 640)BulletEffect.m_move.x *= -1;
-	if (BulletEffect.m_pos.x <= -640)BulletEffect.m_move.x *= -1;
+
+	if (BulletEffect.m_pos.y >= 360)
+	{
+		BulletEffect.m_move.y *= -1;
+	}
+
+	if (BulletEffect.m_pos.y <= -360)
+	{
+		BulletEffect.m_move.y *= -1;
+	}
+
+	if (BulletEffect.m_pos.x >= 640)
+	{
+		BulletEffect.m_move.x *= -1;
+	}
+	
+	if (BulletEffect.m_pos.x <= -640)
+	{
+		BulletEffect.m_move.x *= -1;
+	}
 
 	//徐々に小さくなる
 	BulletEffect.m_size *= 0.9f;

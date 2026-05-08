@@ -121,7 +121,7 @@ void Scene::Update()
 	//====================================================
 
 
-	//============== BGM SE 関係 =============================
+	//==================== BGM関係 =======================
 
 	if (TitleBgmSwitch == true )
 	{
@@ -189,7 +189,6 @@ void Scene::Update()
 
 	case SceneType::Stage2:
 
-	
 		CommonUpdate();
 
 		m_player.Update();
@@ -487,7 +486,7 @@ void Scene::StageInit(SceneType NowStage)
 
 		m_enemy.Stage1Init();
 
-		m_timer.Stage1Init();//ステージ1のときだけ初期化する関数
+		m_timer.Stage1Init();//最初のステージのときだけ初期化する関数
 
 		m_count.Stage1Init(); 
 
@@ -536,7 +535,7 @@ void Scene::StageInit(SceneType NowStage)
 
 		m_enemy.HardStage1Init();
 
-		m_timer.Stage1Init();//ステージ1のときだけ初期化する関数
+		m_timer.Stage1Init();//最初のステージのときだけ初期化する関数
 
 		m_count.HardStage1Init();
 

@@ -75,6 +75,7 @@ void C_Timer::Init()
 
 	//=====================================
 
+	//====== Œ»İ‚Ì•b”‚ğ‚Á‚Ä‚­‚é =======
 	int Seconds = (int)ElapsedTime % 60;
 	int Minutes = (int)ElapsedTime / 60;
 
@@ -82,6 +83,8 @@ void C_Timer::Init()
 	m_TimerList[1].m_rect = { ((long)(Minutes % 10) * 64), 0, 64, 64 };
 	m_TimerList[2].m_rect = { ((long)((Seconds / 10) % 10) * 64), 0, 64, 64 };
 	m_TimerList[3].m_rect = { ((long)(Seconds % 10) * 64), 0, 64, 64 };
+
+	//=====================================
 
 	//============= Colon—p ===============
 	Colon.m_pos.x = (64.0f * 18.3f) - 640;
@@ -159,6 +162,7 @@ void C_Timer::GameClearInit()
 
 	//=====================================
 
+	//====== Œ»İ‚Ì•b”‚ğ‚Á‚Ä‚­‚é =======
 	int Seconds = (int)ElapsedTime % 60;
 	int Minutes = (int)ElapsedTime / 60;
 
@@ -166,6 +170,8 @@ void C_Timer::GameClearInit()
 	m_TimerList[1].m_rect = { ((long)(Minutes % 10) * 64), 0, 64, 64 };
 	m_TimerList[2].m_rect = { ((long)((Seconds / 10) % 10) * 64), 0, 64, 64 };
 	m_TimerList[3].m_rect = { ((long)(Seconds % 10) * 64), 0, 64, 64 };
+
+	//=====================================
 
 	//============= Colon—p ===============
 
