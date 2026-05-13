@@ -566,32 +566,32 @@ void C_GameScreenBlock::ObjectPlayerHit(Object* a_base)
 	float NextTop = BlockTop - PlayerBottom;    //プレイヤーの下側がブロックの上側にどれだけ入ったか
 	float NextBottom = PlayerTop - BlockBottom; //プレイヤーの上側がブロックの下側にどれだけ入ったか
 
-	//一番浅い（値が小さい）侵入方向を探す
-	float MinOverLap = min(min(NextLeft, NextRight), min(NextTop, NextBottom));
-
-	//最小の侵入軸に対してのみ補正を行う
-	if (MinOverLap == NextLeft)
+	//NextTop が4つの中で最小かを判定
+	//4択の中での最小値選び
+	if (NextTop <= NextBottom && NextTop <= NextLeft && NextTop <= NextRight)
 	{
+		//下衝突（下から上面にめり込んだ）
+		player->SetPosY(BlockTop + player->GetRadius().y);
+		player->SetMoveY(0);
+	}
+	//ここに来た時点で NextBottom <= NextTop は自動的に成立しうる状態
+	else if (NextBottom <= NextLeft && NextBottom <= NextRight)
+	{
+		//上衝突（上から下面にめり込んだ）
+		player->SetPosY(BlockBottom - player->GetRadius().y);
+		player->SetMoveY(0);
+	}
+	else if (NextLeft <= NextRight)
+	{
+		//左壁（右側からめり込んだ）
 		player->SetPosX(BlockLeft - player->GetRadius().x);
 		player->SetMoveX(0);
 	}
-
-	else if (MinOverLap == NextRight)
+	else
 	{
+		//右壁（左側からめり込んだ）
 		player->SetPosX(BlockRight + player->GetRadius().x);
 		player->SetMoveX(0);
-	}
-
-	else if (MinOverLap == NextTop)
-	{
-		player->SetPosY(BlockTop + player->GetRadius().y);
-		player->SetMoveY(0); 
-	}
-
-	else if (MinOverLap == NextBottom)
-	{
-		player->SetPosY(BlockBottom - player->GetRadius().y);
-		player->SetMoveY(0);
 	}
 }
 

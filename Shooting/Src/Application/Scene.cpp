@@ -92,19 +92,19 @@ void Scene::Update()
 	}
 	if (GetAsyncKeyState('1') & 0x0001)
 	{
-		AnimationScene = HardStage1;
+		AnimationScene = Stage1;
 	}
 	if (GetAsyncKeyState('2') & 0x0001)
 	{
-		AnimationScene = HardStage2;
+		AnimationScene = Stage2;
 	}
 	if (GetAsyncKeyState('3') & 0x0001)
 	{
-		AnimationScene = HardStage3;
+		AnimationScene = Stage3;
 	}
 	if (GetAsyncKeyState('4') & 0x0001)
 	{
-		AnimationScene = HardStage4;
+		AnimationScene = Stage4;
 	}
 	if (GetAsyncKeyState('5') & 0x0001)
 	{
@@ -113,6 +113,22 @@ void Scene::Update()
 	if (GetAsyncKeyState('6') & 0x0001)
 	{
 		AnimationScene = GameOverResult;
+	}
+	if (GetAsyncKeyState('7') & 0x0001)
+	{
+		AnimationScene = HardStage1;
+	}
+	if (GetAsyncKeyState('8') & 0x0001)
+	{
+		AnimationScene = HardStage2;
+	}
+	if (GetAsyncKeyState('9') & 0x0001)
+	{
+		AnimationScene = HardStage3;
+	}
+	if (GetAsyncKeyState('P') & 0x0001)
+	{
+		AnimationScene = HardStage4;
 	}
 	//====================================================
 
@@ -369,6 +385,7 @@ void Scene::Update()
 	}
 	//===============================================================
 
+	ShowCursor(false);
 }
 
 //ã§í çXêV

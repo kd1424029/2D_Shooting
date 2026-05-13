@@ -1,0 +1,12 @@
+750.0 Normal
+800.0 Normal
+1000.0 Area
+1750.0 Normal
+1800.0 Normal
+2000.0 Area
+2500.0 Lucky
+2750.0 Normal
+2800.0 Normal
+3000.0 Area
+3500.0 Lucky
+4500.0 Lucky

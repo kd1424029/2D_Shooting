@@ -3,7 +3,7 @@
 
 void C_PlayerBullet::Init()
 {
-	for (int i = 0; i < PlayerBulletNum; i++)
+	for (int i = 0; i < PlayerBulletNum; ++i)
 	{
 		PlayerBulletX[i] = 0;
 		PlayerBulletY[i] = 0;
@@ -128,7 +128,7 @@ void C_PlayerBullet::Action()
 	}
 
 	//==================== ’e‚Ì“–‚½‚è”»’èŒn ==============================
-	for (int i = 0; i < PlayerBulletNum; i++)
+	for (int i = 0; i < PlayerBulletNum; ++i)
 	{
 		//’e‚ª¶‚«‚Ä‚¢‚È‚©‚Á‚½‚ç‚±‚Ì’e‚Ìˆ—‚Í”ò‚Î‚·
 		if (PlayerBulletAlive[i] == false)

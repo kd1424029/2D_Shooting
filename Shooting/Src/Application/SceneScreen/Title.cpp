@@ -9,11 +9,11 @@ void C_Title::Init()
 	vector<Math::Vector2> TitlePosList = {
 	{0.0f, 0.0f},
 	{(64.0f * 10.0f) - 640,(-64.0f * 2.5f) + 360},
-	{(64.0f * 10.3f) - 640,(-64.0f * 7.0f) + 360},
+	{(64.0f * 10.0f) - 640,(-64.0f * 7.0f) + 360},
 	{0.0f, 0.0f},
-	{ (64.0f * 12.5f) - 640, (-64.0f * 9.0f) + 360 },
-	{(64.0f * 8.4f) - 640,(-64.0f * 9.0f) + 360},
-	{(64.0f * 9.9f) - 640,(-64.0f * 8.83f) + 360},
+	{ (64.0f * 12.2f) - 640, (-64.0f * 9.0f) + 360 },
+	{(64.0f * 8.1f) - 640,(-64.0f * 9.0f) + 360},
+	{(64.0f * 9.6f) - 640,(-64.0f * 8.83f) + 360},
 	{(64.0f * 10.0f) - 640,(-64.0f * 7.0f) + 360},
 	{(64.0f * 16.5f) - 640,(-64.0f * 10.5f) + 360},
 	};
@@ -36,7 +36,7 @@ void C_Title::Init()
 
 	ObjectParam newBlock2;
 	newBlock2.m_pos = { m_pos2.x , m_pos2.y };
-	newBlock2.m_scale = 3.0f;
+	newBlock2.m_scale = 3.4f;
 	newBlock2.m_alpha = 1.0f;
 	newBlock2.m_rect =  { 0, 64, 320, 64 };
 	newBlock2.m_tex = TitleName.m_tex;
@@ -357,7 +357,7 @@ void C_Title::Action()
 			{
 				if (!TitleModeFlg)
 				{
-					title.m_pos = { (64.0f * 11.9f) - 640, (-64.0f * 9.0f) + 360 };
+					title.m_pos = { (64.0f * 11.4f) - 640, (-64.0f * 9.0f) + 360 };
 					title.m_rect = { 768, 0, 128, 64 };
 					TitleModeFlg = true;
 
@@ -365,7 +365,7 @@ void C_Title::Action()
 				}
 				else
 				{
-					title.m_pos = { (64.0f * 12.5f) - 640, (-64.0f * 9.0f) + 360 };
+					title.m_pos = { (64.0f * 12.2f) - 640, (-64.0f * 9.0f) + 360 };
 					title.m_rect = { 704, 64, 192, 64 };
 					TitleModeFlg = false;
 
@@ -398,13 +398,13 @@ void C_Title::Action()
 		if (i == 7 && NowPick == 1)
 		{
 			title.m_rect = { 896,64,128,64 };
-			title.m_pos = { (64.0f * 8.0f) - 640,(-64.0f * 9.0f) + 360 };
+			title.m_pos = { (64.0f * 7.7f) - 640,(-64.0f * 9.0f) + 360 };
 			title.m_scale = 1.6f;
 		}
 		else if (i == 7 && NowPick == 0)
 		{
 			title.m_rect = { 832,128,256,64 };
-			title.m_pos = { (64.0f * 10.3f) - 640,(-64.0f * 7.0f) + 360 };
+			title.m_pos = { (64.0f * 10.0f) - 640,(-64.0f * 7.0f) + 360 };
 			title.m_scale = 2.0f;
 		}
 	}

@@ -103,7 +103,7 @@ void C_EnemyBullet::Action()
 
 						EnemyBulletRect[EnemyBullet] = { 16,0,16,16 };
 
-						Enemy[enemy].m_BulletTimer = 120;   //2秒間隔で打つようにする
+						Enemy[enemy].m_BulletTimer = 120;		//2秒間隔で打つようにする
 						EnemyBulletHomingCnt[EnemyBullet] = 0;  //ホーミングカウントをリセット
 
 						sound->BulletSE();
@@ -129,7 +129,7 @@ void C_EnemyBullet::Action()
 
 						EnemyBulletRect[EnemyBullet] = { 32,0,16,16 };
 
-						Enemy[enemy].m_BulletTimer = 90;   //1.5秒間隔で打つようにする
+						Enemy[enemy].m_BulletTimer = 90;		//1.5秒間隔で打つようにする
 						EnemyBulletHomingCnt[EnemyBullet] = 0;  //ホーミングカウントをリセット
 
 						sound->BulletSE();
@@ -154,7 +154,7 @@ void C_EnemyBullet::Action()
 
 						EnemyBulletRect[EnemyBullet] = { 48,0,16,16 };
 
-						Enemy[enemy].m_BulletTimer = 120;   //2秒間隔で打つようにする
+						Enemy[enemy].m_BulletTimer = 120;		//2秒間隔で打つようにする
 						EnemyBulletHomingCnt[EnemyBullet] = 0;  //ホーミングカウントをリセット
 
 						sound->BulletSE();
@@ -180,7 +180,7 @@ void C_EnemyBullet::Action()
 
 						EnemyBulletRect[EnemyBullet] = { 64,0,16,16 };
 
-						Enemy[enemy].m_BulletTimer = 90;       //1.5秒間隔で打つようにする
+						Enemy[enemy].m_BulletTimer = 90;        //1.5秒間隔で打つようにする
 						EnemyBulletHomingCnt[EnemyBullet] = 0;  //ホーミングカウントをリセット
 
 						sound->BulletSE();
@@ -293,9 +293,9 @@ void C_EnemyBullet::Action()
 			}
 
 			//敵の弾とプレイヤーの当たり判定処理
-			float Bottom = player->GetPos().x - EnemyBulletX[i];     //底辺(X座標の差)
-			float Height = player->GetPos().y - EnemyBulletY[i];     //高さ(Y座標の差)
-			float Sqrt = Bottom * Bottom + Height * Height;          //sqrtは重いため未実装
+			float Bottom = player->GetPos().x - EnemyBulletX[i];      //底辺(X座標の差)
+			float Height = player->GetPos().y - EnemyBulletY[i];      //高さ(Y座標の差)
+			float Sqrt = Bottom * Bottom + Height * Height;           //sqrtは重いため未実装
 			float Radius = EnemyBulletRadius + charabase->GetRadius();//敵の弾半径＋共通の半径(プレイヤーと同じ半径だから共通ゲッター使用)
 
 			if (Sqrt < Radius * Radius && player->GetAlive() == true) //衝突していたら
