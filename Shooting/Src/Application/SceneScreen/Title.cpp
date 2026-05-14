@@ -36,7 +36,7 @@ void C_Title::Init()
 
 	ObjectParam newBlock2;
 	newBlock2.m_pos = { m_pos2.x , m_pos2.y };
-	newBlock2.m_scale = 3.4f;
+	newBlock2.m_scale = 3.5f;
 	newBlock2.m_alpha = 1.0f;
 	newBlock2.m_rect =  { 0, 64, 320, 64 };
 	newBlock2.m_tex = TitleName.m_tex;

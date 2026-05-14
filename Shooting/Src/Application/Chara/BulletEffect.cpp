@@ -23,6 +23,13 @@ void C_BulletEffect::Init()
 
 void C_BulletEffect::Update(Math::Vector2 a_pos, bool a_move)
 {
+	C_GameScreen* gamescreen = SCENE.GetGameScreen();
+
+	if (gamescreen->GetStageClearFlg() == true || gamescreen->GetGameStartFlg() == false || gamescreen->GetGameOverFlg() == true)
+	{
+		return;
+	}
+
 	BulletEffect.m_lifespan--;
 
 	if (BulletEffect.m_lifespan <= 0)

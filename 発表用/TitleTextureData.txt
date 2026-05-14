@@ -1,5 +1,0 @@
-Space Texture/Stage/space.png
-Title Texture/Scene/Title/title.png
-Start Texture/Scene/Title/start.png
-Setting Texture/Scene/Title/setting.png
-Line Texture/Scene/Title/line.png

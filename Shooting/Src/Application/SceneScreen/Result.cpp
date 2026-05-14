@@ -32,7 +32,7 @@ void C_Result::GameClearInit()
 
 	ObjectParam newBlock2;
 	newBlock2.m_pos = { m_pos2.x , m_pos2.y };
-	newBlock2.m_scale = 3.5f;
+	newBlock2.m_scale = 4.0f;
 	newBlock2.m_alpha = 1.0f;
 	newBlock2.m_rect = { 128, 128, 256, 64 };
 	newBlock2.m_tex = ResultGameOver.m_tex;
@@ -206,7 +206,7 @@ void C_Result::GameOverInit()
 
 	ObjectParam newBlock2;
 	newBlock2.m_pos = { m_pos2.x , m_pos2.y };
-	newBlock2.m_scale = 3.0f;
+	newBlock2.m_scale = 4.0f;
 	newBlock2.m_alpha = 1.0f;
 	newBlock2.m_rect = { 256, 0, 256, 64 };
 	newBlock2.m_tex = ResultGameOver.m_tex;
@@ -628,14 +628,13 @@ void C_Result::GameClearDraw()
 		SHADER.m_spriteShader.DrawTex(result.m_tex, result.m_rect, result.m_alpha);
 	}
 
+	timer->Draw();
 
 	for (auto& object : m_ObjectList)
 	{
 		SHADER.m_spriteShader.SetMatrix(object.m_mat);
 		SHADER.m_spriteShader.DrawTex(object.m_tex, &object.m_rect, object.m_color);
 	}
-
-	timer->Draw();
 
 	//ƒV[ƒ“‘JˆÚ—p‚ğˆê”ÔÅŒã‚É•`‰æ
 	auto& transition = m_ResultList[4];

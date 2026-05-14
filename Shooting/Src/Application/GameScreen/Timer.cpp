@@ -199,6 +199,12 @@ void C_Timer::Action()
 		//経過時間を加算 (APP.m_DeltaTime はフレーム間の時間)
 		ElapsedTime += APP.m_DeltaTime;
 
+		//上限99:59        5999.0f は 99 * 60 + 59 の秒数
+		if (ElapsedTime >= 5999.0f)
+		{
+			ElapsedTime = 5999.0f;
+		}
+
 		//秒数から表示すべき数字を算出
 		int Seconds = (int)ElapsedTime % 60;
 

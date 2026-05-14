@@ -1,3 +1,0 @@
-Base Texture/Scene/Result/baseBackGround.png
-Result Texture/Scene/Result/ResultBackGround.png
-YourScore Texture/Scene/Result/your_score.png

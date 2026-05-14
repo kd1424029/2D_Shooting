@@ -334,7 +334,7 @@ void C_Count::HardStage4Init()
 	//======================================
 
 
-	StageClearTimer = 30;  //ステージクリア演出用タイマーを初期化
+	StageClearTimer = 60;  //ステージクリア演出用タイマーを初期化
 }
 
 void C_Count::Action()
@@ -365,12 +365,13 @@ void C_Count::Action()
 		break;
 	case 0:
 		m_CntList[0].m_rect = { 0, 0, 64, 64 }; //case 0はクリア表示
+
 		if (SCENE.GetEnemy()->GetAliveCount() == 0) 
 		{
 			//ここでステージクリアの演出タイマーを動かす
 			StageClearTimer--;
 
-			if (StageClearTimer < 0 && gamescreen->GetGameOverFlg() == false) 
+			if (StageClearTimer < MaxClearTime && gamescreen->GetGameOverFlg() == false)
 			{
 				gamescreen->SetStageClearFlg(true);
 			}

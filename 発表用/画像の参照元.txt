@@ -1,5 +1,0 @@
-//=========== chatGPT ============
-player.png
-SpeedUp.png
-Recovery.png
-Ring.png

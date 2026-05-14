@@ -40,4 +40,6 @@ private:
 
 	int StageClearTimer;  //ステージクリア演出用タイマー	
 
+	const int MaxClearTime = -15;
+
 };
